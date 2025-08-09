@@ -51,7 +51,7 @@ export const BreadcrumbItems = (props: any) => {
   }, []);
 
   return (
-    <div className="flex items-center chawkbazarBreadcrumb">
+    <div className="flex items-center festeveBreadcrumb">
       <ol className="flex items-center w-full overflow-hidden">{children}</ol>
     </div>
   );

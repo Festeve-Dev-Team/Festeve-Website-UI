@@ -395,8 +395,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "/assets/images/banner/slider/banner-1.jpg",
-        width: 1440,
-        height: 570,
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -413,8 +413,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "/assets/images/banner/slider/banner-2.jpg",
-        width: 1440,
-        height: 570,
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -431,8 +431,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "/assets/images/banner/slider/banner-3.jpg",
-        width: 1440,
-        height: 570,
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -449,8 +449,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "/assets/images/banner/slider/banner-2.jpg",
-        width: 1440,
-        height: 570,
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",

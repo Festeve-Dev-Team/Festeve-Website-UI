@@ -43,5 +43,11 @@
   "placeholder-subject": "Enter Your Subject",
   "placeholder-message": "Write your message here",
   "placeholder-email-subscribe": "Write your email here",
-  "placeholder-order-notes": "Notes about your order, e.g. special notes for delivery"
+  "placeholder-order-notes": "Notes about your order, e.g. special notes for delivery",
+  "label-special-day": "Special Day",
+  "label-special-person": "Special Person",
+  "label-date": "Date",
+  "label-relation": "Relation",
+  "label-reminder-time": "Reminder Time",
+  "label-categories": " Categories"
 }

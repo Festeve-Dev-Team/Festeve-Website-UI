@@ -9,21 +9,40 @@ import {
 } from '@framework/customer/use-update-customer';
 import { RadioBox } from '@components/ui/radiobox';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
+import { PencilIcon } from '@components/icons/pencil-icon';
 
-const defaultValues = {};
+const mockUserData: UpdateUserType = {
+  firstName: 'John',
+  lastName: 'Doe',
+  displayName: 'John Doe',
+  phoneNumber: '1234567890',
+  email: 'john@example.com',
+  gender: 'male',
+  password: '',
+  confirmPassword: ''
+};
+
 const AccountDetails: React.FC = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const { mutate: updateUser, isPending } = useUpdateUserMutation();
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<UpdateUserType>({
-    defaultValues,
+    defaultValues: mockUserData, // Replace with actual user data from your API
   });
   function onSubmit(input: UpdateUserType) {
     updateUser(input);
+    setIsEditing(false);
   }
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
 
   return (
     <motion.div
@@ -35,10 +54,65 @@ const AccountDetails: React.FC = () => {
       variants={fadeInTop(0.35)}
       className={`w-full flex flex-col`}
     >
-      <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-6 xl:mb-8">
-        {t('common:text-account-details')}
-      </h2>
-      <form
+      <div className="flex justify-between items-center mb-6 xl:mb-8">
+        <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading">
+          {t('common:text-account-details')}
+        </h2>
+        {!isEditing && (
+          <button
+            onClick={handleEdit}
+            className="flex items-center text-sm font-semibold text-heading transition-colors duration-200 focus:outline-none hover:text-accent-hover"
+          >
+            <PencilIcon />&nbsp;{t('common:button-edit')}
+          </button>
+        )}
+      </div>
+      
+      {!isEditing ? (
+        <div className="flex flex-col space-y-4">
+          <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
+            <div className="w-full sm:w-1/2">
+              <span className="text-sm text-heading font-semibold block mb-2">
+                {t('forms:label-first-name')}
+              </span>
+              <span className="text-sm text-body">{mockUserData.firstName}</span>
+            </div>
+            <div className="w-full sm:w-1/2">
+              <span className="text-sm text-heading font-semibold block mb-2">
+                {t('forms:label-last-name')}
+              </span>
+              <span className="text-sm text-body">{mockUserData.lastName}</span>
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-heading font-semibold block mb-2">
+              {t('forms:label-display-name')}
+            </span>
+            <span className="text-sm text-body">{mockUserData.displayName}</span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
+            <div className="w-full sm:w-1/2">
+              <span className="text-sm text-heading font-semibold block mb-2">
+                {t('forms:label-phone')}
+              </span>
+              <span className="text-sm text-body">{mockUserData.phoneNumber}</span>
+            </div>
+            <div className="w-full sm:w-1/2">
+              <span className="text-sm text-heading font-semibold block mb-2">
+                {t('forms:label-email')}
+              </span>
+              <span className="text-sm text-body">{mockUserData.email}</span>
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-heading font-semibold block mb-2">
+              {t('common:text-gender')}
+            </span>
+            <span className="text-sm text-body capitalize">{mockUserData.gender}</span>
+          </div>
+        </div>
+      ) : (
+        <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full mx-auto flex flex-col justify-center "
         noValidate
@@ -116,7 +190,7 @@ const AccountDetails: React.FC = () => {
               />
             </div>
           </div>
-          <div className="relative">
+          <div className="relative flex gap-x-3">
             <Button
               type="submit"
               loading={isPending}
@@ -128,6 +202,7 @@ const AccountDetails: React.FC = () => {
           </div>
         </div>
       </form>
+      )}
     </motion.div>
   );
 };

@@ -20,31 +20,39 @@ import { homeThreeMasonryBanner as masonryBanner } from "@framework/static/banne
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ROUTES } from "@utils/routes";
 import { GetStaticProps } from "next";
+import WhatsToday from "@containers/whatsToday";
+import TrendingProductFeedWithTabs from "@components/product/feeds/trending-product-feed-with-tabs";
+import FeaturedCategories from "@containers/featured-categories";
 
 export default function Home() {
   return (
     <>
-      <BannerBlock data={masonryBanner} />
-      <Container>
-        <ProductsFlashSaleBlock date={"2025-12-01T01:02:03"} />
-      </Container>
       <BannerSliderBlock />
+      <WhatsToday />
+      <BannerBlock data={masonryBanner} />
+      {/* <Container>
+        <ProductsFlashSaleBlock date={"2025-12-01T01:02:03"} />
+      </Container> */}
       <Container>
-        <CategoryBlock
+        {/* <CategoryBlock
           sectionHeading="text-shop-by-category"
           type="rounded"
         />
         <ProductsFeatured
           sectionHeading="text-featured-products"
           limit={5}
+        /> */}
+        <FeaturedCategories
+          sectionHeading="text-featured-categories"
+          limit={5}
         />
+        <TrendingProductFeedWithTabs />
         <BannerCard
           key={`banner--key${banner[0].id}`}
           banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
         />
-        <BrandGridBlock sectionHeading="text-top-brands" />
         <BannerCard
           key={`banner--key${banner[1].id}`}
           banner={banner[1]}
@@ -57,8 +65,6 @@ export default function Home() {
         />
         <ExclusiveBlock />
         <NewArrivalsProductFeed />
-        <DownloadApps />
-        <Support />
         <Instagram />
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
       </Container>

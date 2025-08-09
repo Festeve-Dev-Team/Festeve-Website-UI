@@ -16,6 +16,13 @@ export default function AccountPage() {
             <p className=" text-sm leading-7 md:text-base md:leading-loose lowercase">
                 {t("text-account-dashboard")}{" "}
                 <Link
+                    href={ROUTES.WALLET}
+                    className="text-heading underline font-semibold"
+                >
+                    {t("text-wallet")}
+                </Link>
+                ,{" "}
+                <Link
                     href={ROUTES.ORDERS}
                     className="text-heading underline font-semibold"
                 >

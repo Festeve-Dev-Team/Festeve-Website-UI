@@ -24,7 +24,7 @@ import { SunglassIcon } from '@components/icons/sunglass-icon';
 import { SneakerIcon } from '@components/icons/sneaker-icon';
 
 export const siteSettings = {
-  name: 'ChawkBazar',
+  name: 'Festeve',
   description: 'Fastest E-commerce template built with React, NextJS, TypeScript, @tanstack/react-query and Tailwind CSS.',
   author: {
     name: 'REDQ',
@@ -32,8 +32,8 @@ export const siteSettings = {
     address: '',
   },
   logo: {
-    url: '/assets/images/logo.svg',
-    alt: 'ChawkBazar',
+    url: '/assets/images/festeve-logo.png',
+    alt: 'Festeve',
     href: '/',
     width: 95,
     height: 30,
@@ -42,63 +42,63 @@ export const siteSettings = {
   currencyCode: 'USD',
   site_header: {
     menu: [
-      {
-        id: 1,
-        path: '/',
-        label: 'menu-demos',
-        subMenu: [
-          {
-            id: 1,
-            path: '/',
-            label: 'menu-modern',
-          },
-          {
-            id: 2,
-            path: '/standard',
-            label: 'menu-standard',
-          },
-          {
-            id: 3,
-            path: '/minimal',
-            label: 'menu-minimal',
-          },
-          {
-            id: 4,
-            path: '/vintage',
-            label: 'menu-vintage',
-          },
-          {
-            id: 5,
-            path: '/classic',
-            label: 'menu-classic',
-          },
-          {
-            id: 6,
-            path: '/trendy',
-            label: 'menu-trendy',
-          },
-          {
-            id: 7,
-            path: '/elegant',
-            label: 'menu-elegant',
-          },
-          {
-            id: 8,
-            path: '/refined',
-            label: 'menu-refined',
-          },
-          {
-            id: 9,
-            path: '/contemporary',
-            label: 'menu-contemporary',
-          },
-          {
-            id: 10,
-            path: '/ancient',
-            label: 'menu-ancient',
-          },
-        ],
-      },
+      // {
+      //   id: 1,
+      //   path: '/',
+      //   label: 'menu-demos',
+      //   subMenu: [
+      //     {
+      //       id: 1,
+      //       path: '/',
+      //       label: 'menu-modern',
+      //     },
+      //     {
+      //       id: 2,
+      //       path: '/standard',
+      //       label: 'menu-standard',
+      //     },
+      //     {
+      //       id: 3,
+      //       path: '/minimal',
+      //       label: 'menu-minimal',
+      //     },
+      //     {
+      //       id: 4,
+      //       path: '/vintage',
+      //       label: 'menu-vintage',
+      //     },
+      //     {
+      //       id: 5,
+      //       path: '/classic',
+      //       label: 'menu-classic',
+      //     },
+      //     {
+      //       id: 6,
+      //       path: '/trendy',
+      //       label: 'menu-trendy',
+      //     },
+      //     {
+      //       id: 7,
+      //       path: '/elegant',
+      //       label: 'menu-elegant',
+      //     },
+      //     {
+      //       id: 8,
+      //       path: '/refined',
+      //       label: 'menu-refined',
+      //     },
+      //     {
+      //       id: 9,
+      //       path: '/contemporary',
+      //       label: 'menu-contemporary',
+      //     },
+      //     {
+      //       id: 10,
+      //       path: '/ancient',
+      //       label: 'menu-ancient',
+      //     },
+      //   ],
+      // },
       {
         id: 2,
         path: '/search?q=men-wear',
@@ -657,7 +657,7 @@ export const siteSettings = {
             subMenu: [
               {
                 id: 1,
-                path: '/my-account',
+                path: '/my-account/account-details',
                 label: 'menu-my-account',
               },
               {
