@@ -18,7 +18,7 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 			content: (
 				<div className="text-sm space-y-2">
 					<p>{data.description}</p>
-					{data.ingredients && data.ingredients.length > 0 && (
+					{Array.isArray(data.ingredients) && data.ingredients.length > 0 && (
 						<div>
 							<strong>Ingredients:</strong>
 							<ul className="list-disc pl-4 mt-1">
@@ -28,7 +28,7 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 							</ul>
 						</div>
 					)}
-					{data.vendors && data.vendors.length > 0 && (
+					{Array.isArray(data.vendors) && data.vendors.length > 0 && (
 						<div>
 							<strong>Available from Vendors:</strong>
 							<ul className="list-disc pl-4 mt-1">
@@ -48,7 +48,7 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 				<div className="text-sm space-y-2">
 					{data.meta && Object.entries(data.meta).map(([key, value], idx) => (
 						<div key={idx}>
-							<strong className="capitalize">{key.replace(/_/g, ' ')}:</strong> {value as string}
+							<strong className="capitalize">{key.replace(/_/g, ' ')}:</strong> {value as unknown as string}
 						</div>
 					))}
 					{data.linkedEvents && data.linkedEvents.length > 0 && (

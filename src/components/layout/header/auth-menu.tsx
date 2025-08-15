@@ -1,6 +1,10 @@
 import Link from '@components/ui/link';
 import { useTranslation } from 'next-i18next';
 import { FaChevronDown } from 'react-icons/fa';
+import { useLogoutMutation } from '@framework/auth/use-logout';
+import { useRouter } from 'next/router';
+import { useUI } from '@contexts/ui.context';
+import { showToast } from '@utils/toast';
 
 interface Props {
 	href: string;
@@ -49,6 +53,9 @@ export default function AuthMenu({
 	children,
 }: React.PropsWithChildren<Props>) {
 	const { t } = useTranslation('menu');
+	const { unauthorize } = useUI();
+	const router = useRouter();
+	const { mutate: logout, isPending } = useLogoutMutation();
 
 	const filteredMenuItems = authMenuItems.filter(item => 
 		(isAuthorized && item.authorized) || (!isAuthorized && !item.authorized)
@@ -77,12 +84,30 @@ export default function AuthMenu({
 				<ul className="py-3 text-sm text-body">
 					{filteredMenuItems.map(item => (
 						<li key={item.id} className="relative">
-							<Link
-								href={item.path}
-								className="flex items-center px-6 py-3 text-sm text-heading hover:text-black hover:bg-gray-50 transition-all duration-200"
-							>
-								<span className="w-full">{t(item.label)}</span>
-							</Link>
+							{item.path === '/logout' ? (
+								<Link
+									href="#"
+									className={`flex items-center px-6 py-3 text-sm text-heading hover:text-black hover:bg-gray-50 transition-all duration-200 ${isPending ? 'opacity-75 cursor-not-allowed pointer-events-none' : ''}`}
+									onClick={(e) => {
+										e.preventDefault();
+										if (!isPending) {
+											logout();
+											unauthorize();
+											router.push('/');
+											showToast('Logged out successfully');
+										}
+									}}
+								>
+									<span className="w-full">{isPending ? 'Logging out...' : t(item.label)}</span>
+								</Link>
+							) : (
+								<Link
+									href={item.path}
+									className="flex items-center px-6 py-3 text-sm text-heading hover:text-black hover:bg-gray-50 transition-all duration-200"
+								>
+									<span className="w-full">{t(item.label)}</span>
+								</Link>
+							)}
 						</li>
 					))}
 				</ul>

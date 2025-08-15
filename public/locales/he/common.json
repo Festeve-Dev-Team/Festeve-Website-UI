@@ -199,5 +199,11 @@
   "tab-kids-collection": "אוסף ילדים",
   "tab-flash-sale": "מכירת פלאש",
   "tab-best-sellers": "רבי מכר",
-  "tab-featured": "מומלצים"
+  "tab-featured": "מומלצים",
+  "text-wallet": "ארנק",
+  "text-resend-otp": "שלח מחדש OTP",
+  "text-get-otp": "קבל OTP",
+  "text-verify-signup": "אימות הרשמה",
+  "text-update-profile": "עדכן פרופיל",
+  "text-skip": "דלג"
 }

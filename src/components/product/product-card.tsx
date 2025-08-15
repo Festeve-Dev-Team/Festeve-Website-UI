@@ -64,7 +64,7 @@ const ProductCard: FC<ProductProps> = ({
   }
 
   // Get the default variant or first available variant
-  const defaultVariant = product.variants?.find(v => v.isActive) || product.variants?.[0];
+  const defaultVariant = product.variants?.find((v: any) => v.isActive) || product.variants?.[0];
   
   const { price, basePrice, discount } = usePrice({
     amount: defaultVariant?.price || 0,

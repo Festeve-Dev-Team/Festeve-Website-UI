@@ -12,6 +12,7 @@ import usePrice from "@framework/product/use-price";
 import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
 import { getAllProductImages } from "@utils/get-product-images";
+import { showToast } from "@utils/toast";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
@@ -26,11 +27,6 @@ export default function ProductPopup() {
   } = useUI();
   
   const data = modalData?.data;
-  
-  // Early return if no data to prevent hydration issues
-  if (!data) {
-    return null;
-  }
   const router = useRouter();
   const { addItemToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -54,16 +50,24 @@ export default function ProductPopup() {
     : true;
 
   function addToCart() {
-    if (!isSelected) return;
+    if (!isSelected) {
+      showToast('Please select all product options', 'error');
+      return;
+    }
     // to show btn feedback while product carting
     setAddToCartLoader(true);
-    setTimeout(() => {
+    try {
+      const item = generateCartItem(data!, attributes);
+      addItemToCart(item, quantity);
+      showToast(`${data.name} added to cart successfully`, 'success');
+      setTimeout(() => {
+        setAddToCartLoader(false);
+        setViewCartBtn(true);
+      }, 600);
+    } catch (error) {
+      showToast('Failed to add item to cart', 'error');
       setAddToCartLoader(false);
-      setViewCartBtn(true);
-    }, 600);
-    const item = generateCartItem(data!, attributes);
-    addItemToCart(item, quantity);
-    console.log(item, "item");
+    }
   }
 
   function navigateToProductPage() {
@@ -96,6 +100,11 @@ export default function ProductPopup() {
     setTimeout(() => {
       openCart();
     }, 300);
+  }
+ 
+  // Early return if no data to prevent hydration issues
+  if (!data) {
+    return null;
   }
 
   return (

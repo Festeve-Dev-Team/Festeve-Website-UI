@@ -199,5 +199,11 @@
   "tab-kids-collection": "兒童系列",
   "tab-flash-sale": "閃購",
   "tab-best-sellers": "最暢銷",
-  "tab-featured": "精選"
+  "tab-featured": "精選",
+  "text-wallet": "钱包",
+  "text-resend-otp": "重新发送 OTP",
+  "text-get-otp": "获取 OTP",
+  "text-verify-signup": "验证注册",
+  "text-update-profile": "更新个人资料",
+  "text-skip": "跳过"
 }

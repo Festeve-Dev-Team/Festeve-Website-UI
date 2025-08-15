@@ -94,31 +94,57 @@ export type ProductVariant = {
   isActive: boolean;
 };
 
+export type Variation = {
+  id: number;
+  value: string;
+  meta?: string;
+  attribute: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+};
+
+export type ProductMeta = {
+  id: number;
+  title: string;
+  content: string;
+};
+
 export type Product = {
-  id: string;
+  variants: any;
+  ingredients: boolean;
+  vendors: boolean;
+  id: number | string;
+  sku: string;
   name: string;
+  slug: string;
   description: string;
-  category: string;
-  tags: string[];
-  isHotItem: boolean;
-  ingredients: string[];
-  vendors: string[];
-  variants: ProductVariant[];
-  defaultDiscountType?: string;
-  defaultDiscountValue?: number;
-  linkedEvents: string[];
+  category: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+  tags: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
+  image: Attachment;
+  gallery?: Attachment[];
+  price: number;
+  sale_price?: number;
+  quantity: number;
+  variations?: Variation[];
+  meta?: ProductMeta[];
+  isHotItem?: boolean;
+  isTrending?: boolean;
+  linkedEvents?: string[];
   offerType?: string;
   offerStart?: string;
   offerEnd?: string;
-  isTrending?: boolean;
-  meta?: {
-    festival?: string;
-    shippingTime?: string;
-    [key: string]: unknown;
-  };
-  createdAt: string;
-  updatedAt: string;
-  __v?: number;
+  defaultDiscountType?: string;
+  defaultDiscountValue?: number;
 };
 export type OrderItem = {
   id: number | string;

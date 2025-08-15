@@ -8,7 +8,6 @@ import Logo from '@components/ui/logo';
 import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
 import { useTranslation } from 'next-i18next';
 import Router from 'next/router';
-import { truncateSync } from 'node:fs';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();

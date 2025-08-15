@@ -17,6 +17,8 @@ import { useSsrCompatible } from "@utils/use-ssr-compatible";
 import { useUI } from "@contexts/ui.context";
 import { Product } from "@framework/types";
 import { getAllProductImages } from "@utils/get-product-images";
+import { useProductsQuery } from "@framework/product/get-all-products";
+import { useTranslation } from "next-i18next";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -31,34 +33,53 @@ const ProductSingleDetails: React.FC = () => {
   const router = useRouter();
   const { width } = useSsrCompatible(useWindowSize(), { width: 0, height: 0 });
   const { modalData } = useUI();
-  const data = modalData?.data as Product | undefined;
-  
+  const { slug } = router.query;
+  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
+  const [quantity, setQuantity] = useState(1);
+  const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+  const { t } = useTranslation("common");
+
+  // All hooks at the top level
+  const { data: productsData, isLoading } = useProductsQuery({
+    limit: 100
+  });
   const { addItemToCart } = useCart();
   
+  // Find the specific product by id (using slug as id) or use modal data
+  const productData = productsData?.pages?.[0]?.data?.find((p: Product) => p.slug === slug);
+  const data = modalData?.data || productData;
+  
+  // Get the default variant if it exists
+  const defaultVariant = data?.variants?.[0];
+  
+  // Always call usePrice with a consistent structure
+  const priceInfo = usePrice({
+    amount: defaultVariant?.price ?? 0,
+    baseAmount: defaultVariant?.price ?? 0,
+    currencyCode: 'INR',
+    discountType: defaultVariant?.discountType,
+    discountValue: defaultVariant?.discountValue
+  });
+  const { price, basePrice, discount } = priceInfo;
+  
   useEffect(() => {
-    if (!data || !data.variants?.length) {
+    if (!isLoading && (!data || !data.variants?.length)) {
       router.replace('/products');
     }
-  }, [data, router]);
+  }, [data, router, isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-96 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-t-4 border-gray-200 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (!data || !data.variants?.length) {
     return null;
   }
-  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
-  const [quantity, setQuantity] = useState(1);
-  const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  
-  const defaultVariant = data.variants[0];
-  const { price, basePrice, discount } = usePrice(
-    data && {
-      amount: defaultVariant.discountValue ? 
-        defaultVariant.price - (defaultVariant.price * defaultVariant.discountValue / 100) :
-        defaultVariant.price,
-      baseAmount: defaultVariant.price,
-      currencyCode: 'INR',
-    }
-  );
-  const specs = defaultVariant.specs || {};
+  const specs = defaultVariant?.specs ?? {};
   const isSelected = !isEmpty(specs)
     ? !isEmpty(attributes) &&
       Object.keys(specs).every((spec) =>
@@ -67,14 +88,18 @@ const ProductSingleDetails: React.FC = () => {
     : true;
 
   function addToCart() {
-    if (!isSelected) return;
+    if (!isSelected || !data || !defaultVariant) return;
     // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
     }, 600);
 
-    const item = generateCartItem(data!, attributes);
+    const item = generateCartItem({
+      ...data,
+      price: defaultVariant.price,
+      variant: defaultVariant
+    }, attributes);
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
@@ -157,7 +182,7 @@ const ProductSingleDetails: React.FC = () => {
         </div>
 
         <div className="pb-3 border-b border-gray-300">
-          {Object.entries(defaultVariant.specs).map(([key, value]) => {
+          {defaultVariant?.specs && Object.entries(defaultVariant.specs).map(([key, value]) => {
             return (
               <ProductAttributes
                 key={key}
@@ -184,10 +209,10 @@ const ProductSingleDetails: React.FC = () => {
             className={`w-full md:w-6/12 xl:w-full ${
               !isSelected && "bg-gray-400 hover:bg-gray-400"
             }`}
-            disabled={!isSelected}
+            disabled={!isSelected || !defaultVariant}
             loading={addToCartLoader}
           >
-            <span className="py-2 3xl:px-8">Add to cart</span>
+            <span className="py-2 3xl:px-8">{t("text-add-to-cart")}</span>
           </Button>
         </div>
         <div className="py-6">
@@ -196,7 +221,7 @@ const ProductSingleDetails: React.FC = () => {
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                 SKU:
               </span>
-              {defaultVariant.sku}
+              {defaultVariant?.sku}
             </li>
             <li>
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
@@ -214,7 +239,7 @@ const ProductSingleDetails: React.FC = () => {
                 <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                   Tags:
                 </span>
-                {data.tags.map((tag, index) => (
+                {data.tags.map((tag: string, index: number) => (
                   <span
                     key={index}
                     className="inline-block ltr:pr-1.5 rtl:pl-1.5 transition hover:underline hover:text-heading ltr:last:pr-0 rtl:last:pl-0"

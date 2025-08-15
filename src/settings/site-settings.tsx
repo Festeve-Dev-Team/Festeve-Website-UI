@@ -645,90 +645,90 @@ export const siteSettings = {
         path: '/purohits',
         label: 'menu-purohits',
       },
-      {
-        id: 6,
-        path: '/',
-        label: 'menu-pages',
-        subMenu: [
-          {
-            id: 1,
-            path: '/',
-            label: 'menu-users',
-            subMenu: [
-              {
-                id: 1,
-                path: '/my-account/account-details',
-                label: 'menu-my-account',
-              },
-              {
-                id: 2,
-                path: '/signin',
-                label: 'menu-sign-in',
-              },
-              {
-                id: 3,
-                path: '/signup',
-                label: 'menu-sign-up',
-              },
-              {
-                id: 4,
-                path: '/forget-password',
-                label: 'menu-forget-password',
-              },
-              {
-                id: 4,
-                path: '/logout',
-                label: 'menu-logout',
-              },
-            ],
-          },
-          {
-            id: 2,
-            path: '/faq',
-            label: 'menu-faq',
-          },
-          {
-            id: 3,
-            path: '/privacy',
-            label: 'menu-privacy-policy',
-          },
-          {
-            id: 4,
-            path: '/terms',
-            label: 'menu-terms-condition',
-          },
-          {
-            id: 5,
-            path: '/contact-us',
-            label: 'menu-contact-us',
-          },
-          {
-            id: 6,
-            path: '/checkout',
-            label: 'menu-checkout',
-          },
-          {
-            id: 7,
-            path: '/collections/mens-collection',
-            label: 'menu-collection',
-          },
-          {
-            id: 8,
-            path: '/category/man',
-            label: 'menu-category',
-          },
-          {
-            id: 9,
-            path: '/order',
-            label: 'menu-order',
-          },
-          {
-            id: 10,
-            path: '/404',
-            label: 'menu-404',
-          },
-        ],
-      },
+      // {
+      //   id: 6,
+      //   path: '/',
+      //   label: 'menu-pages',
+      //   subMenu: [
+      //     {
+      //       id: 1,
+      //       path: '/',
+      //       label: 'menu-users',
+      //       subMenu: [
+      //         {
+      //           id: 1,
+      //           path: '/my-account/account-details',
+      //           label: 'menu-my-account',
+      //         },
+      //         {
+      //           id: 2,
+      //           path: '/signin',
+      //           label: 'menu-sign-in',
+      //         },
+      //         {
+      //           id: 3,
+      //           path: '/signup',
+      //           label: 'menu-sign-up',
+      //         },
+      //         {
+      //           id: 4,
+      //           path: '/forget-password',
+      //           label: 'menu-forget-password',
+      //         },
+      //         {
+      //           id: 4,
+      //           path: '/logout',
+      //           label: 'menu-logout',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       id: 2,
+      //       path: '/faq',
+      //       label: 'menu-faq',
+      //     },
+      //     {
+      //       id: 3,
+      //       path: '/privacy',
+      //       label: 'menu-privacy-policy',
+      //     },
+      //     {
+      //       id: 4,
+      //       path: '/terms',
+      //       label: 'menu-terms-condition',
+      //     },
+      //     {
+      //       id: 5,
+      //       path: '/contact-us',
+      //       label: 'menu-contact-us',
+      //     },
+      //     {
+      //       id: 6,
+      //       path: '/checkout',
+      //       label: 'menu-checkout',
+      //     },
+      //     {
+      //       id: 7,
+      //       path: '/collections/mens-collection',
+      //       label: 'menu-collection',
+      //     },
+      //     {
+      //       id: 8,
+      //       path: '/category/man',
+      //       label: 'menu-category',
+      //     },
+      //     {
+      //       id: 9,
+      //       path: '/order',
+      //       label: 'menu-order',
+      //     },
+      //     {
+      //       id: 10,
+      //       path: '/404',
+      //       label: 'menu-404',
+      //     },
+      //   ],
+      // },
     ],
     mobileMenu: [
       {
@@ -1046,90 +1046,90 @@ export const siteSettings = {
         path: '/purohits',
         label: 'menu-purohits',
       },
-      {
-        id: 6,
-        path: '/',
-        label: 'menu-pages',
-        subMenu: [
-          {
-            id: 1,
-            path: '/',
-            label: 'menu-users',
-            subMenu: [
-              {
-                id: 1,
-                path: '/my-account/account-details',
-                label: 'menu-my-account',
-              },
-              {
-                id: 2,
-                path: '/signin',
-                label: 'menu-sign-in',
-              },
-              {
-                id: 3,
-                path: '/signup',
-                label: 'menu-sign-up',
-              },
-              {
-                id: 4,
-                path: '/forget-password',
-                label: 'menu-forget-password',
-              },
-              {
-                id: 4,
-                path: '/logout',
-                label: 'menu-logout',
-              },
-            ],
-          },
-          {
-            id: 2,
-            path: '/faq',
-            label: 'menu-faq',
-          },
-          {
-            id: 3,
-            path: '/privacy',
-            label: 'menu-privacy-policy',
-          },
-          {
-            id: 4,
-            path: '/terms',
-            label: 'menu-terms-condition',
-          },
-          {
-            id: 5,
-            path: '/contact-us',
-            label: 'menu-contact-us',
-          },
-          {
-            id: 6,
-            path: '/checkout',
-            label: 'menu-checkout',
-          },
-          {
-            id: 7,
-            path: '/collections/mens-collection',
-            label: 'menu-collection',
-          },
-          {
-            id: 8,
-            path: '/category/man',
-            label: 'menu-category',
-          },
-          {
-            id: 9,
-            path: '/order',
-            label: 'menu-order',
-          },
-          {
-            id: 10,
-            path: '/404',
-            label: 'menu-404',
-          },
-        ],
-      },
+      // {
+      //   id: 6,
+      //   path: '/',
+      //   label: 'menu-pages',
+      //   subMenu: [
+      //     {
+      //       id: 1,
+      //       path: '/',
+      //       label: 'menu-users',
+      //       subMenu: [
+      //         {
+      //           id: 1,
+      //           path: '/my-account/account-details',
+      //           label: 'menu-my-account',
+      //         },
+      //         {
+      //           id: 2,
+      //           path: '/signin',
+      //           label: 'menu-sign-in',
+      //         },
+      //         {
+      //           id: 3,
+      //           path: '/signup',
+      //           label: 'menu-sign-up',
+      //         },
+      //         {
+      //           id: 4,
+      //           path: '/forget-password',
+      //           label: 'menu-forget-password',
+      //         },
+      //         {
+      //           id: 4,
+      //           path: '/logout',
+      //           label: 'menu-logout',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       id: 2,
+      //       path: '/faq',
+      //       label: 'menu-faq',
+      //     },
+      //     {
+      //       id: 3,
+      //       path: '/privacy',
+      //       label: 'menu-privacy-policy',
+      //     },
+      //     {
+      //       id: 4,
+      //       path: '/terms',
+      //       label: 'menu-terms-condition',
+      //     },
+      //     {
+      //       id: 5,
+      //       path: '/contact-us',
+      //       label: 'menu-contact-us',
+      //     },
+      //     {
+      //       id: 6,
+      //       path: '/checkout',
+      //       label: 'menu-checkout',
+      //     },
+      //     {
+      //       id: 7,
+      //       path: '/collections/mens-collection',
+      //       label: 'menu-collection',
+      //     },
+      //     {
+      //       id: 8,
+      //       path: '/category/man',
+      //       label: 'menu-category',
+      //     },
+      //     {
+      //       id: 9,
+      //       path: '/order',
+      //       label: 'menu-order',
+      //     },
+      //     {
+      //       id: 10,
+      //       path: '/404',
+      //       label: 'menu-404',
+      //     },
+      //   ],
+      // },
     ],
     languageMenu: [
       {

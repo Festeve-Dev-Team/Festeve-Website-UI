@@ -6,9 +6,11 @@ import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { useState, useRef } from 'react';
 import cn from 'classnames';
+import { useTranslation } from 'next-i18next';
 import { useSignUpMutation } from '@framework/auth/use-signup';
 import { useVerifyOtpMutation } from '@framework/auth/use-verify-otp';
 import Router from "next/router";
+import { showToast } from '@utils/toast';
 
 interface SignUpStep1Type {
   name: string;
@@ -67,6 +69,7 @@ const CATEGORIES = [
 ];
 
 const SignUpForm: React.FC = () => {
+  const { t } = useTranslation('common');
   const otpInputs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleOtpInput = (index: number, value: string) => {
@@ -126,7 +129,7 @@ const SignUpForm: React.FC = () => {
     const { email, name, phone, password } = step1Form.getValues();
 
     try {
-      await signUpMutate({
+      const { signupResponse } = await signUpMutate({
         name,
         email: email.toLowerCase(),
         phone,
@@ -137,6 +140,8 @@ const SignUpForm: React.FC = () => {
         referralCode: undefined,
       });
       setIsOtpSent(true);
+      // Show success message from response
+      showToast(signupResponse.data?.message || 'OTP sent successfully!', 'success');
     } catch (error: any) {
       console.log({ error });
 
@@ -150,6 +155,9 @@ const SignUpForm: React.FC = () => {
         type: 'manual',
         message: typeof message === 'string' ? message : 'Invalid Phone number or User already exists. Please try again.',
       });
+
+      // Show error toast
+      showToast(typeof message === 'string' ? message : 'Error sending OTP. Please try again.', 'error');
     }
   };
 
@@ -157,7 +165,7 @@ const SignUpForm: React.FC = () => {
   const onSubmitStep1 = async (data: SignUpStep1Type) => {
     const { email, password, name, phone, otp } = data;
     try {
-      await verifyOtp({
+      const { verifyOtpResponse } = await verifyOtp({
         identifier: email,
         code: otp.join(''),
         signupData: {
@@ -169,22 +177,52 @@ const SignUpForm: React.FC = () => {
           password: password,
           profilePicture: '',
         }
-      })
+      });
+      
+      // Show success message from response
+      showToast(verifyOtpResponse.data?.message || 'Sign up successful!', 'success');
+
       if (!verifyOtpPending) {
         setStep(2);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log({ err });
-      //add toast notification
+      
+      // Extract error message from error object
+      const errorMessage = 
+        err?.response?.data?.message ||
+        err?.message ||
+        'Failed to verify OTP. Please try again.';
+
+      // Show error message
+      showToast(errorMessage, 'error');
+
+      // If it's an OTP error, clear the OTP fields
+      if (errorMessage.toLowerCase().includes('otp')) {
+        step1Form.setValue('otp', ['', '', '', '', '', '']);
+        otpInputs.current[0]?.focus();
+      }
     }
   }
 
-  function onSubmitStep2(data: SignUpStep2Type) {
+  async function onSubmitStep2(data: SignUpStep2Type) {
     if (isSignUpEnabled) {
-      console.log(data, 'step 2 values');
+      try {
+        // TODO: Add your profile update mutation here
+        console.log(data, 'step 2 values');
+        
+        showToast('Profile updated successfully!', 'success');
+
+        Router.push("/");
+      } catch (err: any) {
+        const errorMessage = 
+          err?.response?.data?.message ||
+          err?.message ||
+          'Failed to update profile. Please try again.';
+
+        showToast(errorMessage, 'error');
+      }
     }
-    // add mutation to update profile
-    Router.push("/")
   }
 
   return (
@@ -309,7 +347,7 @@ const SignUpForm: React.FC = () => {
                 }
                 loading={signUpPending}
               >
-                {isOtpSent ? 'Resend OTP' : 'Get OTP'}
+                {isOtpSent ? t('text-resend-otp') : t('text-get-otp')}
               </Button>
             </div>
 
@@ -370,7 +408,7 @@ const SignUpForm: React.FC = () => {
               loading={verifyOtpPending}
               className="h-11 md:h-12 w-full mt-2"
             >
-              Verify & Signup
+              {t('text-verify-signup')}
             </Button>
           </div>
         </form>)
@@ -529,7 +567,7 @@ const SignUpForm: React.FC = () => {
                   disabled={!isSignUpEnabled}
                   className="h-11 md:h-12 w-full mt-2"
                 >
-                  Update Profile
+                  {t('text-update-profile')}
                 </Button>
                 <Button
                   type="button"
@@ -537,7 +575,7 @@ const SignUpForm: React.FC = () => {
                   onClick={() => { Router.push("/") }}
                   className="h-11 md:h-12 w-full mt-2"
                 >
-                  Skip
+                  {t('text-skip')}
                 </Button>
               </div>
             </div>
