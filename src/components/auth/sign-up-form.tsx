@@ -4,17 +4,20 @@ import Select from '@components/ui/select';
 import { useForm } from 'react-hook-form';
 import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
-import { useState, useRef, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useState, useRef } from 'react';
 import cn from 'classnames';
+import { useSignUpMutation } from '@framework/auth/use-signup';
+import { useVerifyOtpMutation } from '@framework/auth/use-verify-otp';
+import Router from "next/router";
 
 interface SignUpStep1Type {
   name: string;
   gender: 'male' | 'female';
-  mobile: string;
+  phone: string;
   email: string;
   otp: string[];
   agreeToComms: boolean;
+  password: string;
 }
 
 interface SignUpStep2Type {
@@ -67,13 +70,13 @@ const SignUpForm: React.FC = () => {
   const otpInputs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleOtpInput = (index: number, value: string) => {
-    if (value.length === 1 && index < 3) {
+    if (value.length === 1 && index < 5) {
       otpInputs.current[index + 1]?.focus();
     } else if (value.length === 0 && index > 0) {
       otpInputs.current[index - 1]?.focus();
     }
   };
-  const { t } = useTranslation();
+
   const [step, setStep] = useState(1);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const { closeModal } = useUI();
@@ -95,16 +98,12 @@ const SignUpForm: React.FC = () => {
   const watchAllFields = step1Form.watch();
   const watchStep2Fields = step2Form.watch();
 
-  const handleGetOTP = () => {
-    // Add your OTP sending logic here
-    setIsOtpSent(true);
-  };
-
   const isNextEnabled = step1Form.formState.isValid &&
     watchAllFields.name &&
     watchAllFields.gender &&
-    watchAllFields.mobile &&
+    watchAllFields.phone &&
     watchAllFields.email &&
+    watchAllFields.password &&
     isOtpSent &&
     watchAllFields.otp.every(digit => digit) &&
     watchAllFields.agreeToComms;
@@ -119,18 +118,73 @@ const SignUpForm: React.FC = () => {
     watchStep2Fields.reminderTime &&
     (watchStep2Fields.categories?.length ?? 0) > 0;
 
-  function onSubmitStep1(data: SignUpStep1Type) {
-    if (isNextEnabled) {
-      setStep(2);
-      console.log(data, 'step 1 values');
+  const { mutateAsync: signUpMutate, isPending: signUpPending } = useSignUpMutation();
+  const { mutateAsync: verifyOtp, isPending: verifyOtpPending } = useVerifyOtpMutation();
+
+  // Component or hook calling the mutation
+  const handleGetOTP = async () => {
+    const { email, name, phone, password } = step1Form.getValues();
+
+    try {
+      await signUpMutate({
+        name,
+        email: email.toLowerCase(),
+        phone,
+        provider: 'native',
+        providerUserId: '',
+        password,
+        profilePicture: '',
+        referralCode: undefined,
+      });
+      setIsOtpSent(true);
+    } catch (error: any) {
+      console.log({ error });
+
+      // Safely extract error message
+      let message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Invalid Phone number or User already exists";
+
+      step1Form.setError('phone', {
+        type: 'manual',
+        message: typeof message === 'string' ? message : 'Invalid Phone number or User already exists. Please try again.',
+      });
+    }
+  };
+
+
+  const onSubmitStep1 = async (data: SignUpStep1Type) => {
+    const { email, password, name, phone, otp } = data;
+    try {
+      await verifyOtp({
+        identifier: email,
+        code: otp.join(''),
+        signupData: {
+          name: name,
+          email: email,
+          phone: phone,
+          provider: 'native',
+          providerUserId: '',
+          password: password,
+          profilePicture: '',
+        }
+      })
+      if (!verifyOtpPending) {
+        setStep(2);
+      }
+    } catch (err) {
+      console.log({ err });
+      //add toast notification
     }
   }
 
   function onSubmitStep2(data: SignUpStep2Type) {
     if (isSignUpEnabled) {
       console.log(data, 'step 2 values');
-      // Add your signup logic here
     }
+    // add mutation to update profile
+    Router.push("/")
   }
 
   return (
@@ -203,6 +257,24 @@ const SignUpForm: React.FC = () => {
               errorKey={step1Form.formState.errors.email?.message}
             />
 
+            {/* Password Input */}
+            <Input
+              labelKey="Password"
+              type="password"
+              variant="solid"
+              {...step1Form.register('password', {
+                required: 'Password is required',
+                minLength: { value: 8, message: 'Password must be at least 8 characters' },
+                validate: {
+                  hasUpper: (v) => /[A-Z]/.test(v) || 'Must contain an uppercase letter',
+                  hasLower: (v) => /[a-z]/.test(v) || 'Must contain a lowercase letter',
+                  hasNumber: (v) => /[0-9]/.test(v) || 'Must contain a number',
+                  hasSpecial: (v) => /[!@#$%^&*(),.?":{}|<>]/.test(v) || 'Must contain a special character'
+                }
+              })}
+              errorKey={step1Form.formState.errors.password?.message}
+            />
+
             {/* Mobile Number with OTP Button */}
             <div className="relative">
               <Input
@@ -214,20 +286,28 @@ const SignUpForm: React.FC = () => {
                     e.preventDefault();
                   }
                 }}
-                {...step1Form.register('mobile', {
-                  required: 'Mobile number is required',
+                {...step1Form.register('phone', {
+                  required: 'Phone number is required',
                   pattern: {
                     value: /^[0-9]{10}$/,
-                    message: 'Please enter a valid 10-digit mobile number'
+                    message: 'Please enter a valid 10-digit phone number'
                   }
                 })}
-                errorKey={step1Form.formState.errors.mobile?.message}
+                errorKey={step1Form.formState.errors.phone?.message}
               />
               <Button
                 type="button"
                 onClick={handleGetOTP}
                 className="absolute right-1 top-1/2 -translate-y h-8 px-3 -mt-1 bg-heading text-white"
-                disabled={!watchAllFields.mobile || isOtpSent}
+                disabled={
+                  !watchAllFields.phone ||
+                  isOtpSent ||
+                  !watchAllFields.email ||
+                  !watchAllFields.name ||
+                  !watchAllFields.gender ||
+                  !watchAllFields.password
+                }
+                loading={signUpPending}
               >
                 {isOtpSent ? 'Resend OTP' : 'Get OTP'}
               </Button>
@@ -238,7 +318,7 @@ const SignUpForm: React.FC = () => {
               <div className="flex flex-col">
                 <label className="text-sm md:text-base font-semibold text-heading mb-2">Enter OTP</label>
                 <div className="flex gap-2 justify-between">
-                  {[0, 1, 2, 3].map((index) => {
+                  {[0, 1, 2, 3, 4, 5].map((index) => {
                     const registration = step1Form.register(`otp.${index}` as const, {
                       required: true,
                       pattern: /^[0-9]$/,
@@ -287,9 +367,10 @@ const SignUpForm: React.FC = () => {
             <Button
               type="submit"
               disabled={!isNextEnabled}
+              loading={verifyOtpPending}
               className="h-11 md:h-12 w-full mt-2"
             >
-              Verify OTP
+              Verify & Signup
             </Button>
           </div>
         </form>)
@@ -442,15 +523,23 @@ const SignUpForm: React.FC = () => {
                   <p className="text-red-500 text-sm mt-1">{step2Form.formState.errors.categories.message}</p>
                 )}
               </div>
-
-              {/* Sign Up Button */}
-              <Button
-                type="submit"
-                disabled={!isSignUpEnabled}
-                className="h-11 md:h-12 w-full mt-2"
-              >
-                Sign Up
-              </Button>
+              <div className="flex flex-row justify-between space-x-4">
+                <Button
+                  type="submit"
+                  disabled={!isSignUpEnabled}
+                  className="h-11 md:h-12 w-full mt-2"
+                >
+                  Update Profile
+                </Button>
+                <Button
+                  type="button"
+                  variant='smoke'
+                  onClick={() => { Router.push("/") }}
+                  className="h-11 md:h-12 w-full mt-2"
+                >
+                  Skip
+                </Button>
+              </div>
             </div>
           </form>
         )}

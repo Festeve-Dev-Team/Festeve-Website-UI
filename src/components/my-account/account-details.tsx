@@ -5,37 +5,65 @@ import { motion } from 'framer-motion';
 import { fadeInTop } from '@utils/motion/fade-in-top';
 import {
   useUpdateUserMutation,
-  UpdateUserType,
 } from '@framework/customer/use-update-customer';
-import { RadioBox } from '@components/ui/radiobox';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PencilIcon } from '@components/icons/pencil-icon';
+import { useAccountDetailsQuery } from '@framework/auth/use-account-details';
+import ErrorPage from 'src/pages/404';
+import { useUI } from '@contexts/ui.context';
+import { useRouter } from 'next/router';
+import Spinner from '@components/ui/loaders/spinner';
 
-const mockUserData: UpdateUserType = {
-  firstName: 'John',
-  lastName: 'Doe',
-  displayName: 'John Doe',
-  phoneNumber: '1234567890',
-  email: 'john@example.com',
-  gender: 'male',
-  password: '',
-  confirmPassword: ''
+type UserDataType = {
+  name: string;
+  phoneNumber: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string;
 };
 
 const AccountDetails: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hasShownModal, setHasShownModal] = useState(false);
+  const { isAuthorized, openModal, setModalView, displayModal, closeModal } = useUI();
+  const { data: userData, isLoading, isError } = useAccountDetailsQuery();
+  const router = useRouter();
   const { mutate: updateUser, isPending } = useUpdateUserMutation();
   const { t } = useTranslation();
+
+  // Track the previous modal state
+  const prevModalState = useRef(displayModal);
+
+  useEffect(() => {
+    if (!isAuthorized && !hasShownModal) {
+      setModalView("LOGIN_VIEW");
+      openModal();
+      setHasShownModal(true);
+    }
+
+    // Check if modal was just closed (previous state was true and current is false)
+    if (prevModalState.current && !displayModal && !isAuthorized) {
+      closeModal();
+      router.push('/');
+    }
+    // Update the previous state
+    prevModalState.current = displayModal;
+  }, [isAuthorized, openModal, setModalView, displayModal, router, closeModal, hasShownModal, setHasShownModal]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } = useForm<UpdateUserType>({
-    defaultValues: mockUserData, // Replace with actual user data from your API
+  } = useForm<UserDataType>({
+    defaultValues: {
+      name: userData?.name || '',
+      phoneNumber: userData?.phone || '',
+      email: userData?.email || '',
+    },
   });
-  function onSubmit(input: UpdateUserType) {
+
+  function onSubmit(input: any) {
     updateUser(input);
     setIsEditing(false);
   }
@@ -43,6 +71,9 @@ const AccountDetails: React.FC = () => {
   const handleEdit = () => {
     setIsEditing(true);
   };
+
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading User Data..." /></div>;
+  if (isError) return <ErrorPage />;
 
   return (
     <motion.div
@@ -67,141 +98,84 @@ const AccountDetails: React.FC = () => {
           </button>
         )}
       </div>
-      
+
       {!isEditing ? (
         <div className="flex flex-col space-y-4">
-          <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
-            <div className="w-full sm:w-1/2">
-              <span className="text-sm text-heading font-semibold block mb-2">
-                {t('forms:label-first-name')}
-              </span>
-              <span className="text-sm text-body">{mockUserData.firstName}</span>
-            </div>
-            <div className="w-full sm:w-1/2">
-              <span className="text-sm text-heading font-semibold block mb-2">
-                {t('forms:label-last-name')}
-              </span>
-              <span className="text-sm text-body">{mockUserData.lastName}</span>
-            </div>
-          </div>
           <div>
             <span className="text-sm text-heading font-semibold block mb-2">
-              {t('forms:label-display-name')}
+              {t('forms:label-name')}
             </span>
-            <span className="text-sm text-body">{mockUserData.displayName}</span>
+            <span className="text-sm text-body">{userData?.name}</span>
           </div>
           <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
             <div className="w-full sm:w-1/2">
               <span className="text-sm text-heading font-semibold block mb-2">
                 {t('forms:label-phone')}
               </span>
-              <span className="text-sm text-body">{mockUserData.phoneNumber}</span>
+              <span className="text-sm text-body">{userData?.phone}</span>
             </div>
             <div className="w-full sm:w-1/2">
               <span className="text-sm text-heading font-semibold block mb-2">
                 {t('forms:label-email')}
               </span>
-              <span className="text-sm text-body">{mockUserData.email}</span>
+              <span className="text-sm text-body">{userData?.email}</span>
             </div>
-          </div>
-          <div>
-            <span className="text-sm text-heading font-semibold block mb-2">
-              {t('common:text-gender')}
-            </span>
-            <span className="text-sm text-body capitalize">{mockUserData.gender}</span>
           </div>
         </div>
       ) : (
         <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full mx-auto flex flex-col justify-center "
-        noValidate
-      >
-        <div className="flex flex-col space-y-4 sm:space-y-5">
-          <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full mx-auto flex flex-col justify-center "
+          noValidate
+        >
+          <div className="flex flex-col space-y-4 sm:space-y-5">
             <Input
-              labelKey="forms:label-first-name"
-              {...register('firstName', {
-                required: 'forms:first-name-required',
+              labelKey="forms:label-name"
+              {...register('name', {
+                required: 'forms:name-required',
               })}
               variant="solid"
-              className="w-full sm:w-1/2"
-              errorKey={errors.firstName?.message}
+              errorKey={errors.name?.message}
             />
-            <Input
-              labelKey="forms:label-last-name"
-              {...register('lastName', {
-                required: 'forms:last-name-required',
-              })}
-              variant="solid"
-              className="w-full sm:w-1/2"
-              errorKey={errors.lastName?.message}
-            />
-          </div>
-          <Input
-            labelKey="forms:label-display-name"
-            {...register('displayName', {
-              required: 'forms:display-name-required',
-            })}
-            variant="solid"
-            errorKey={errors.displayName?.message}
-          />
-          <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
-            <Input
-              type="tel"
-              labelKey="forms:label-phone"
-              {...register('phoneNumber', {
-                required: 'forms:phone-required',
-              })}
-              variant="solid"
-              className="w-full sm:w-1/2"
-              errorKey={errors.phoneNumber?.message}
-            />
-            <Input
-              type="email"
-              labelKey="forms:label-email-star"
-              {...register('email', {
-                required: 'forms:email-required',
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'forms:email-error',
-                },
-              })}
-              variant="solid"
-              className="w-full sm:w-1/2"
-              errorKey={errors.email?.message}
-            />
-          </div>
-          <div className="relative flex flex-col">
-            <span className="mt-2 text-sm text-heading font-semibold block pb-1">
-              {t('common:text-gender')}
-            </span>
-            <div className="mt-2 flex items-center gap-x-6">
-              <RadioBox
-                labelKey="forms:label-male"
-                {...register('gender')}
-                value="male"
+            <div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
+              <Input
+                type="tel"
+                labelKey="forms:label-phone"
+                {...register('phoneNumber', {
+                  required: 'forms:phone-required',
+                })}
+                variant="solid"
+                className="w-full sm:w-1/2"
+                errorKey={errors.phoneNumber?.message}
               />
-              <RadioBox
-                labelKey="forms:label-female"
-                {...register('gender')}
-                value="female"
+              <Input
+                type="email"
+                labelKey="forms:label-email-star"
+                {...register('email', {
+                  required: 'forms:email-required',
+                  pattern: {
+                    value:
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: 'forms:email-error',
+                  },
+                })}
+                variant="solid"
+                className="w-full sm:w-1/2"
+                errorKey={errors.email?.message}
               />
             </div>
+            <div className="relative flex gap-x-3">
+              <Button
+                type="submit"
+                loading={isPending}
+                disabled={isPending}
+                className="h-12 mt-3 w-full sm:w-32"
+              >
+                {t('common:button-save')}
+              </Button>
+            </div>
           </div>
-          <div className="relative flex gap-x-3">
-            <Button
-              type="submit"
-              loading={isPending}
-              disabled={isPending}
-              className="h-12 mt-3 w-full sm:w-32"
-            >
-              {t('common:button-save')}
-            </Button>
-          </div>
-        </div>
-      </form>
+        </form>
       )}
     </motion.div>
   );

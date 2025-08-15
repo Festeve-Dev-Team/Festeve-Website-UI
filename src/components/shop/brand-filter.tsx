@@ -3,6 +3,7 @@ import { useBrandsQuery } from "@framework/brand/get-all-brands";
 import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "next-i18next";
+import Spinner from "@components/ui/loaders/spinner";
 
 export const BrandFilter = () => {
   const { t } = useTranslation("common");
@@ -17,7 +18,7 @@ export const BrandFilter = () => {
     setFormState(selectedBrands);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query?.brand]);
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
   if (error) return <p>{error.message}</p>;
 
   function handleItemClick(e: React.FormEvent<HTMLInputElement>): void {

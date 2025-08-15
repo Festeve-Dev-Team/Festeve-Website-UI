@@ -14,6 +14,7 @@ export interface State {
   modalData: any;
   drawerView: string | null;
   toastText: string;
+  postLoginAction?: () => void;
 }
 
 const initialState = {
@@ -92,6 +93,10 @@ type Action =
   | {
       type: "SET_USER_AVATAR";
       value: string;
+    }
+  | {
+      type: "SET_POST_LOGIN_ACTION";
+      action: () => void;
     };
 
 type MODAL_VIEWS =
@@ -224,6 +229,12 @@ function uiReducer(state: State, action: Action) {
         userAvatar: action.value,
       };
     }
+    case "SET_POST_LOGIN_ACTION": {
+      return {
+        ...state,
+        postLoginAction: action.action,
+      };
+    }
   }
 }
 
@@ -269,6 +280,9 @@ export const UIProvider: React.FC = (props) => {
     dispatch({ type: "SET_DRAWER_VIEW", view });
   const setModalData = (data: any) =>
     dispatch({ type: "SET_MODAL_DATA", data });
+    
+  const setPostLoginAction = (action: () => void) =>
+    dispatch({ type: "SET_POST_LOGIN_ACTION", action });
 
   const value = React.useMemo(
     () => ({
@@ -295,6 +309,7 @@ export const UIProvider: React.FC = (props) => {
       setDrawerView,
       setUserAvatar,
       setModalData,
+      setPostLoginAction,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]

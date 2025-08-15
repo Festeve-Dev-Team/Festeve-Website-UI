@@ -3,7 +3,7 @@ import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { useQuery } from "@tanstack/react-query";
 
-export const fetchOrder = async (_id: string) => {
+export const fetchOrder = async (id: string) => {
   const { data } = await http.get(`${API_ENDPOINTS.ORDER}`);
   return data;
 };

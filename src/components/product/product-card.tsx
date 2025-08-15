@@ -11,6 +11,7 @@ import ProductViewIcon from "@components/icons/product-view-icon";
 import ProductWishIcon from "@components/icons/product-wish-icon";
 import ProductCompareIcon from "@components/icons/product-compare-icon";
 import RatingDisplay from "@components/common/rating-display";
+import { getAllProductImages } from "@utils/get-product-images";
 
 interface ProductProps {
   product: Product;
@@ -58,10 +59,19 @@ const ProductCard: FC<ProductProps> = ({
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
+  if (!product) {
+    return null;
+  }
+
+  // Get the default variant or first available variant
+  const defaultVariant = product.variants?.find(v => v.isActive) || product.variants?.[0];
+  
   const { price, basePrice, discount } = usePrice({
-    amount: product.sale_price ? product.sale_price : product.price,
-    baseAmount: product.price,
-    currencyCode: "USD",
+    amount: defaultVariant?.price || 0,
+    baseAmount: defaultVariant?.price || 0,
+    discountType: product.defaultDiscountType || defaultVariant?.discountType,
+    discountValue: product.defaultDiscountValue || defaultVariant?.discountValue,
+    currencyCode: 'INR',
   });
   function handlePopupView() {
     setModalData({ data: product });
@@ -119,12 +129,16 @@ const ProductCard: FC<ProductProps> = ({
         )}
       >
         <Image
-          src={product?.image?.thumbnail ?? placeholderImage}
+          src={getAllProductImages(product)[0] || placeholderImage}
           width={demoVariant === "ancient" ? 352 : Number(imgWidth)}
           height={demoVariant === "ancient" ? 452 : Number(imgHeight)}
           loading={imgLoading}
           quality={100}
           alt={product?.name || "Product Image"}
+          onError={(e) => {
+            // @ts-ignore
+            e.target.src = placeholderImage;
+          }}
           className={cn(
             `bg-gray-300 object-cover ${
               !disableBorderRadius && "rounded-s-md"
@@ -149,25 +163,25 @@ const ProductCard: FC<ProductProps> = ({
         />
 
         <div className="absolute top-3.5 md:top-5 3xl:top-7 ltr:left-3.5 rtl:right-3.5 ltr:md:left-5 rtl:md:right-5 ltr:3xl:left-7 rtl:3xl:right-7 flex flex-col gap-y-1 items-start">
-          {discount &&
+          {(defaultVariant?.discountValue || product.defaultDiscountValue) &&
             (variant === "gridModernWide" ||
               variant === "gridModern" ||
               variant === "gridTrendy") && (
               <span className="bg-heading text-white text-10px md:text-xs leading-5 rounded-md inline-block px-1 sm:px-1.5 xl:px-2 py-0.5 sm:py-1">
                 <p>
                   <span className="sm:hidden">-</span>
-                  {discount} <span className="hidden sm:inline">OFF</span>
+                  {defaultVariant?.discountValue || product.defaultDiscountValue}% <span className="hidden sm:inline">OFF</span>
                 </p>
               </span>
             )}
 
-          {product?.isNewArrival &&
+          {product?.isHotItem &&
             (variant === "gridModernWide" ||
               variant === "gridModern" ||
               variant === "gridTrendy") && (
               <span className="bg-[#B26788] text-white text-10px md:text-xs leading-5 rounded-md inline-block px-1.5 sm:px-1.5 xl:px-2 py-0.5 sm:py-1">
                 <p>
-                  New <span className="hidden sm:inline">Arrival</span>
+                  Hot <span className="hidden sm:inline">Item</span>
                 </p>
               </span>
             )}
@@ -213,7 +227,7 @@ const ProductCard: FC<ProductProps> = ({
             <span className="text-xs font-semibold truncate sm:text-sm text-heading">
               4.5
             </span>
-            {product.quantity === 0 && (
+            {defaultVariant?.stock === 0 && (
               <span className="text-xs sm:text-sm leading-5 ltr:pl-3 rtl:pr-3 font-semibold text-[#EF4444]">
                 Out of stock
               </span>

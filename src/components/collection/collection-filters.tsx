@@ -3,13 +3,14 @@ import { useTranslation } from "next-i18next";
 import { useCollectionsQuery } from "@framework/collection/get-all-collection";
 import ActiveLink from "@components/ui/active-link";
 import { ROUTES } from "@utils/routes";
+import Spinner from "@components/ui/loaders/spinner";
 
 export const CollectionFilters: React.FC = () => {
   const { t } = useTranslation("common");
   const { data, isLoading } = useCollectionsQuery({
     limit: 15,
   });
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
 
   const items = data?.collections.data;
   return (

@@ -3,10 +3,11 @@ import usePrice from '@framework/product/use-price';
 import { OrderItem } from '@framework/types';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import Spinner from '@components/ui/loaders/spinner';
 const OrderItemCard = ({ product }: { product: OrderItem }) => {
   const { price: itemTotal } = usePrice({
     amount: product.price * product.quantity,
-    currencyCode: 'USD',
+    currencyCode: 'INR',
   });
   return (
     <tr
@@ -31,7 +32,7 @@ const OrderDetails: React.FC<{ className?: string }> = ({
   const { price: subtotal } = usePrice(
     order && {
       amount: order.total,
-      currencyCode: 'USD',
+      currencyCode: 'INR',
     }
   );
   const { price: total } = usePrice(
@@ -39,16 +40,17 @@ const OrderDetails: React.FC<{ className?: string }> = ({
       amount: order.shipping_fee
         ? order.total + order.shipping_fee
         : order.total,
-      currencyCode: 'USD',
+      currencyCode: 'INR',
     }
   );
   const { price: shipping } = usePrice(
     order && {
       amount: order.shipping_fee,
-      currencyCode: 'USD',
+      currencyCode: 'INR',
     }
   );
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading Order Details..." /></div>;
+  
   return (
     <div className={className}>
       <h2 className="mb-6 text-lg font-bold md:text-xl xl:text-2xl text-heading xl:mb-8">

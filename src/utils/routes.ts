@@ -7,7 +7,7 @@ export const ROUTES = {
   POLICY: "/privacy",
   FAQ: "/faq",
   FORGET_PASSWORD: "/forget-password",
-  ACCOUNT: "/my-account",
+  ACCOUNT: "/my-account/account-details",
   ORDERS: "/my-account/orders",
   ACCOUNT_DETAILS: "/my-account/account-details",
   CHANGE_PASSWORD: "/my-account/change-password",
@@ -19,4 +19,5 @@ export const ROUTES = {
   CATEGORY: "/category",
   ORDER: "/order",
   WALLET: "/my-account/wallet",
+  PUROHITS: "/purohits",
 };

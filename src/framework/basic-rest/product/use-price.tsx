@@ -22,22 +22,36 @@ export function formatVariantPrice({
   baseAmount,
   currencyCode,
   locale,
+  discountType,
+  discountValue,
 }: {
   baseAmount: number;
   amount: number;
   currencyCode: string;
   locale: string;
+  discountType?: string;
+  discountValue?: number;
 }) {
-  const hasDiscount = baseAmount > amount;
-  const formatDiscount = new Intl.NumberFormat(locale, { style: "percent" });
-  const discount = hasDiscount
-    ? formatDiscount.format((baseAmount - amount) / baseAmount)
-    : null;
+  let finalAmount = amount;
+  let discount: string | null = null;
 
-  const price = formatPrice({ amount, currencyCode, locale });
-  const basePrice = hasDiscount
-    ? formatPrice({ amount: baseAmount, currencyCode, locale })
-    : null;
+  if (discountType && discountValue) {
+    switch (discountType) {
+      case 'percentage':
+        finalAmount = amount * (1 - discountValue / 100);
+        discount = `${discountValue}%`;
+        break;
+      case 'fixed':
+        finalAmount = amount - discountValue;
+        discount = formatPrice({ amount: discountValue, currencyCode, locale });
+        break;
+      default:
+        break;
+    }
+  }
+
+  const price = formatPrice({ amount: finalAmount, currencyCode, locale });
+  const basePrice = finalAmount !== amount ? formatPrice({ amount, currencyCode, locale }) : null;
 
   return { price, basePrice, discount };
 }
@@ -47,16 +61,23 @@ export default function usePrice(
     amount: number;
     baseAmount?: number;
     currencyCode: string;
+    discountType?: string;
+    discountValue?: number;
   } | null
 ) {
-  const { amount, baseAmount, currencyCode } = data ?? {};
+  const { amount, baseAmount, currencyCode, discountType, discountValue } = data ?? {};
   const locale = "en";
   const value = useMemo(() => {
     if (typeof amount !== "number" || !currencyCode) return "";
 
-    return baseAmount
-      ? formatVariantPrice({ amount, baseAmount, currencyCode, locale })
-      : formatPrice({ amount, currencyCode, locale });
+    return formatVariantPrice({ 
+      amount, 
+      baseAmount: baseAmount || amount, 
+      currencyCode, 
+      locale,
+      discountType,
+      discountValue
+    });
   }, [amount, baseAmount, currencyCode]);
 
   return typeof value === "string"

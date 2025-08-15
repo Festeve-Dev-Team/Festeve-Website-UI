@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useRouter } from "next/router";
-import { useProductQuery } from "@framework/product/get-product";
-import { getVariations } from "@framework/utils/get-variations";
 import usePrice from "@framework/product/use-price";
 import { useCart } from "@contexts/cart/cart.context";
 import { generateCartItem } from "@utils/generate-cart-item";
@@ -16,6 +14,9 @@ import Carousel from "@components/ui/carousel/carousel";
 import { SwiperSlide } from "swiper/react";
 import ProductMetaReview from "@components/product/product-meta-review";
 import { useSsrCompatible } from "@utils/use-ssr-compatible";
+import { useUI } from "@contexts/ui.context";
+import { Product } from "@framework/types";
+import { getAllProductImages } from "@utils/get-product-images";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -27,29 +28,41 @@ const productGalleryCarouselResponsive = {
 };
 
 const ProductSingleDetails: React.FC = () => {
-  const {
-    query: { slug },
-  } = useRouter();
+  const router = useRouter();
   const { width } = useSsrCompatible(useWindowSize(), { width: 0, height: 0 });
-  const { data, isLoading } = useProductQuery(slug as string);
+  const { modalData } = useUI();
+  const data = modalData?.data as Product | undefined;
+  
   const { addItemToCart } = useCart();
+  
+  useEffect(() => {
+    if (!data || !data.variants?.length) {
+      router.replace('/products');
+    }
+  }, [data, router]);
+
+  if (!data || !data.variants?.length) {
+    return null;
+  }
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState(1);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+  
+  const defaultVariant = data.variants[0];
   const { price, basePrice, discount } = usePrice(
     data && {
-      amount: data.sale_price ? data.sale_price : data.price,
-      baseAmount: data.price,
-      currencyCode: "USD",
+      amount: defaultVariant.discountValue ? 
+        defaultVariant.price - (defaultVariant.price * defaultVariant.discountValue / 100) :
+        defaultVariant.price,
+      baseAmount: defaultVariant.price,
+      currencyCode: 'INR',
     }
   );
-  if (isLoading) return <p>Loading...</p>;
-  const variations = getVariations(data?.variations);
-
-  const isSelected = !isEmpty(variations)
+  const specs = defaultVariant.specs || {};
+  const isSelected = !isEmpty(specs)
     ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
+      Object.keys(specs).every((spec) =>
+        attributes.hasOwnProperty(spec)
       )
     : true;
 
@@ -72,7 +85,6 @@ const ProductSingleDetails: React.FC = () => {
       pauseOnHover: true,
       draggable: true,
     });
-    console.log(item, "item");
   }
 
   function handleAttribute(attribute: any) {
@@ -93,15 +105,12 @@ const ProductSingleDetails: React.FC = () => {
           className="product-gallery"
           buttonGroupClassName="hidden"
         >
-          {data?.gallery?.map((item, index: number) => (
+          {getAllProductImages(data).map((image: string, index: number) => (
             <SwiperSlide key={`product-gallery-key-${index}`}>
               <div className="col-span-1 transition duration-150 ease-in hover:opacity-90">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={
-                    item?.original ??
-                    "/assets/placeholder/products/product-gallery.svg"
-                  }
+                  src={image || "/assets/placeholder/products/product-gallery.svg"}
                   alt={`${data?.name}--${index}`}
                   className="object-cover w-full"
                 />
@@ -111,18 +120,15 @@ const ProductSingleDetails: React.FC = () => {
         </Carousel>
       ) : (
         <div className="col-span-5 grid grid-cols-2 gap-2.5">
-          {data?.gallery?.map((item, index: number) => (
+          {getAllProductImages(data).map((image, index) => (
             <div
               key={index}
               className="col-span-1 transition duration-150 ease-in hover:opacity-90"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={
-                  item?.original ??
-                  "/assets/placeholder/products/product-gallery.svg"
-                }
-                alt={`${data?.name}--${index}`}
+                src={image || "/assets/placeholder/products/product-gallery.svg"}
+                alt={`${data.name}--${index}`}
                 className="object-cover w-full"
               />
             </div>
@@ -151,13 +157,13 @@ const ProductSingleDetails: React.FC = () => {
         </div>
 
         <div className="pb-3 border-b border-gray-300">
-          {Object.keys(variations).map((variation) => {
+          {Object.entries(defaultVariant.specs).map(([key, value]) => {
             return (
               <ProductAttributes
-                key={variation}
-                title={variation}
-                attributes={variations[variation]}
-                active={attributes[variation]}
+                key={key}
+                title={key}
+                attributes={[{ id: 1, value: value as string, meta: '' }]}
+                active={attributes[key]}
                 onClick={handleAttribute}
               />
             );
@@ -190,33 +196,32 @@ const ProductSingleDetails: React.FC = () => {
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                 SKU:
               </span>
-              {data?.sku}
+              {defaultVariant.sku}
             </li>
             <li>
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                 Category:
               </span>
               <Link
-                href="/"
+                href={`/category/${data.category}`}
                 className="transition hover:underline hover:text-heading"
               >
-                {data?.category?.name}
+                {data.category}
               </Link>
             </li>
-            {data?.tags && Array.isArray(data.tags) && (
+            {data.tags && data.tags.length > 0 && (
               <li className="productTags">
                 <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                   Tags:
                 </span>
-                {data.tags.map((tag) => (
-                  <Link
-                    key={tag.id}
-                    href={tag.slug}
+                {data.tags.map((tag, index) => (
+                  <span
+                    key={index}
                     className="inline-block ltr:pr-1.5 rtl:pl-1.5 transition hover:underline hover:text-heading ltr:last:pr-0 rtl:last:pl-0"
                   >
-                    {tag.name}
-                    <span className="text-heading">,</span>
-                  </Link>
+                    {tag}
+                    {index < data.tags.length - 1 && <span className="text-heading">,</span>}
+                  </span>
                 ))}
               </li>
             )}

@@ -39,7 +39,7 @@ export const siteSettings = {
     height: 30,
   },
   defaultLanguage: 'en',
-  currencyCode: 'USD',
+  currencyCode: 'INR',
   site_header: {
     menu: [
       // {
@@ -637,13 +637,13 @@ export const siteSettings = {
       },
       {
         id: 4,
-        path: '/search',
-        label: 'menu-search',
+        path: '/food',
+        label: 'menu-food',
       },
       {
         id: 5,
-        path: '/shops',
-        label: 'menu-shops',
+        path: '/purohits',
+        label: 'menu-purohits',
       },
       {
         id: 6,
@@ -674,6 +674,11 @@ export const siteSettings = {
                 id: 4,
                 path: '/forget-password',
                 label: 'menu-forget-password',
+              },
+              {
+                id: 4,
+                path: '/logout',
+                label: 'menu-logout',
               },
             ],
           },
@@ -1033,13 +1038,13 @@ export const siteSettings = {
       },
       {
         id: 4,
-        path: '/search',
-        label: 'menu-search',
+        path: '/food',
+        label: 'menu-food',
       },
       {
         id: 5,
-        path: '/shops',
-        label: 'menu-shops',
+        path: '/purohits',
+        label: 'menu-purohits',
       },
       {
         id: 6,
@@ -1053,7 +1058,7 @@ export const siteSettings = {
             subMenu: [
               {
                 id: 1,
-                path: '/my-account',
+                path: '/my-account/account-details',
                 label: 'menu-my-account',
               },
               {
@@ -1070,6 +1075,11 @@ export const siteSettings = {
                 id: 4,
                 path: '/forget-password',
                 label: 'menu-forget-password',
+              },
+              {
+                id: 4,
+                path: '/logout',
+                label: 'menu-logout',
               },
             ],
           },

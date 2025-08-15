@@ -4,6 +4,7 @@ import { useOrderQuery } from '@framework/order/get-order';
 import { useRouter } from 'next/router';
 import usePrice from '@framework/product/use-price';
 import { useTranslation } from 'next-i18next';
+import Spinner from '@components/ui/loaders/spinner';
 
 export default function OrderInformation() {
   const {
@@ -14,10 +15,10 @@ export default function OrderInformation() {
   const { price: total } = usePrice(
     data && {
       amount: data.shipping_fee ? data.total + data.shipping_fee : data.total,
-      currencyCode: 'USD',
+      currencyCode: 'INR',
     }
   );
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading Order Information..." /></div>;
   return (
     <div className="xl:px-32 2xl:px-44 3xl:px-56 py-16 lg:py-20">
       <div className="border border-gray-300 bg-gray-50 px-4 lg:px-5 py-4 rounded-md flex items-center justify-start text-heading text-sm md:text-base mb-6 lg:mb-8">

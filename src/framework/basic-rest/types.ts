@@ -78,24 +78,47 @@ export type Tag = {
   name: string;
   slug: string;
 };
-export type Product = {
-  id: number | string;
-  name: string;
-  slug: string;
+export type ProductVariant = {
+  id: string;
+  sku: string;
+  specs: {
+    weight?: string;
+    packaging?: string;
+    [key: string]: unknown;
+  };
   price: number;
-  quantity: number;
-  sale_price?: number;
-  image: Attachment;
-  sku?: string;
-  gallery?: Attachment[];
-  category?: Category;
-  tag?: Tag[];
-  tags?: Tag[];
-  meta?: any[];
-  description?: string;
-  variations?: object;
-  [key: string]: unknown;
-  isNewArrival?: boolean;
+  stock: number;
+  discountType?: string;
+  discountValue?: number;
+  images: string[];
+  isActive: boolean;
+};
+
+export type Product = {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  tags: string[];
+  isHotItem: boolean;
+  ingredients: string[];
+  vendors: string[];
+  variants: ProductVariant[];
+  defaultDiscountType?: string;
+  defaultDiscountValue?: number;
+  linkedEvents: string[];
+  offerType?: string;
+  offerStart?: string;
+  offerEnd?: string;
+  isTrending?: boolean;
+  meta?: {
+    festival?: string;
+    shippingTime?: string;
+    [key: string]: unknown;
+  };
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
 };
 export type OrderItem = {
   id: number | string;

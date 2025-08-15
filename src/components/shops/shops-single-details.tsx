@@ -12,6 +12,7 @@ import ShopSidebar from "@components/shops/shop-sidebar";
 import ShopSidebarDrawer from "@components/shops/shop-sidebar-drawer";
 import { useTranslation } from "next-i18next";
 import motionProps from "@components/common/drawer/motion";
+import Spinner from "@components/ui/loaders/spinner";
 
 export default function ShopsSingleDetails() {
   const {
@@ -24,7 +25,7 @@ export default function ShopsSingleDetails() {
   const dir = getDirection(locale);
   const contentWrapperCSS = dir === "ltr" ? { left: 0 } : { right: 0 };
 
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading shops..." /></div>;
 
   return (
     <>

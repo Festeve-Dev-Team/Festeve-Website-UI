@@ -1,27 +1,33 @@
 import isEmpty from "lodash/isEmpty";
 
-interface Item {
-  id: string | number;
-  name: string;
-  slug: string;
-  image: {
-    thumbnail: string;
-    [key: string]: unknown;
-  };
-  price: number;
-  sale_price?: number;
-  [key: string]: unknown;
-}
-export function generateCartItem(item: Item, attributes: object) {
-  const { id, name, slug, image, price, sale_price } = item;
+import { Product, ProductVariant } from '@framework/types';
+
+export function generateCartItem(item: Product, attributes: object) {
+  // Get the default variant or first available variant
+  const variant = item.variants?.find((v: ProductVariant) => v.isActive) || item.variants?.[0];
+  
+  if (!variant) {
+    throw new Error('No valid variant found for the product');
+  }
+
+  // Calculate final price based on discount
+  const finalPrice = variant.price - (variant.discountType === 'percentage' 
+    ? (variant.price * (variant.discountValue || 0) / 100)
+    : (variant.discountType === 'fixed' ? (variant.discountValue || 0) : 0));
+
   return {
     id: !isEmpty(attributes)
-      ? `${id}.${Object.values(attributes).join(".")}`
-      : id,
-    name,
-    slug,
-    image: image.thumbnail,
-    price: sale_price ? sale_price : price,
+      ? `${item.id}.${Object.values(attributes).join(".")}`
+      : item.id,
+    name: item.name,
+    image: variant.images[0] || '',
+    price: finalPrice,
+    originalPrice: variant.price,
+    discountType: variant.discountType || item.defaultDiscountType,
+    discountValue: variant.discountValue || item.defaultDiscountValue,
     attributes,
+    sku: variant.sku,
+    stock: variant.stock,
+    specs: variant.specs
   };
 }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface WhatsTodayProps {
@@ -18,6 +18,16 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
     const displayText = shouldTruncate && !expanded
         ? text.substring(0, charLimit) + "..."
         : text;
+
+    const [formattedDate, setFormattedDate] = useState('');
+
+    useEffect(() => {
+        setFormattedDate(new Date().toLocaleDateString(undefined, { 
+            day: '2-digit', 
+            month: 'long', 
+            year: 'numeric' 
+        }));
+    }, []);
 
     const toggleExpanded = () => {
         setExpanded(!expanded);
@@ -94,7 +104,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                         }}
                         className="text-green-900"
                     >
-                        {new Date().toLocaleDateString(undefined, { day: '2-digit', month: 'long', year: 'numeric' })}
+                        {formattedDate}
                     </div>
                     <AnimatePresence mode="wait">
                         <motion.p

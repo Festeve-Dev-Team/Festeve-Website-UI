@@ -69,7 +69,7 @@ const HeaderTwo: React.FC = () => {
             <div className="-mt-0.5 flex-shrink-0">
               <AuthMenu
                 isAuthorized={isAuthorized}
-                href={ROUTES.ACCOUNT}
+                href=""
                 className="text-sm font-semibold xl:text-base text-heading"
                 btnProps={{
                   className:
@@ -81,7 +81,7 @@ const HeaderTwo: React.FC = () => {
                 {t("text-account")}
               </AuthMenu>
             </div>
-            <CartButton />
+            {isAuthorized && <CartButton />}
           </div>
         </div>
       </div>

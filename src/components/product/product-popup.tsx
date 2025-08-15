@@ -11,27 +11,40 @@ import { generateCartItem } from "@utils/generate-cart-item";
 import usePrice from "@framework/product/use-price";
 import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
+import { getAllProductImages } from "@utils/get-product-images";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
   const {
-    modalData: { data },
+    modalData,
     closeModal,
     openCart,
+    isAuthorized,
+    setModalView,
+    openModal,
+    setPostLoginAction,
   } = useUI();
+  
+  const data = modalData?.data;
+  
+  // Early return if no data to prevent hydration issues
+  if (!data) {
+    return null;
+  }
   const router = useRouter();
   const { addItemToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+
   const { price, basePrice, discount } = usePrice({
     amount: data.sale_price ? data.sale_price : data.price,
     baseAmount: data.price,
-    currencyCode: "USD",
+    currencyCode: 'INR',
   });
   const variations = getVariations(data.variations);
-  const { slug, image, name, description } = data;
+  const { slug, name, description } = data;
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -68,6 +81,17 @@ export default function ProductPopup() {
   }
 
   function navigateToCartPage() {
+    if (!isAuthorized) {
+      setPostLoginAction(() => {
+        setTimeout(() => {
+          openCart();
+        }, 300);
+      });
+      setModalView("LOGIN_VIEW");
+      openModal();
+      return;
+    }
+
     closeModal();
     setTimeout(() => {
       openCart();
@@ -81,7 +105,7 @@ export default function ProductPopup() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
-              image?.original ??
+              getAllProductImages(data)[0] ||
               "/assets/placeholder/products/product-thumbnail.svg"
             }
             alt={name}

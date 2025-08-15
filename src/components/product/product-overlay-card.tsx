@@ -49,7 +49,7 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
   const { price, basePrice, discount } = usePrice({
     amount: product.sale_price ? product.sale_price : product.price,
     baseAmount: product.price,
-    currencyCode: "USD",
+    currencyCode: 'INR',
   });
   function handlePopupView() {
     setModalData({ data: product });
