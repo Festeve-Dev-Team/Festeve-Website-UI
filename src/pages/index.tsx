@@ -42,10 +42,10 @@ export default function Home() {
           sectionHeading="text-featured-products"
           limit={5}
         /> */}
-        <FeaturedCategories
+        {/* <FeaturedCategories
           sectionHeading="text-featured-categories"
           limit={5}
-        />
+        /> */}
         <TrendingProductFeedWithTabs />
         <BannerCard
           key={`banner--key${banner[0].id}`}
@@ -59,12 +59,12 @@ export default function Home() {
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
         />
-        <BannerWithProducts
+        {/* <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
-        />
+        /> */}
         <ExclusiveBlock />
-        <NewArrivalsProductFeed />
+        {/* <NewArrivalsProductFeed /> */}
         <Instagram />
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
       </Container>
