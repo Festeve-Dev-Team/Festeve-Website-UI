@@ -205,5 +205,6 @@
   "text-get-otp": "קבל OTP",
   "text-verify-signup": "אימות הרשמה",
   "text-update-profile": "עדכן פרופיל",
-  "text-skip": "דלג"
+  "text-skip": "דלג",
+  "text-select-variant": "בחר דגם"
 }

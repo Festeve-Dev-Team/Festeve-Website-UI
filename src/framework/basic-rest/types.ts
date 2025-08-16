@@ -92,6 +92,7 @@ export type ProductVariant = {
   discountValue?: number;
   images: string[];
   isActive: boolean;
+  color: string;
 };
 
 export type Variation = {
