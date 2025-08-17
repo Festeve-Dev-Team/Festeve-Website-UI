@@ -98,7 +98,7 @@ type AccordionProps = {
     titleKey?: string;
     title?: string;
     contentKey?: string;
-    content?: string;
+    content?: string | React.ReactNode;
   }[];
   variant?: 'gray' | 'transparent';
 };
@@ -118,6 +118,7 @@ const Accordion: React.FC<AccordionProps> = ({
           key={item.titleKey}
           titleKey={item.titleKey}
           contentKey={item.contentKey}
+          content={item.content}
           expanded={expanded}
           setExpanded={setExpanded}
           variant={variant}

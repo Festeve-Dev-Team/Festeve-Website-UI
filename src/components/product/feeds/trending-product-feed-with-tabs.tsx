@@ -3,13 +3,27 @@ import ProductsBlock from "@containers/products-block";
 import { useTranslation } from "next-i18next";
 import { useProductsQuery } from "@framework/product/get-all-products-2";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import Spinner from "@components/ui/loaders/spinner";
+import ErrorPage from "src/pages/404";
+import Alert from "@components/ui/alert";
+
+import { useMemo } from "react";
 
 const TrendingProductFeedWithTabs: React.FC<any> = () => {
   const { t } = useTranslation("common");
 
-  const { data, isLoading, error } = useProductsQuery({
+  const { data, isLoading, isError } = useProductsQuery({
     limit: 10,
   });
+  
+  const safeProducts = useMemo(() => {
+    if (!data || !data.products || !Array.isArray(data.products)) return [];
+    return data.products;
+  }, [data]);
+
+  if (isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading Products..." /></div>;
+  if (isError) return <ErrorPage />;
+  if (!data || !data.products || !Array.isArray(data.products)) return <Alert message="No Products found." />;
 
   return (
     <div className="mb-12 md:mb-14 xl:mb-16">
@@ -57,10 +71,9 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
         <TabPanels>
           <TabPanel>
             <ProductsBlock
-              products={data?.slice(0, 10)}
+              products={safeProducts.slice(0, 10)}
               loading={isLoading}
-              error={error?.message}
-              uniqueKey="new-arrivals"
+              uniqueKey="all-products"
               variant="gridModern"
               imgWidth={344}
               imgHeight={344}
@@ -68,10 +81,9 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
           </TabPanel>
           <TabPanel>
             <ProductsBlock
-              products={data?.slice(5, 15)}
+              products={safeProducts.slice(5, 15)}
               loading={isLoading}
-              error={error?.message}
-              uniqueKey="new-arrivals"
+              uniqueKey="flash-sale"
               variant="gridModern"
               imgWidth={344}
               imgHeight={344}
@@ -79,10 +91,9 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
           </TabPanel>
           <TabPanel>
             <ProductsBlock
-              products={data?.slice(12, 22)}
+              products={safeProducts.slice(12, 22)}
               loading={isLoading}
-              error={error?.message}
-              uniqueKey="new-arrivals"
+              uniqueKey="best-sellers"
               variant="gridModern"
               imgWidth={344}
               imgHeight={344}
@@ -90,10 +101,9 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
           </TabPanel>
           <TabPanel>
             <ProductsBlock
-              products={data?.slice(8, 18)}
+              products={safeProducts.slice(8, 18)}
               loading={isLoading}
-              error={error?.message}
-              uniqueKey="new-arrivals"
+              uniqueKey="featured"
               variant="gridModern"
               imgWidth={344}
               imgHeight={344}

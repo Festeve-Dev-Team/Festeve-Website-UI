@@ -22,44 +22,95 @@ export function formatVariantPrice({
   baseAmount,
   currencyCode,
   locale,
+  discountType,
+  discountValue,
 }: {
   baseAmount: number;
   amount: number;
   currencyCode: string;
   locale: string;
-}) {
-  const hasDiscount = baseAmount > amount;
-  const formatDiscount = new Intl.NumberFormat(locale, { style: "percent" });
-  const discount = hasDiscount
-    ? formatDiscount.format((baseAmount - amount) / baseAmount)
-    : null;
+  discountType?: string;
+  discountValue?: number;
+}): { price: string; basePrice: string | null; discount: string | null } {
+  // Early validation
+  if (typeof amount !== 'number' || typeof baseAmount !== 'number') {
+    return { price: "", basePrice: null, discount: null };
+  }
 
-  const price = formatPrice({ amount, currencyCode, locale });
-  const basePrice = hasDiscount
-    ? formatPrice({ amount: baseAmount, currencyCode, locale })
-    : null;
+  // Initialize with base amount
+  let finalAmount = amount;
+  let discount: string | null = null;
 
-  return { price, basePrice, discount };
+  try {
+    // Apply discounts if available
+    if (discountType && typeof discountValue === 'number' && discountValue > 0) {
+      switch (discountType) {
+        case 'percentage':
+          if (discountValue <= 100) {
+            finalAmount = amount * (1 - discountValue / 100);
+            discount = `${discountValue}%`;
+          }
+          break;
+        case 'fixed':
+          if (discountValue <= amount) {
+            finalAmount = amount - discountValue;
+            discount = formatPrice({ amount: discountValue, currencyCode, locale });
+          }
+          break;
+      }
+    }
+
+    // Format prices
+    const price = formatPrice({ amount: finalAmount, currencyCode, locale });
+    const basePrice = finalAmount !== amount ? formatPrice({ amount, currencyCode, locale }) : null;
+
+    return { price, basePrice, discount };
+  } catch {
+    return { price: "", basePrice: null, discount: null };
+  }
 }
 
+interface PriceData {
+  price: string;
+  basePrice: string | null;
+  discount: string | null;
+}
+
+const defaultPriceData: PriceData = {
+  price: "",
+  basePrice: null,
+  discount: null
+};
+
 export default function usePrice(
-  data?: {
+  data: {
     amount: number;
     baseAmount?: number;
     currencyCode: string;
-  } | null
+    discountType?: string;
+    discountValue?: number;
+  }
 ) {
-  const { amount, baseAmount, currencyCode } = data ?? {};
   const locale = "en";
+
   const value = useMemo(() => {
-    if (typeof amount !== "number" || !currencyCode) return "";
+    try {
+      if (typeof data?.amount !== 'number' || !data?.currencyCode) {
+        return defaultPriceData;
+      }
 
-    return baseAmount
-      ? formatVariantPrice({ amount, baseAmount, currencyCode, locale })
-      : formatPrice({ amount, currencyCode, locale });
-  }, [amount, baseAmount, currencyCode]);
+      return formatVariantPrice({
+        amount: data.amount,
+        baseAmount: data.baseAmount ?? data.amount,
+        currencyCode: data.currencyCode,
+        locale,
+        discountType: data.discountType,
+        discountValue: data.discountValue
+      });
+    } catch (error) {
+      return defaultPriceData;
+    }
+  }, [data?.amount, data?.baseAmount, data?.currencyCode, data?.discountType, data?.discountValue]);
 
-  return typeof value === "string"
-    ? { price: value, basePrice: null, discount: null }
-    : value;
+  return value;
 }

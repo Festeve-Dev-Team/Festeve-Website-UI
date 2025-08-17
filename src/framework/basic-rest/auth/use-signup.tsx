@@ -1,31 +1,42 @@
 import { useUI } from "@contexts/ui.context";
 // import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
-// import http from "@framework/utils/http";
+import http from "@framework/utils/http";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 
 export interface SignUpInputType {
-  email: string;
-  password: string;
   name: string;
+  email: string;
+  phone: string;
+  provider: string;
+  providerUserId: string;
+  password: string;
+  profilePicture: string;
+  referralCode?: string;
 }
 async function signUp(input: SignUpInputType) {
-  // return http.post(API_ENDPOINTS.LOGIN, input);
-  return {
-    token: `${input.email}.${input.name}`.split("").reverse().join(""),
+  const payload = {
+    ...input,
+    email: input.email.toLowerCase(),
+    provider: input.provider || 'native',
+    providerUserId: input.providerUserId || '',
+    profilePicture: input.profilePicture || '',
   };
+
+  return http.post(API_ENDPOINTS.SIGNUP, payload);
 }
 export const useSignUpMutation = () => {
   const { authorize, closeModal } = useUI();
   return useMutation({
-    mutationFn: (input: SignUpInputType) => signUp(input),
+    mutationFn: async (input: SignUpInputType) => {
+      const signupResponse = await signUp(input);
+      return { signupResponse };
+    },
     onSuccess: (data) => {
-      Cookies.set("auth_token", data.token);
+      Cookies.set("auth_token", data.signupResponse.data.token);
       authorize();
       closeModal();
-    },
-    onError: (data) => {
-      console.log(data, "login error response");
     },
   });
 };

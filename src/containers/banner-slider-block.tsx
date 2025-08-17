@@ -17,7 +17,7 @@ const breakpoints = {
   },
 };
 
-const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-12 md:mb-14 xl:mb-16" }) => {
+const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0" }) => {
   return (
     <div className={`${className} mx-auto max-w-[1920px] overflow-hidden`}>
       <Carousel

@@ -1,4 +1,12 @@
 {
+  "label-state": "Estado",
+  "label-country": "País",
+  "label-special-day": "Día especial",
+  "label-special-person": "Persona especial",
+  "label-date": "Fecha",
+  "label-relation": "Relación",
+  "label-reminder-time": "Tiempo de recordatorio",
+  "label-categories": "Categorías",
   "email-error": "Proporcione una dirección de correo electrónico válida",
   "email-required": "Se requiere correo electrónico",
   "password-required": "Se requiere contraseña",

@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import ListMenu from '@components/ui/list-menu';
 import { useTranslation } from 'next-i18next';
 
+import { useUI } from '@contexts/ui.context';
+
 interface MenuProps {
   data: any;
   className?: string;
@@ -12,9 +14,34 @@ interface MenuProps {
 
 const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
   const { t } = useTranslation('menu');
+  const { isAuthorized } = useUI();
+  
+  const processMenuItems = (items: any[]) => {
+    return items.map(item => {
+      // If this is the pages menu
+      if (item.label === 'menu-pages') {
+        // Deep clone the item to avoid mutating the original data
+        const processedItem = { ...item };
+        if (processedItem.subMenu) {
+          // Filter out the users menu if not authorized
+          processedItem.subMenu = processedItem.subMenu.filter((subItem: { label: string }) => {
+            if (subItem.label === 'menu-users') {
+              return isAuthorized;
+            }
+            return true;
+          });
+        }
+        return processedItem;
+      }
+      return item;
+    });
+  };
+
+  const processedData = processMenuItems(data);
+
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
-      {data?.map((item: any) => (
+      {processedData?.map((item: any) => (
         <div
           className={`menuItem group cursor-pointer py-7 ${
             item.subMenu ? 'relative' : ''

@@ -9,12 +9,10 @@ import { GetStaticProps } from 'next';
 export default function SignInPage() {
   return (
     <>
-      <PageHeader pageHeader="Sign In" />
       <Container>
-        <div className="py-16 lg:py-20">
+        <div className="py-6">
           <LoginForm />
         </div>
-        <Subscription />
       </Container>
     </>
   );

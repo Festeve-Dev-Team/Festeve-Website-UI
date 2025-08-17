@@ -7,26 +7,54 @@ import { useUI } from '@contexts/ui.context';
 import Logo from '@components/ui/logo';
 import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
 import { useTranslation } from 'next-i18next';
+import Router from 'next/router';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-  const { setModalView, openModal, closeModal } = useUI();
-  const { mutate: login, isPending } = useLoginMutation();
+  const { setModalView, openModal, closeModal, postLoginAction } = useUI();
+  const { mutateAsync: login, isPending } = useLoginMutation();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError
   } = useForm<LoginInputType>();
 
-  function onSubmit({ email, password, remember_me }: LoginInputType) {
-    login({
-      email,
-      password,
-      remember_me,
-    });
+  const onSubmit = async ({ email, password, remember_me }: LoginInputType) => {
+    const payload: any = { email, password };
+    if (remember_me) {
+      payload.remember_me = true;
+    }
+
+    try {
+      await login(payload);
+      closeModal();
+      if (postLoginAction) {
+        postLoginAction();
+      } else {
+        Router.push('/');
+      }
+    } catch (error: any) {
+      console.log({ error });
+
+      // Safely extract error message
+      let message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Login failed. Please check your credentials.";
+
+      setError('password', {
+        type: 'manual',
+        message: typeof message === 'string' ? message : 'Login failed. Please try again.',
+      });
+    }
+
     console.log(email, password, remember_me, 'data');
-  }
+  };
+
+  console.log({ errors })
+
   function handelSocialLogin() {
     login({
       email: 'demo@demo.com',
@@ -126,8 +154,7 @@ const LoginForm: React.FC = () => {
         </span>
       </div>
       <Button
-        loading={isPending}
-        disabled={isPending}
+        disabled={true}
         className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
         onClick={handelSocialLogin}
       >
@@ -135,8 +162,7 @@ const LoginForm: React.FC = () => {
         {t('common:text-login-with-facebook')}
       </Button>
       <Button
-        loading={isPending}
-        disabled={isPending}
+        disabled={true}
         className="h-11 md:h-12 w-full mt-2.5 bg-google hover:bg-googleHover"
         onClick={handelSocialLogin}
       >

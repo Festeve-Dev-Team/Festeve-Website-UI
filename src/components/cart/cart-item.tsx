@@ -19,12 +19,15 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { addItemToCart, removeItemFromCart, clearItemFromCart } = useCart();
   const { price } = usePrice({
     amount: item.price,
-    currencyCode: 'USD',
+    currencyCode: 'INR',
   });
-  const { price: totalPrice } = usePrice({
+  // Combine the price calculations into one hook call
+  const priceInfo = usePrice({
     amount: item.itemTotal,
-    currencyCode: 'USD',
+    baseAmount: item.price,
+    currencyCode: 'INR',
   });
+  const totalPrice = priceInfo.price;
 
   return (
     <motion.div

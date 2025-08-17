@@ -185,12 +185,12 @@ export const homeThreeBanner = [
     image: {
       mobile: {
         // url: '/assets/images/banner/banner-mobile-3.jpg',
-        url: "/assets/images/banner/banner-3.jpg",
+        url: "https://shreeman.in/cdn/shop/files/Banner_Home_Page_2_copy_a805aca2-7647-438b-9864-a9c7e89f8f26.webp?v=1712235665&width=3200",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/images/banner/banner-3.jpg",
+        url: "https://shreeman.in/cdn/shop/files/Banner_Home_Page_2_copy_a805aca2-7647-438b-9864-a9c7e89f8f26.webp?v=1712235665&width=3200",
         width: 1800,
         height: 570,
       },
@@ -202,12 +202,12 @@ export const homeThreeBanner = [
     slug: "offer-everything",
     image: {
       mobile: {
-        url: "/assets/images/banner/banner-mobile-4.jpg",
+        url: "https://siyafashion.com/cdn/shop/files/Siya_Fashion_website_banner-Stylish_You_1_3024x.jpg?v=1725014326",
         width: 450,
         height: 130,
       },
       desktop: {
-        url: "/assets/images/banner/banner-4.jpg",
+        url: "https://siyafashion.com/cdn/shop/files/Siya_Fashion_website_banner-Stylish_You_1_3024x.jpg?v=1725014326",
         width: 1800,
         height: 420,
       },
@@ -221,12 +221,12 @@ export const homeThreeMasonryBanner = [
     slug: "mens-collection",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-1.jpg",
+        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
         width: 470,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-1.jpg",
+        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
         width: 1078,
         height: 425,
       },
@@ -239,12 +239,12 @@ export const homeThreeMasonryBanner = [
     slug: "new-sports",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-2.jpg",
+        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-2.jpg",
+        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
         width: 425,
         height: 425,
       },
@@ -257,12 +257,12 @@ export const homeThreeMasonryBanner = [
     slug: "dress-women",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-3.jpg",
+        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-3.jpg",
+        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
         width: 425,
         height: 425,
       },
@@ -275,12 +275,12 @@ export const homeThreeMasonryBanner = [
     slug: "exclusive-sunglasses",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-4.jpg",
+        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-4.jpg",
+        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
         width: 425,
         height: 425,
       },
@@ -293,12 +293,12 @@ export const homeThreeMasonryBanner = [
     slug: "product-coupons",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-5.jpg",
+        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-5.jpg",
+        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
         width: 425,
         height: 425,
       },
@@ -311,12 +311,12 @@ export const homeThreeMasonryBanner = [
     slug: "new-backpack",
     image: {
       mobile: {
-        url: "/assets/images/banner/masonry/banner-mobile-6.jpg",
+        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
         width: 470,
         height: 232,
       },
       desktop: {
-        url: "/assets/images/banner/masonry/banner-6.jpg",
+        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
         width: 1078,
         height: 425,
       },
@@ -389,14 +389,14 @@ export const promotionBanner = [
     slug: "travel-baggage",
     image: {
       mobile: {
-        url: "/assets/images/banner/slider/mobile/banner-1.jpg",
+        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/images/banner/slider/banner-1.jpg",
-        width: 1440,
-        height: 570,
+        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -407,14 +407,14 @@ export const promotionBanner = [
     slug: "women's-collection",
     image: {
       mobile: {
-        url: "/assets/images/banner/slider/mobile/banner-2.jpg",
+        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/images/banner/slider/banner-2.jpg",
-        width: 1440,
-        height: 570,
+        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -425,14 +425,14 @@ export const promotionBanner = [
     slug: "winter-collection",
     image: {
       mobile: {
-        url: "/assets/images/banner/slider/mobile/banner-3.jpg",
+        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/images/banner/slider/banner-3.jpg",
-        width: 1440,
-        height: 570,
+        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",
@@ -443,14 +443,14 @@ export const promotionBanner = [
     slug: "women's-collection",
     image: {
       mobile: {
-        url: "/assets/images/banner/slider/mobile/banner-2.jpg",
+        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/images/banner/slider/banner-2.jpg",
-        width: 1440,
-        height: 570,
+        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
+        width: 1500,
+        height: 800,
       },
     },
     type: "small",

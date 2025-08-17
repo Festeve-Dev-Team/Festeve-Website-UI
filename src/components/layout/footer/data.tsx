@@ -147,7 +147,7 @@ export const footer = {
         },
         {
           id: 2,
-          title: 'link-men-wear',
+          title: 'link-women-wear',
           path: '/search',
         },
         {

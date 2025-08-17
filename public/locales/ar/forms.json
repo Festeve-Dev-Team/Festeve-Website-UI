@@ -1,4 +1,12 @@
 {
+  "label-state": "الولاية",
+  "label-country": "البلد",
+  "label-special-day": "يوم خاص",
+  "label-special-person": "شخص خاص",
+  "label-date": "التاريخ",
+  "label-relation": "العلاقة",
+  "label-reminder-time": "وقت التذكير",
+  "label-categories": "الفئات",
   "email-error": "يرجى تقديم عنوان بريد إلكتروني صالح",
   "email-required": "البريد الإلكتروني مطلوب",
   "password-required": "كلمة المرور مطلوبة",

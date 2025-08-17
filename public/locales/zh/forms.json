@@ -1,4 +1,12 @@
 {
+  "label-state": "州/省",
+  "label-country": "国家",
+  "label-special-day": "特别日子",
+  "label-special-person": "特别的人",
+  "label-date": "日期",
+  "label-relation": "关系",
+  "label-reminder-time": "提醒时间",
+  "label-categories": "类别",
   "email-error": "请提供有效的电子邮件地址",
   "email-required": "需要郵箱",
   "password-required": "需要密碼",

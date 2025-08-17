@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                 {t("text-account")}
               </AuthMenu>
             </div>
-            <CartButton />
+            {isAuthorized && <CartButton />}
           </div>
         </div>
       </div>

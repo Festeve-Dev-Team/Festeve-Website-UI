@@ -78,24 +78,73 @@ export type Tag = {
   name: string;
   slug: string;
 };
+export type ProductVariant = {
+  _id: string;
+  sku: string;
+  specs: {
+    set?: string;
+    closures?: string;
+    ageGroup?: string;
+    [key: string]: unknown;
+  };
+  price: number;
+  stock: number;
+  discountType?: 'percentage' | 'fixed';
+  discountValue?: number;
+  images: string[];
+  size?: string;
+  color: string;
+  colorCode: string;
+  colorFamily: string;
+  material: string;
+  weight: number;
+  isActive: boolean;
+};
+
+export type Variation = {
+  id: number;
+  value: string;
+  meta?: string;
+  attribute: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+};
+
+export type ProductMeta = {
+  id: number;
+  title: string;
+  content: string;
+};
+
 export type Product = {
-  id: number | string;
+  _id: string;
   name: string;
   slug: string;
-  price: number;
-  quantity: number;
-  sale_price?: number;
-  image: Attachment;
-  sku?: string;
-  gallery?: Attachment[];
-  category?: Category;
-  tag?: Tag[];
-  tags?: Tag[];
-  meta?: any[];
-  description?: string;
-  variations?: object;
-  [key: string]: unknown;
-  isNewArrival?: boolean;
+  description: string;
+  assignedCategoryId: string;
+  assignedCategoryLevel: number;
+  categoryPathIds: string[];
+  categoryFullSlug: string;
+  categoryPathSlugs: string[];
+  isCategoryActiveAtAssignment: boolean;
+  tags: string[];
+  isHotItem: boolean;
+  ingredients: any[];
+  vendors: any[];
+  variants: ProductVariant[];
+  defaultDiscountType?: 'percentage' | 'fixed';
+  defaultDiscountValue?: number;
+  linkedEvents: string[];
+  isTrending: boolean;
+  meta: {
+    occasion: string[];
+    origin: string;
+    [key: string]: unknown;
+  };
+  createdAt: string;
+  updatedAt: string;
 };
 export type OrderItem = {
   id: number | string;

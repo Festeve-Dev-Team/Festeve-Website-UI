@@ -7,9 +7,7 @@ import usePrice from '@framework/product/use-price';
 import { IoClose } from 'react-icons/io5';
 import CartItem from './cart-item';
 import EmptyCart from './empty-cart';
-import Link from '@components/ui/link';
 import { ROUTES } from '@utils/routes';
-import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 
 export default function Cart() {
@@ -18,7 +16,7 @@ export default function Cart() {
   const { items, total, isEmpty } = useCart();
   const { price: cartTotal } = usePrice({
     amount: total,
-    currencyCode: 'USD',
+    currencyCode: 'INR',
   });
   return (
     <div className="flex flex-col justify-between w-full h-full">
@@ -60,28 +58,38 @@ export default function Cart() {
         </motion.div>
       )}
 
-      <div
-        className="flex flex-col px-5 pt-2 pb-5 md:px-7 md:pb-7"
-        onClick={closeCart}
-      >
-        <Link
-          href={isEmpty === false ? ROUTES.CHECKOUT : '/'}
-          className={cn(
-            'w-full px-5 py-3 md:py-4 flex items-center justify-center rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 ',
-            isEmpty
-              ? 'cursor-not-allowed bg-gray-400 hover:bg-gray-400'
-              : 'bg-heading hover:bg-gray-600'
-          )}
-        >
-          <span className="w-full ltr:pr-5 rtl:pl-5 -mt-0.5 py-0.5">
-            {/* @ts-ignore */}
-            {t('text-proceed-to-checkout')}
-          </span>
-          <span className="rtl:mr-auto ltr:ml-auto flex-shrink-0 -mt-0.5 py-0.5 flex">
-            <span className="ltr:border-l rtl:border-r border-white ltr:pr-5 rtl:pl-5 py-0.5" />
-            {cartTotal}
-          </span>
-        </Link>
+      <div className="flex flex-col px-5 pt-2 pb-5 md:px-7 md:pb-7">
+        {isEmpty ? (
+          <button
+            className="w-full px-5 py-3 md:py-4 flex items-center justify-center rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 cursor-not-allowed bg-gray-400 hover:bg-gray-400"
+            disabled
+          >
+            <span className="w-full ltr:pr-5 rtl:pl-5 -mt-0.5 py-0.5">
+              {t('text-proceed-to-checkout')}
+            </span>
+            <span className="rtl:mr-auto ltr:ml-auto flex-shrink-0 -mt-0.5 py-0.5 flex">
+              <span className="ltr:border-l rtl:border-r border-white ltr:pr-5 rtl:pl-5 py-0.5" />
+              {cartTotal}
+            </span>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              if (!isEmpty) {
+                window.location.href = ROUTES.CHECKOUT;
+              }
+            }}
+            className="w-full px-5 py-3 md:py-4 flex items-center justify-center rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 bg-heading hover:bg-gray-600"
+          >
+            <span className="w-full ltr:pr-5 rtl:pl-5 -mt-0.5 py-0.5">
+              {t('text-proceed-to-checkout')}
+            </span>
+            <span className="rtl:mr-auto ltr:ml-auto flex-shrink-0 -mt-0.5 py-0.5 flex">
+              <span className="ltr:border-l rtl:border-r border-white ltr:pr-5 rtl:pl-5 py-0.5" />
+              {cartTotal}
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );

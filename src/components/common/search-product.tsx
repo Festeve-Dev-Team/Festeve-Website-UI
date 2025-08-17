@@ -11,7 +11,7 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
   const { price, basePrice } = usePrice({
     amount: item.sale_price ? item.sale_price : item.price,
     baseAmount: item.price,
-    currencyCode: 'USD',
+    currencyCode: 'INR',
   });
   return (
     <Link

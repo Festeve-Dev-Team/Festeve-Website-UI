@@ -3,6 +3,7 @@ import { CheckBox } from "@components/ui/checkbox";
 import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "next-i18next";
+import Spinner from "@components/ui/loaders/spinner";
 
 export const CategoryFilter = () => {
   const { t } = useTranslation("common");
@@ -23,7 +24,7 @@ export const CategoryFilter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query?.category]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
 
   function handleItemClick(e: React.FormEvent<HTMLInputElement>): void {
     const { value } = e.currentTarget;

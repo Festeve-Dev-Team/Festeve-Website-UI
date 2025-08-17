@@ -7,10 +7,15 @@ import CookieBar from '@components/common/cookie-bar';
 import { useAcceptCookies } from '@utils/use-accept-cookies';
 import Button from '@components/ui/button';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
 	const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
 	const { t } = useTranslation('common');
+	const router = useRouter();
+	
+	const isAuthPage = router.pathname === '/signup' || router.pathname === '/signin';
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<NextSeo
@@ -20,12 +25,12 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 						content: 'width=device-width, initial-scale=1.0',
 					},
 				]}
-				title="ChawkBazar React - React Next E-commerce Template"
+				title="Festeve React - React Next E-commerce Template"
 				description="Fastest E-commerce template built with React, NextJS, TypeScript, @tanstack/react-query and Tailwind CSS."
-				canonical="https://chawkbazar.vercel.app/"
+				canonical="https://festeve.vercel.app/"
 				openGraph={{
-					url: 'https://chawkbazar.vercel.app',
-					title: 'ChawkBazar React - React Next E-commerce Template',
+					url: 'https://festeve.vercel.app',
+					title: 'Festeve React - React Next E-commerce Template',
 					description:
 						'Fastest E-commerce template built with React, NextJS, TypeScript, @tanstack/react-query and Tailwind CSS.',
 					images: [
@@ -44,7 +49,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 					],
 				}}
 			/>
-			<Header />
+			{!isAuthPage && <Header />}
 			<main
 				className="relative flex-grow"
 				style={{
@@ -54,9 +59,9 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 			>
 				{children}
 			</main>
-			<Footer />
-			<MobileNavigation />
-			<Search />
+			{!isAuthPage && <Footer />}
+			{!isAuthPage && <MobileNavigation />}
+			{!isAuthPage && <Search />}
 			<CookieBar
 				title={t('text-cookies-title')}
 				hide={acceptedCookies}

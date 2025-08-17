@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "@utils/routes";
 import { useUI } from "@contexts/ui.context";
+import { useCreateCartMutation } from "@framework/cart/use-create-cart";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useCart } from "@contexts/cart/cart.context";
@@ -11,27 +12,38 @@ import { generateCartItem } from "@utils/generate-cart-item";
 import usePrice from "@framework/product/use-price";
 import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
+import { getAllProductImages } from "@utils/get-product-images";
+import { showToast } from "@utils/toast";
+import { ProductVariant } from "@framework/types";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
   const {
-    modalData: { data },
+    modalData,
     closeModal,
     openCart,
+    isAuthorized,
+    setModalView,
+    openModal,
+    setPostLoginAction,
   } = useUI();
+  
+  const data = modalData?.data;
   const router = useRouter();
   const { addItemToCart } = useCart();
+  const { mutate: createCart } = useCreateCartMutation();
   const [quantity, setQuantity] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+
   const { price, basePrice, discount } = usePrice({
     amount: data.sale_price ? data.sale_price : data.price,
     baseAmount: data.price,
-    currencyCode: "USD",
+    currencyCode: 'INR',
   });
   const variations = getVariations(data.variations);
-  const { slug, image, name, description } = data;
+  const { slug, name, description } = data;
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -41,16 +53,43 @@ export default function ProductPopup() {
     : true;
 
   function addToCart() {
-    if (!isSelected) return;
+    if (!isSelected || !data) {
+      showToast('Please select all product options', 'error');
+      return;
+    }
     // to show btn feedback while product carting
     setAddToCartLoader(true);
-    setTimeout(() => {
+    try {
+      const selectedVariant = data.variants?.find((v: ProductVariant) => v.isActive) || data.variants?.[0];
+      
+      if (!selectedVariant) {
+        throw new Error('No variant available');
+      }
+
+      const cartItem = generateCartItem(data, selectedVariant, attributes);
+      // Add quantity and ensure attributes type
+      const item = {
+        ...cartItem,
+        quantity,
+        attributes: attributes as Record<string, string>
+      };
+      
+      // Call both the context update and the mutation
+      addItemToCart(item, quantity);
+      createCart({
+        productId: data._id,
+        variantId: selectedVariant._id,
+        quantity: quantity
+      });
+      showToast(`${data.name} added to cart successfully`, 'success');
+      setTimeout(() => {
+        setAddToCartLoader(false);
+        setViewCartBtn(true);
+      }, 600);
+    } catch (error) {
+      showToast('Failed to add item to cart', 'error');
       setAddToCartLoader(false);
-      setViewCartBtn(true);
-    }, 600);
-    const item = generateCartItem(data!, attributes);
-    addItemToCart(item, quantity);
-    console.log(item, "item");
+    }
   }
 
   function navigateToProductPage() {
@@ -68,10 +107,26 @@ export default function ProductPopup() {
   }
 
   function navigateToCartPage() {
+    if (!isAuthorized) {
+      setPostLoginAction(() => {
+        setTimeout(() => {
+          openCart();
+        }, 300);
+      });
+      setModalView("LOGIN_VIEW");
+      openModal();
+      return;
+    }
+
     closeModal();
     setTimeout(() => {
       openCart();
     }, 300);
+  }
+ 
+  // Early return if no data to prevent hydration issues
+  if (!data) {
+    return null;
   }
 
   return (
@@ -81,7 +136,7 @@ export default function ProductPopup() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
-              image?.original ??
+              getAllProductImages(data)[0] ||
               "/assets/placeholder/products/product-thumbnail.svg"
             }
             alt={name}

@@ -8,8 +8,16 @@ const ForgetPasswordForm = dynamic(
 	() => import("@components/auth/forget-password-form")
 );
 const ProductPopup = dynamic(() => import("@components/product/product-popup"));
+const NewsletterConfirm = dynamic(() => import("@components/common/newsletter-confirm"));
+interface SubscriptionData {
+	email?: string;
+	token?: string;
+	onConfirm?: (token: string) => void;
+}
+
 const ManagedModal: React.FC = () => {
-	const { displayModal, closeModal, modalView } = useUI();
+	const { displayModal, closeModal, modalView, modalData } = useUI();
+	const subscriptionData = modalData as SubscriptionData;
 	return (
 		<Modal open={displayModal} onClose={closeModal}>
 			{modalView === "LOGIN_VIEW" && <LoginForm />}
@@ -17,6 +25,12 @@ const ManagedModal: React.FC = () => {
 			{modalView === "FORGET_PASSWORD" && <ForgetPasswordForm />}
 			{modalView === "PRODUCT_VIEW" && <ProductPopup />}
 			{modalView === "NEWSLETTER_VIEW" && <Newsletter />}
+			{modalView === "NEWSLETTER_CONFIRM_VIEW" && subscriptionData && (
+				<NewsletterConfirm 
+					email={subscriptionData.email || ""} 
+					onConfirm={() => subscriptionData.onConfirm?.(subscriptionData.token || "")} 
+				/>
+			)}
 		</Modal>
 	);
 };

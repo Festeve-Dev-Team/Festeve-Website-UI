@@ -338,7 +338,7 @@
 }
 
 /* Breadcrumb truncate last child */
-.chawkbazarBreadcrumb li:last-child {
+.festeveBreadcrumb li:last-child {
   @apply truncate;
 }
 

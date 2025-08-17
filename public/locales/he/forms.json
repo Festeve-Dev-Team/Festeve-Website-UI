@@ -1,4 +1,12 @@
 {
+  "label-state": "מדינה",
+  "label-country": "ארץ",
+  "label-special-day": "יום מיוחד",
+  "label-special-person": "אדם מיוחד",
+  "label-date": "תאריך",
+  "label-relation": "קשר",
+  "label-reminder-time": "זמן תזכורת",
+  "label-categories": "קטגוריות",
   "email-error": "אנא ספק כתובת דוא'ל תקפה",
   "email-required": "עליך להזין את כתובת הדוא'ל שלך",
   "password-required": "עליך להזין את הסיסמה שלך",

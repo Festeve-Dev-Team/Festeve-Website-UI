@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useRouter } from "next/router";
-import { useProductQuery } from "@framework/product/get-product";
-import { getVariations } from "@framework/utils/get-variations";
 import usePrice from "@framework/product/use-price";
+import { useCreateCartMutation } from "@framework/cart/use-create-cart";
 import { useCart } from "@contexts/cart/cart.context";
-import { generateCartItem } from "@utils/generate-cart-item";
 import { ProductAttributes } from "./product-attributes";
 import isEmpty from "lodash/isEmpty";
 import Link from "@components/ui/link";
-import { toast } from "react-toastify";
 import { useWindowSize } from "@utils/use-window-size";
+import { showToast } from "@utils/toast";
 import Carousel from "@components/ui/carousel/carousel";
 import { SwiperSlide } from "swiper/react";
 import ProductMetaReview from "@components/product/product-meta-review";
 import { useSsrCompatible } from "@utils/use-ssr-compatible";
+import { useUI } from "@contexts/ui.context";
+import { Product, ProductVariant } from "@framework/types";
+import { getAllProductImages } from "@utils/get-product-images";
+import { useProductsQuery } from "@framework/product/get-all-products";
+import { useTranslation } from "next-i18next";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -27,52 +30,177 @@ const productGalleryCarouselResponsive = {
 };
 
 const ProductSingleDetails: React.FC = () => {
-  const {
-    query: { slug },
-  } = useRouter();
+  const router = useRouter();
   const { width } = useSsrCompatible(useWindowSize(), { width: 0, height: 0 });
-  const { data, isLoading } = useProductQuery(slug as string);
-  const { addItemToCart } = useCart();
+  const { modalData, openCart, isAuthorized, setModalView, openModal, setPostLoginAction } = useUI();
+  const { slug } = router.query;
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState(1);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  const { price, basePrice, discount } = usePrice(
-    data && {
-      amount: data.sale_price ? data.sale_price : data.price,
-      baseAmount: data.price,
-      currencyCode: "USD",
+  const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
+  const { t } = useTranslation("common");
+
+  // All hooks at the top level
+  const { data: productsData, isLoading } = useProductsQuery({
+    limit: 100
+  });
+  const { addItemToCart } = useCart();
+  const { mutate: createCart } = useCreateCartMutation();
+
+  // Find the specific product by id (using slug as id) or use modal data
+  const productData = productsData?.pages?.[0]?.data?.find((p: Product) => p.slug === slug);
+  const data = modalData?.data || productData;
+
+  // State for selected variant
+  const [selectedVariant, setSelectedVariant] = useState(data?.variants?.[0]);
+
+  // Update selected variant and initialize attributes when data changes
+  useEffect(() => {
+    if (data?.variants?.length > 0) {
+      const defaultVariant = data.variants[0];
+      setSelectedVariant(defaultVariant);
+      
+      // Initialize default attributes from the variant's specs
+      if (defaultVariant.specs) {
+        const defaultAttributes: { [key: string]: string } = {};
+        Object.entries(defaultVariant.specs).forEach(([key, value]) => {
+          if (typeof value === 'string') {
+            defaultAttributes[key] = value;
+          }
+        });
+        setAttributes(defaultAttributes);
+      }
     }
-  );
-  if (isLoading) return <p>Loading...</p>;
-  const variations = getVariations(data?.variations);
+  }, [data]);
 
-  const isSelected = !isEmpty(variations)
-    ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
+  // Always call usePrice with a consistent structure
+  const priceInfo = usePrice({
+    amount: selectedVariant?.price ?? 0,
+    baseAmount: selectedVariant?.price ?? 0,
+    currencyCode: 'INR',
+    discountType: selectedVariant?.discountType,
+    discountValue: selectedVariant?.discountValue
+  });
+  const { price, basePrice, discount } = priceInfo;
+
+  useEffect(() => {
+    if (!isLoading && (!data || !data.variants?.length)) {
+      router.replace('/products');
+    }
+  }, [data, router, isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-96 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-t-4 border-gray-200 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!data || !data.variants?.length) {
+    return null;
+  }
+  // Get current variant's specs
+  const specs = selectedVariant?.specs ?? {};
+  
+  // A variant is considered selected if:
+  // 1. We have a selectedVariant
+  // 2. Either there are no specs to select, or all required specs have been selected
+  const isSelected = !!selectedVariant && (
+    isEmpty(specs) || 
+    (
+      !isEmpty(attributes) &&
+      Object.keys(specs).every(spec => 
+        !specs[spec] || // Skip if spec value is null/undefined
+        attributes.hasOwnProperty(spec)
       )
-    : true;
+    )
+  );
 
-  function addToCart() {
-    if (!isSelected) return;
-    // to show btn feedback while product carting
-    setAddToCartLoader(true);
+  function navigateToCartPage() {
+    if (!isAuthorized) {
+      setPostLoginAction(() => {
+        setTimeout(() => {
+          openCart();
+        }, 300);
+      });
+      setModalView("LOGIN_VIEW");
+      openModal();
+      return;
+    }
+
     setTimeout(() => {
-      setAddToCartLoader(false);
-    }, 600);
+      openCart();
+    }, 300);
+  }
 
-    const item = generateCartItem(data!, attributes);
-    addItemToCart(item, quantity);
-    toast("Added to the bag", {
-      progressClassName: "fancy-progress-bar",
-      position: width > 768 ? "bottom-right" : "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-    console.log(item, "item");
+  const addToCart = () => {
+    if (!data) {
+      showToast("Product data not available", "error");
+      return;
+    }
+
+    // If no variant is selected, use the first available variant
+    if (!selectedVariant && data.variants?.length > 0) {
+      setSelectedVariant(data.variants[0]);
+    }
+
+    const variantToUse = selectedVariant || data.variants?.[0];
+
+    if (!variantToUse) {
+      showToast("No product variant available", "error");
+      return;
+    }
+
+    try {
+      setAddToCartLoader(true);
+
+      // Generate a unique ID for the cart item based on product and variant
+      const cartItemId = `${data._id}-${variantToUse._id}`;
+
+      // Create cart item matching the expected Item interface
+      const item = {
+        id: cartItemId,
+        name: data.name,
+        slug: data.slug,
+        image: variantToUse.images?.[0],
+        price: variantToUse.price,
+        variant_id: variantToUse._id,
+        product_id: data._id,
+        sku: variantToUse.sku,
+        variant: {
+          _id: variantToUse._id,
+          sku: variantToUse.sku,
+          specs: variantToUse.specs,
+          size: variantToUse.size,
+          color: variantToUse.color,
+          colorCode: variantToUse.colorCode,
+          colorFamily: variantToUse.colorFamily,
+          material: variantToUse.material,
+          weight: variantToUse.weight
+        },
+        attributes: attributes as Record<string, string>,
+        quantity: quantity
+      };
+
+      // Add item to cart using both context and mutation
+      addItemToCart(item, quantity);
+      createCart({
+        productId: data._id,
+        variantId: variantToUse._id,
+        quantity: quantity
+      });
+
+      showToast(`${data.name} added to cart successfully`, "success");
+
+      setTimeout(() => {
+        setAddToCartLoader(false);
+        setViewCartBtn(true);
+      }, 600);
+    } catch (error) {
+      showToast("Failed to add item to cart", "error");
+      setAddToCartLoader(false);
+    }
   }
 
   function handleAttribute(attribute: any) {
@@ -93,15 +221,12 @@ const ProductSingleDetails: React.FC = () => {
           className="product-gallery"
           buttonGroupClassName="hidden"
         >
-          {data?.gallery?.map((item, index: number) => (
+          {getAllProductImages(data).map((image: string, index: number) => (
             <SwiperSlide key={`product-gallery-key-${index}`}>
               <div className="col-span-1 transition duration-150 ease-in hover:opacity-90">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={
-                    item?.original ??
-                    "/assets/placeholder/products/product-gallery.svg"
-                  }
+                  src={image || "/assets/placeholder/products/product-gallery.svg"}
                   alt={`${data?.name}--${index}`}
                   className="object-cover w-full"
                 />
@@ -111,18 +236,15 @@ const ProductSingleDetails: React.FC = () => {
         </Carousel>
       ) : (
         <div className="col-span-5 grid grid-cols-2 gap-2.5">
-          {data?.gallery?.map((item, index: number) => (
+          {getAllProductImages(data).map((image, index) => (
             <div
               key={index}
               className="col-span-1 transition duration-150 ease-in hover:opacity-90"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={
-                  item?.original ??
-                  "/assets/placeholder/products/product-gallery.svg"
-                }
-                alt={`${data?.name}--${index}`}
+                src={image || "/assets/placeholder/products/product-gallery.svg"}
+                alt={`${data.name}--${index}`}
                 className="object-cover w-full"
               />
             </div>
@@ -151,38 +273,77 @@ const ProductSingleDetails: React.FC = () => {
         </div>
 
         <div className="pb-3 border-b border-gray-300">
-          {Object.keys(variations).map((variation) => {
+          {/* Variant Selection */}
+          {data?.variants && data.variants.length > 1 && (
+            <div className="mb-4">
+              <h3 className="text-base font-semibold mb-2">{t("text-select-variant")}</h3>
+              <div className="flex flex-wrap gap-2">
+                {data.variants.map((variant: ProductVariant, index: number) => {
+                  const isVariantSelected = selectedVariant?.sku === variant.sku;
+                  return (
+                    <Button
+                      key={variant._id}
+                      onClick={() => setSelectedVariant(variant)}
+                      variant={isVariantSelected ? "flat" : "smoke"}
+                      className={`min-w-[100px] ${isVariantSelected ? 'shadow-sm' : ''}`}
+                    >
+                      {variant.color || `Variant ${index + 1}`}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Variant Specs */}
+          {selectedVariant?.specs && Object.entries(selectedVariant.specs).map(([key, value]) => {
             return (
               <ProductAttributes
-                key={variation}
-                title={variation}
-                attributes={variations[variation]}
-                active={attributes[variation]}
+                key={key}
+                title={key}
+                attributes={[{ id: 1, value: value as string, meta: '' }]}
+                active={attributes[key]}
                 onClick={handleAttribute}
               />
             );
           })}
         </div>
-        <div className="flex items-center gap-x-4 ltr:md:pr-32 rtl:md:pl-32 ltr:lg:pr-12 rtl:lg:pl-12 ltr:2xl:pr-32 rtl:2xl:pl-32 ltr:3xl:pr-48 rtl:3xl:pl-48  border-b border-gray-300 py-8">
-          <Counter
-            quantity={quantity}
-            onIncrement={() => setQuantity((prev) => prev + 1)}
-            onDecrement={() =>
-              setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-            }
-            disableDecrement={quantity === 1}
-          />
-          <Button
-            onClick={addToCart}
-            variant="slim"
-            className={`w-full md:w-6/12 xl:w-full ${
-              !isSelected && "bg-gray-400 hover:bg-gray-400"
-            }`}
-            disabled={!isSelected}
-            loading={addToCartLoader}
-          >
-            <span className="py-2 3xl:px-8">Add to cart</span>
-          </Button>
+        <div className="flex flex-col gap-2.5 border-b border-gray-300 py-8">
+          <div className="flex items-center gap-x-4">
+            <Counter
+              quantity={quantity}
+              onIncrement={() => setQuantity((prev) => prev + 1)}
+              onDecrement={() =>
+                setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+              }
+              disableDecrement={quantity === 1}
+            />
+            <Button
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addToCart();
+              }}
+              type="button"
+              variant="slim"
+              className={`w-full md:w-6/12 xl:w-full ${!isSelected && "bg-gray-400 hover:bg-gray-400"
+                }`}
+              disabled={!isSelected}
+              loading={addToCartLoader}
+            >
+              <span className="py-2 3xl:px-8">{t("text-add-to-cart")}</span>
+            </Button>
+          </div>
+
+          {viewCartBtn && (
+            <Button
+              onClick={navigateToCartPage}
+              variant="flat"
+              className="w-full h-11 md:h-12"
+            >
+              {t("text-view-cart")}
+            </Button>
+          )}
         </div>
         <div className="py-6">
           <ul className="text-sm space-y-5 pb-1">
@@ -190,33 +351,32 @@ const ProductSingleDetails: React.FC = () => {
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                 SKU:
               </span>
-              {data?.sku}
+              {selectedVariant?.sku}
             </li>
             <li>
               <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                 Category:
               </span>
               <Link
-                href="/"
+                href={`/category/${data.category}`}
                 className="transition hover:underline hover:text-heading"
               >
-                {data?.category?.name}
+                {data.category}
               </Link>
             </li>
-            {data?.tags && Array.isArray(data.tags) && (
+            {data.tags && data.tags.length > 0 && (
               <li className="productTags">
                 <span className="font-semibold text-heading inline-block ltr:pr-2 rtl:pl-2">
                   Tags:
                 </span>
-                {data.tags.map((tag) => (
-                  <Link
-                    key={tag.id}
-                    href={tag.slug}
+                {data.tags.map((tag: string, index: number) => (
+                  <span
+                    key={index}
                     className="inline-block ltr:pr-1.5 rtl:pl-1.5 transition hover:underline hover:text-heading ltr:last:pr-0 rtl:last:pl-0"
                   >
-                    {tag.name}
-                    <span className="text-heading">,</span>
-                  </Link>
+                    {tag}
+                    {index < data.tags.length - 1 && <span className="text-heading">,</span>}
+                  </span>
                 ))}
               </li>
             )}

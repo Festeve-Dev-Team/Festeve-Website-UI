@@ -1,110 +1,110 @@
 [
   {
     "id": 1,
-    "name": "Bags",
+    "name": "Food",
     "products": [
       {
         "id": 1,
-        "slug": "/search?q=bag-in-fashion",
+        "slug": "/search?q=food",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/bags/1.png",
-          "original": "/assets/images/category/two/bags/1.png"
+          "thumbnail": "/assets/images/food.png",
+          "original": "/assets/images/food.png"
         }
       },
       {
         "id": 2,
-        "slug": "/search?q=bag-in-fashion",
+        "slug": "/search?q=food",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/bags/2.png",
-          "original": "/assets/images/category/two/bags/2.png"
+          "thumbnail": "/assets/images/food.png",
+          "original": "/assets/images/food.png"
         }
       },
       {
         "id": 3,
-        "slug": "/search?q=bag-in-fashion",
+        "slug": "/search?q=food",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/bags/3.png",
-          "original": "/assets/images/category/two/bags/3.png"
+          "thumbnail": "/assets/images/food.png",
+          "original": "/assets/images/food.png"
         }
       }
     ]
   },
   {
     "id": 2,
-    "name": "Shoes",
+    "name": "Clothing",
     "products": [
       {
         "id": 1,
-        "slug": "/search?q=shoes-in-fashion",
+        "slug": "/search?q=clothing",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/shoes/1.png",
-          "original": "/assets/images/category/two/shoes/1.png"
+          "thumbnail": "/assets/images/slidecloth.png",
+          "original": "/assets/images/slidecloth.png"
         }
       },
       {
         "id": 2,
-        "slug": "/search?q=shoes-in-fashion",
+        "slug": "/search?q=clothing",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/shoes/2.png",
-          "original": "/assets/images/category/two/shoes/2.png"
+          "thumbnail": "/assets/images/food.png",
+          "original": "/assets/images/food.png"
         }
       },
       {
         "id": 3,
-        "slug": "/search?q=shoes-in-fashion",
+        "slug": "/search?q=clothing",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/shoes/3.png",
-          "original": "/assets/images/category/two/shoes/3.png"
+          "thumbnail": "/assets/images/food.png",
+          "original": "/assets/images/food.png"
         }
       }
     ]
   },
   {
     "id": 3,
-    "name": "Wallets",
+    "name": "Essentials",
     "products": [
       {
         "id": 1,
-        "slug": "/search?q=wallet-in-fashion",
+        "slug": "/search?q=essentials",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/wallets/1.png",
-          "original": "/assets/images/category/two/wallets/1.png"
+          "thumbnail": "/assets/images/essentials.png",
+          "original": "/assets/images/essentials.png"
         }
       },
       {
         "id": 2,
-        "slug": "/search?q=wallet-in-fashion",
+        "slug": "/search?q=essentials",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/wallets/2.png",
-          "original": "/assets/images/category/two/wallets/2.png"
+          "thumbnail": "/assets/images/essentials.png",
+          "original": "/assets/images/essentials.png"
         }
       },
       {
         "id": 3,
-        "slug": "/search?q=wallet-in-fashion",
+        "slug": "/search?q=essentials",
         "image": {
           "id": 1,
-          "thumbnail": "/assets/images/category/two/wallets/3.png",
-          "original": "/assets/images/category/two/wallets/3.png"
+          "thumbnail": "/assets/images/essentials.png",
+          "original": "/assets/images/essentials.png"
         }
       }
     ]
   },
   {
     "id": 4,
-    "name": "Jewellers",
+    "name": "Purohit",
     "products": [
       {
         "id": 1,
-        "slug": "/search?q=jeweller-in-fashion",
+        "slug": "/search?q=purohit",
         "image": {
           "id": 1,
           "thumbnail": "/assets/images/category/two/jewellers/1.png",
@@ -113,7 +113,7 @@
       },
       {
         "id": 2,
-        "slug": "/search?q=jeweller-in-fashion",
+        "slug": "/search?q=purohit",
         "image": {
           "id": 1,
           "thumbnail": "/assets/images/category/two/jewellers/2.png",
@@ -122,7 +122,7 @@
       },
       {
         "id": 3,
-        "slug": "/search?q=jeweller-in-fashion",
+        "slug": "/search?q=purohit",
         "image": {
           "id": 1,
           "thumbnail": "/assets/images/category/two/jewellers/3.png",

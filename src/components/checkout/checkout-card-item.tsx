@@ -6,7 +6,7 @@ import Image from "next/image";
 export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
   const { price } = usePrice({
     amount: item.itemTotal,
-    currencyCode: "USD",
+    currencyCode: 'INR',
   });
   return (
     <div className="flex py-4 items-center lg:px-3 border-b border-gray-300">

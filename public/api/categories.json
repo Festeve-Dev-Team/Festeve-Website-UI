@@ -2,24 +2,24 @@
   "data": [
     {
       "id": 1,
-      "name": "Woman",
-      "slug": "woman",
+      "name": "Food",
+      "slug": "food",
       "productCount": 20,
-      "icon": "/assets/images/category/icons/woman.png",
-      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze"],
+      "icon": "/assets/images/food.png",
+      "tags": [],
       "image": {
         "id": 1,
-        "thumbnail": "/assets/images/category/woman.jpg",
-        "original": "/assets/images/category/woman.jpg"
+        "thumbnail": "/assets/images/food.png",
+        "original": "/assets/images/food.png"
       }
     },
     {
       "id": 2,
-      "name": "Man",
-      "slug": "man",
+      "name": "Clothing",
+      "slug": "clothing",
       "productCount": 20,
-      "icon": "/assets/images/category/icons/man.png",
-      "tags": ["shovia", "fusion", "elegance", "blaze"],
+      "icon": "/assets/images/slidecloth.png",
+      "tags": [],
       "image": {
         "id": 1,
         "thumbnail": "/assets/images/category/man.jpg",
@@ -28,93 +28,41 @@
     },
     {
       "id": 3,
-      "name": "Watch",
-      "slug": "watch",
+      "name": "Essentials",
+      "slug": "essentials",
       "productCount": 20,
-      "icon": "/assets/images/category/icons/watch.png",
-      "tags": ["fusion", "elegance", "blaze"],
+      "icon": "/assets/images/essentials.png",
+      "tags": [],
       "image": {
         "id": 1,
-        "thumbnail": "/assets/images/category/watch.jpg",
-        "original": "/assets/images/category/watch.jpg"
+        "thumbnail": "/assets/images/essentials.png",
+        "original": "/assets/images/essentials.png"
       }
     },
     {
       "id": 4,
-      "name": "Kids",
-      "slug": "kids",
+      "name": "Purohit",
+      "slug": "purohit",
       "productCount": 20,
-      "icon": "/assets/images/category/icons/kids.png",
-      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze"],
+      "icon": "/assets/images/purohits.png",
+      "tags": [],
       "image": {
         "id": 1,
-        "thumbnail": "/assets/images/category/kid.jpg",
-        "original": "/assets/images/category/kid.jpg"
+        "thumbnail": "/assets/images/purohits.png",
+        "original": "/assets/images/purohits.png"
       }
     },
     {
       "id": 5,
-      "name": "Sports",
-      "slug": "sports",
+      "name": "Gifts",
+      "slug": "gifts",
       "productCount": 20,
-      "icon": "/assets/images/category/icons/sports.png",
-      "tags": ["fusion", "elegance", "blaze"],
+      "icon": "/assets/images/gifts.png",
+      "tags": [],
       "image": {
         "id": 1,
-        "thumbnail": "/assets/images/category/sports.jpg",
-        "original": "/assets/images/category/sports.jpg"
-      }
-    },
-    {
-      "id": 6,
-      "name": "Sunglass",
-      "slug": "sunglass",
-      "productCount": 20,
-      "icon": "/assets/images/category/icons/sunglass.png",
-      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze"],
-      "image": {
-        "id": 1,
-        "thumbnail": "/assets/images/category/sunglass.jpg",
-        "original": "/assets/images/category/sunglass.jpg"
-      }
-    },
-    {
-      "id": 7,
-      "name": "Bags",
-      "slug": "bags",
-      "productCount": 20,
-      "icon": "/assets/images/category/icons/bags.png",
-      "tags": ["shovia", "fusion", "elegance", "blaze"],
-      "image": {
-        "id": 1,
-        "thumbnail": "/assets/images/category/bags.jpg",
-        "original": "/assets/images/category/bags.jpg"
-      }
-    },
-    {
-      "id": 8,
-      "name": "Sneakers",
-      "slug": "sneakers",
-      "productCount": 20,
-      "icon": "/assets/images/category/icons/sneakers.png",
-      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze", "club"],
-      "image": {
-        "id": 1,
-        "thumbnail": "/assets/images/category/sneakers.jpg",
-        "original": "/assets/images/category/sneakers.jpg"
-      }
-    },
-    {
-      "id": 9,
-      "name": "Sports",
-      "slug": "sports",
-      "productCount": 20,
-      "icon": "/assets/images/category/icons/sports.png",
-      "tags": ["fusion", "elegance", "blaze"],
-      "image": {
-        "id": 1,
-        "thumbnail": "/assets/images/category/sports.jpg",
-        "original": "/assets/images/category/sports.jpg"
+        "thumbnail": "/assets/images/gifts.png",
+        "original": "/assets/images/gifts.png"
       }
     }
   ]

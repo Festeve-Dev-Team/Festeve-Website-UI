@@ -14,11 +14,13 @@
   "menu-women-wear": "Women Wear",
   "menu-casual-wear": "Casual Wear",
   "menu-search": "Search",
+  "menu-food": "Food",
   "menu-users": "Users",
   "menu-my-account": "My Account",
   "menu-sign-in": "Sign In",
   "menu-sign-up": "Sign Up",
   "menu-forget-password": "Forget Password",
+  "menu-logout": "Logout",
   "menu-shops": "Shops",
   "menu-pages": "Pages",
   "menu-faq": "FAQ",
@@ -87,5 +89,6 @@
   "menu-bags": "Bags",
   "menu-jewelry": "Jewelry",
   "menu-sunglasses": "Sunglasses",
-  "menu-sneakers": "Sneakers"
+  "menu-sneakers": "Sneakers",
+  "menu-purohits": "Purohits"
 }
