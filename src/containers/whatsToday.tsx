@@ -22,10 +22,10 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
     const [formattedDate, setFormattedDate] = useState('');
 
     useEffect(() => {
-        setFormattedDate(new Date().toLocaleDateString(undefined, { 
-            day: '2-digit', 
-            month: 'long', 
-            year: 'numeric' 
+        setFormattedDate(new Date().toLocaleDateString(undefined, {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
         }));
     }, []);
 
@@ -44,7 +44,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
 
     return (
         <div className={className}>
-            <div className="text-center text-green-900 font-bold text-xl">What's Today</div>
+            <div className="text-center text-green-900 font-bold text-xl">What&apos;s Today</div>
 
             <motion.div
                 initial={{ opacity: 0 }}

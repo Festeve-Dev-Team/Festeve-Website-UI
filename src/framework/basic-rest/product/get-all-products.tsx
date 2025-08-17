@@ -22,7 +22,12 @@ const useProductsQuery = (options: QueryOptionsType) => {
 		queryKey: [API_ENDPOINTS.PRODUCTS, options],
 		queryFn: fetchProducts,
 		initialPageParam: 0,
-		getNextPageParam: ({ paginatorInfo }) => paginatorInfo.nextPageUrl,
+		getNextPageParam: ({ paginatorInfo }) => {
+			// Check if nextPageUrl exists and has content before returning it
+			return paginatorInfo?.nextPageUrl && paginatorInfo.nextPageUrl.length > 0
+				? paginatorInfo.nextPageUrl
+				: undefined;
+		},
 	});
 };
 

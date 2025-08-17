@@ -30,10 +30,10 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         {isLoading && !data?.pages?.length ? (
           <ProductFeedLoader limit={20} uniqueKey="search-product" />
         ) : (
-          data?.pages?.map((page) => {
-            return page?.data?.map((product: Product) => (
+          data?.pages?.map((page, pageIndex) => {
+            return page?.data?.map((product: Product, productIndex: number) => (
               <ProductCard
-                key={`product--key${product.id}`}
+                key={`product--key${product.id || `${pageIndex}-${productIndex}`}`}
                 product={product}
                 variant="grid"
               />
