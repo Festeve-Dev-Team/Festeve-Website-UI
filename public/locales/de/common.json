@@ -1,4 +1,11 @@
 {
+  "text-sign-up": "Anmelden",
+  "button-edit": "Bearbeiten",
+  "button-cancel": "Abbrechen",
+  "button-confirm": "Bestätigen",
+  "text-page-wallet": "Geldbörse",
+  "text-special-day-reminder": "Besonderer Tag Erinnerung",
+  "text-popular-products": "Beliebte Produkte",
   "error-heading": "Sieht aus wie du verloren bist",
   "error-sub-heading": "Wir können die gesuchte Seite nicht finden",
   "support-heading": "Sprechen Sie mit einer realen Person",

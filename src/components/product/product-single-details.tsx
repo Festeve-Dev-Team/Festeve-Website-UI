@@ -3,6 +3,7 @@ import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useRouter } from "next/router";
 import usePrice from "@framework/product/use-price";
+import { useCreateCartMutation } from "@framework/cart/use-create-cart";
 import { useCart } from "@contexts/cart/cart.context";
 import { ProductAttributes } from "./product-attributes";
 import isEmpty from "lodash/isEmpty";
@@ -44,6 +45,7 @@ const ProductSingleDetails: React.FC = () => {
     limit: 100
   });
   const { addItemToCart } = useCart();
+  const { mutate: createCart } = useCreateCartMutation();
 
   // Find the specific product by id (using slug as id) or use modal data
   const productData = productsData?.pages?.[0]?.data?.find((p: Product) => p.slug === slug);
@@ -52,10 +54,22 @@ const ProductSingleDetails: React.FC = () => {
   // State for selected variant
   const [selectedVariant, setSelectedVariant] = useState(data?.variants?.[0]);
 
-  // Update selected variant when data changes
+  // Update selected variant and initialize attributes when data changes
   useEffect(() => {
     if (data?.variants?.length > 0) {
-      setSelectedVariant(data.variants[0]);
+      const defaultVariant = data.variants[0];
+      setSelectedVariant(defaultVariant);
+      
+      // Initialize default attributes from the variant's specs
+      if (defaultVariant.specs) {
+        const defaultAttributes: { [key: string]: string } = {};
+        Object.entries(defaultVariant.specs).forEach(([key, value]) => {
+          if (typeof value === 'string') {
+            defaultAttributes[key] = value;
+          }
+        });
+        setAttributes(defaultAttributes);
+      }
     }
   }, [data]);
 
@@ -86,28 +100,22 @@ const ProductSingleDetails: React.FC = () => {
   if (!data || !data.variants?.length) {
     return null;
   }
+  // Get current variant's specs
   const specs = selectedVariant?.specs ?? {};
-  // If specs are empty and we have a variant, set default specs
-  if (isEmpty(specs) && selectedVariant) {
-    type SpecsType = { [key: string]: string };
-    const defaultSpecs: SpecsType = {};
-
-    // Only add specs that exist on the variant
-    if (selectedVariant.size) {
-      defaultSpecs.size = selectedVariant.size;
-    }
-    if (selectedVariant.color) {
-      defaultSpecs.color = selectedVariant.color;
-    }
-
-    Object.assign(specs, defaultSpecs);
-  }
-  const isSelected = !isEmpty(specs)
-    ? !isEmpty(attributes) &&
-    Object.keys(specs).every((spec) =>
-      attributes.hasOwnProperty(spec)
+  
+  // A variant is considered selected if:
+  // 1. We have a selectedVariant
+  // 2. Either there are no specs to select, or all required specs have been selected
+  const isSelected = !!selectedVariant && (
+    isEmpty(specs) || 
+    (
+      !isEmpty(attributes) &&
+      Object.keys(specs).every(spec => 
+        !specs[spec] || // Skip if spec value is null/undefined
+        attributes.hasOwnProperty(spec)
+      )
     )
-    : true;
+  );
 
   function navigateToCartPage() {
     if (!isAuthorized) {
@@ -127,8 +135,20 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   const addToCart = () => {
-    if (!isSelected || !data || !selectedVariant) {
-      showToast("Please select all product options", "error");
+    if (!data) {
+      showToast("Product data not available", "error");
+      return;
+    }
+
+    // If no variant is selected, use the first available variant
+    if (!selectedVariant && data.variants?.length > 0) {
+      setSelectedVariant(data.variants[0]);
+    }
+
+    const variantToUse = selectedVariant || data.variants?.[0];
+
+    if (!variantToUse) {
+      showToast("No product variant available", "error");
       return;
     }
 
@@ -136,24 +156,40 @@ const ProductSingleDetails: React.FC = () => {
       setAddToCartLoader(true);
 
       // Generate a unique ID for the cart item based on product and variant
-      const cartItemId = `${data.id}-${selectedVariant.id}`;
+      const cartItemId = `${data._id}-${variantToUse._id}`;
 
       // Create cart item matching the expected Item interface
       const item = {
         id: cartItemId,
         name: data.name,
         slug: data.slug,
-        image: selectedVariant.images?.[0] || data.image?.original,
-        price: selectedVariant.price,
-        variant_id: selectedVariant.id,
-        product_id: data.id,
-        sku: selectedVariant.sku,
-        variant: selectedVariant,
-        attributes: attributes
+        image: variantToUse.images?.[0],
+        price: variantToUse.price,
+        variant_id: variantToUse._id,
+        product_id: data._id,
+        sku: variantToUse.sku,
+        variant: {
+          _id: variantToUse._id,
+          sku: variantToUse.sku,
+          specs: variantToUse.specs,
+          size: variantToUse.size,
+          color: variantToUse.color,
+          colorCode: variantToUse.colorCode,
+          colorFamily: variantToUse.colorFamily,
+          material: variantToUse.material,
+          weight: variantToUse.weight
+        },
+        attributes: attributes as Record<string, string>,
+        quantity: quantity
       };
 
-      // Add item to cart using the cart context function
+      // Add item to cart using both context and mutation
       addItemToCart(item, quantity);
+      createCart({
+        productId: data._id,
+        variantId: variantToUse._id,
+        quantity: quantity
+      });
 
       showToast(`${data.name} added to cart successfully`, "success");
 
@@ -246,7 +282,7 @@ const ProductSingleDetails: React.FC = () => {
                   const isVariantSelected = selectedVariant?.sku === variant.sku;
                   return (
                     <Button
-                      key={variant.id}
+                      key={variant._id}
                       onClick={() => setSelectedVariant(variant)}
                       variant={isVariantSelected ? "flat" : "smoke"}
                       className={`min-w-[100px] ${isVariantSelected ? 'shadow-sm' : ''}`}

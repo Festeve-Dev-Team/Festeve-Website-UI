@@ -1,7 +1,6 @@
 import Container from '@components/ui/container';
 import Layout from '@components/layout/layout';
 import Subscription from '@components/common/subscription';
-import PageHeader from '@components/ui/page-header';
 import ContactForm from '@components/common/form/contact-form';
 import ContactInfoBlock from '@containers/contact-info';
 import { useTranslation } from 'next-i18next';
@@ -12,7 +11,6 @@ export default function ContactUsPage() {
   const { t } = useTranslation('common');
   return (
     <>
-      <PageHeader pageHeader="text-page-contact-us" />
       <Container>
         <div className="my-14 lg:my-16 xl:my-20 px-0 pb-2 lg: xl:max-w-screen-xl mx-auto flex flex-col md:flex-row w-full">
           <div className="md:w-full lg:w-2/5 2xl:w-2/6 flex flex-col h-full">

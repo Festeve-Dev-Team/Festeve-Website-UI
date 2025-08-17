@@ -31,6 +31,8 @@
   "label-address": "Address *",
   "label-phone": "Phone/Mobile *",
   "label-city": "City/Town",
+  "label-state": "State",
+  "label-country": "Country",
   "label-display-name": "Display Name *",
   "label-postcode": "Postcode",
   "label-order-notes": "Order Notes (Optional)",

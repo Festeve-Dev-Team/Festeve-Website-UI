@@ -1,4 +1,12 @@
 {
+  "label-state": "Bundesland",
+  "label-country": "Land",
+  "label-special-day": "Besonderer Tag",
+  "label-special-person": "Besondere Person",
+  "label-date": "Datum",
+  "label-relation": "Beziehung",
+  "label-reminder-time": "Erinnerungszeit",
+  "label-categories": "Kategorien",
   "email-error": "Bitte geben Sie eine gültige E-Mail-Adresse an",
   "email-required": "E-Mail ist erforderlich",
   "password-required": "Passwort ist erforderlich",

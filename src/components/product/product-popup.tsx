@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "@utils/routes";
 import { useUI } from "@contexts/ui.context";
+import { useCreateCartMutation } from "@framework/cart/use-create-cart";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useCart } from "@contexts/cart/cart.context";
@@ -13,6 +14,7 @@ import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
 import { getAllProductImages } from "@utils/get-product-images";
 import { showToast } from "@utils/toast";
+import { ProductVariant } from "@framework/types";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
@@ -29,6 +31,7 @@ export default function ProductPopup() {
   const data = modalData?.data;
   const router = useRouter();
   const { addItemToCart } = useCart();
+  const { mutate: createCart } = useCreateCartMutation();
   const [quantity, setQuantity] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
@@ -50,15 +53,34 @@ export default function ProductPopup() {
     : true;
 
   function addToCart() {
-    if (!isSelected) {
+    if (!isSelected || !data) {
       showToast('Please select all product options', 'error');
       return;
     }
     // to show btn feedback while product carting
     setAddToCartLoader(true);
     try {
-      const item = generateCartItem(data!, attributes);
+      const selectedVariant = data.variants?.find((v: ProductVariant) => v.isActive) || data.variants?.[0];
+      
+      if (!selectedVariant) {
+        throw new Error('No variant available');
+      }
+
+      const cartItem = generateCartItem(data, selectedVariant, attributes);
+      // Add quantity and ensure attributes type
+      const item = {
+        ...cartItem,
+        quantity,
+        attributes: attributes as Record<string, string>
+      };
+      
+      // Call both the context update and the mutation
       addItemToCart(item, quantity);
+      createCart({
+        productId: data._id,
+        variantId: selectedVariant._id,
+        quantity: quantity
+      });
       showToast(`${data.name} added to cart successfully`, 'success');
       setTimeout(() => {
         setAddToCartLoader(false);

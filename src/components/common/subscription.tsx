@@ -1,8 +1,12 @@
+import React from 'react';
 import Text from '@components/ui/text';
 import Input from '@components/ui/input';
 import Button from '@components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
+import { useNewsletterSubscribeMutation, NewsletterResponse } from '@framework/newsletter/use-newsletter-subscribe';
+import { useNewsletterConfirmMutation } from '@framework/newsletter/use-newsletter-confirm';
+import { useUI } from '@contexts/ui.context';
 
 const data = {
   title: 'common:text-subscribe-heading',
@@ -31,13 +35,54 @@ const Subscription: React.FC<Props> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<FormValues>({
     defaultValues,
   });
   const { t } = useTranslation();
   const { title, description, buttonText } = data;
+  const { setModalView, openModal, showToast, setModalData, closeModal } = useUI();
+  
+  const { mutate: subscribe } = useNewsletterSubscribeMutation();
+  const { mutate: confirmSubscription } = useNewsletterConfirmMutation();
+
+  const handleConfirmSubscription = (token: string) => {
+    confirmSubscription(
+      { token },
+      {
+        onSuccess: (data) => {
+          showToast(data.message || 'Successfully confirmed subscription!', 'success');
+          closeModal();
+          reset();
+        },
+        onError: (error) => {
+          showToast(error.message || 'Failed to confirm subscription', 'error');
+        },
+      }
+    );
+  };
+
   async function onSubmit(input: FormValues) {
-    console.log(input, 'data');
+    const email = input.subscription_email;
+    
+    subscribe(
+      { email },
+      {
+        onSuccess: (data: NewsletterResponse) => {
+          setModalView('NEWSLETTER_CONFIRM_VIEW');
+          openModal();
+          // Pass the necessary data to the modal
+          setModalData({
+            email,
+            token: data.data?.token,
+            onConfirm: handleConfirmSubscription
+          });
+        },
+        onError: (error: Error) => {
+          showToast(error.message || 'Failed to subscribe to newsletter', 'error');
+        },
+      }
+    );
   }
   return (
     <div

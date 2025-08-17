@@ -79,20 +79,26 @@ export type Tag = {
   slug: string;
 };
 export type ProductVariant = {
-  id: string;
+  _id: string;
   sku: string;
   specs: {
-    weight?: string;
-    packaging?: string;
+    set?: string;
+    closures?: string;
+    ageGroup?: string;
     [key: string]: unknown;
   };
   price: number;
   stock: number;
-  discountType?: string;
+  discountType?: 'percentage' | 'fixed';
   discountValue?: number;
   images: string[];
-  isActive: boolean;
+  size?: string;
   color: string;
+  colorCode: string;
+  colorFamily: string;
+  material: string;
+  weight: number;
+  isActive: boolean;
 };
 
 export type Variation = {
@@ -113,39 +119,32 @@ export type ProductMeta = {
 };
 
 export type Product = {
-  variants: any;
-  ingredients: boolean;
-  vendors: boolean;
-  id: number | string;
-  sku: string;
+  _id: string;
   name: string;
   slug: string;
   description: string;
-  category: {
-    id: number;
-    name: string;
-    slug: string;
-  };
-  tags: {
-    id: number;
-    name: string;
-    slug: string;
-  }[];
-  image: Attachment;
-  gallery?: Attachment[];
-  price: number;
-  sale_price?: number;
-  quantity: number;
-  variations?: Variation[];
-  meta?: ProductMeta[];
-  isHotItem?: boolean;
-  isTrending?: boolean;
-  linkedEvents?: string[];
-  offerType?: string;
-  offerStart?: string;
-  offerEnd?: string;
-  defaultDiscountType?: string;
+  assignedCategoryId: string;
+  assignedCategoryLevel: number;
+  categoryPathIds: string[];
+  categoryFullSlug: string;
+  categoryPathSlugs: string[];
+  isCategoryActiveAtAssignment: boolean;
+  tags: string[];
+  isHotItem: boolean;
+  ingredients: any[];
+  vendors: any[];
+  variants: ProductVariant[];
+  defaultDiscountType?: 'percentage' | 'fixed';
   defaultDiscountValue?: number;
+  linkedEvents: string[];
+  isTrending: boolean;
+  meta: {
+    occasion: string[];
+    origin: string;
+    [key: string]: unknown;
+  };
+  createdAt: string;
+  updatedAt: string;
 };
 export type OrderItem = {
   id: number | string;

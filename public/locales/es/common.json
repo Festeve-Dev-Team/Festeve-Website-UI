@@ -1,4 +1,11 @@
 {
+  "text-sign-up": "Registrarse",
+  "button-edit": "Editar",
+  "button-cancel": "Cancelar",
+  "button-confirm": "Confirmar",
+  "text-page-wallet": "Billetera",
+  "text-special-day-reminder": "Recordatorio de día especial",
+  "text-popular-products": "Productos populares",
   "error-heading": "Parece que estás perdido",
   "error-sub-heading": "No podemos encontrar la página que busca",
   "support-heading": "Hablale a una persona real",

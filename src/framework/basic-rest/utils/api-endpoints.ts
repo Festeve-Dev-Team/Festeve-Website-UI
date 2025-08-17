@@ -29,9 +29,14 @@ export const API_ENDPOINTS = {
   SHOPS: '/shops.json',
   SHOP: '/shop.json',
   SEARCH: '/search.json',
+  CREATE_ORDERS: '/orders',
   ORDERS: '/orders.json',
   ORDER: '/order.json',
   PUROHITS: '/purohits',
   USERS_ME: '/users/me',
   VERIFY_OTP: '/auth/verify-otp',
+  NEWS_LETTER_SUBSCRIBE: '/subscribe',
+  NEWS_LETTER_CONFIRM: '/confirm',
+  CREATE_CART: '/carts/carts/items',
+  GET_CART: '/carts'
 };

@@ -34,12 +34,6 @@ const authMenuItems = [
 	},
 	{
 		id: 4,
-		path: '/forget-password',
-		label: 'menu-forget-password',
-		authorized: false
-	},
-	{
-		id: 5,
 		path: '/logout',
 		label: 'menu-logout',
 		authorized: true

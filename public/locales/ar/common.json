@@ -1,4 +1,11 @@
 {
+  "text-sign-up": "تسجيل",
+  "button-edit": "تعديل",
+  "button-cancel": "إلغاء",
+  "button-confirm": "تأكيد",
+  "text-page-wallet": "المحفظة",
+  "text-special-day-reminder": "تذكير باليوم الخاص",
+  "text-popular-products": "المنتجات الشعبية",
   "error-heading": "يبدو أنك تائه",
   "error-sub-heading": "لا يمكننا العثور على الصفحة التي تبحث عنها",
   "support-heading": "تحدث إلى شخص حقيقي",

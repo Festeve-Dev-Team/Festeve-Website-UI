@@ -1,15 +1,12 @@
 import Container from '@components/ui/container';
 import Layout from '@components/layout/layout';
 import SignUpForm from '@components/auth/sign-up-form';
-import PageHeader from '@components/ui/page-header';
-import Subscription from '@components/common/subscription';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetStaticProps } from 'next';
 
 export default function SignUpPage() {
   return (
     <>
-      <PageHeader pageHeader="text-sign-up" />
       <Container>
         <div className="py-6 lg:py-6">
           <SignUpForm />

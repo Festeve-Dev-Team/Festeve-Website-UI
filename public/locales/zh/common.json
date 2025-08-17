@@ -1,4 +1,11 @@
 {
+  "text-sign-up": "注册",
+  "button-edit": "编辑",
+  "button-cancel": "取消",
+  "button-confirm": "确认",
+  "text-page-wallet": "钱包",
+  "text-special-day-reminder": "特别日提醒",
+  "text-popular-products": "热门产品",
   "error-heading": "看起来像您迷路了",
   "error-sub-heading": "我们找不到您要查找的页面",
   "support-heading": "与真实的人交谈",

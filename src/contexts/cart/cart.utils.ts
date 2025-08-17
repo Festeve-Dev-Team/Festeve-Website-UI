@@ -1,8 +1,29 @@
 export interface Item {
-  id: string | number;
+  id: string;
+  product_id: string;
+  variant_id: string;
+  name: string;
+  slug: string;
+  image: string;
   price: number;
-  quantity?: number;
-  [key: string]: any;
+  quantity: number;
+  variant: {
+    _id: any;
+    sku: string;
+    specs: {
+      set?: string;
+      closures?: string;
+      ageGroup?: string;
+      [key: string]: unknown;
+    };
+    size?: string;
+    color: string;
+    colorCode: string;
+    colorFamily: string;
+    material: string;
+    weight: number;
+  };
+  attributes?: Record<string, string>;
 }
 
 export interface UpdateItemInput extends Partial<Omit<Item, "id">> {}
