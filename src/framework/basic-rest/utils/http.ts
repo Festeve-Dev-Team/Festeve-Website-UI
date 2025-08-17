@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { getToken } from './get-token';
+import axios from "axios";
+import { getToken } from "./get-token";
 
 const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
+  baseURL: "https://s2kgcih5db.execute-api.ap-south-1.amazonaws.com/dev",
   timeout: 30000,
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
 });
 
@@ -14,7 +14,7 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const token = getToken();
-    config.headers.Authorization = `Bearer ${token ? token : ''}`;
+    config.headers.Authorization = `Bearer ${token ? token : ""}`;
     return config;
   },
   (error) => {
