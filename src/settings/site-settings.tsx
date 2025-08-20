@@ -4,6 +4,7 @@ import { CNFlag } from '@components/icons/CNFlag';
 import { USFlag } from '@components/icons/USFlag';
 import { DEFlag } from '@components/icons/DEFlag';
 import { ESFlag } from '@components/icons/ESFlag';
+import { INFlag } from '@components/icons/INFlag';
 import Nike from 'public/assets/images/brands/megamenu/nike.png';
 import Dior from 'public/assets/images/brands/megamenu/dior.png';
 import Gucci from 'public/assets/images/brands/megamenu/gucci.png';
@@ -1132,6 +1133,7 @@ export const siteSettings = {
       // },
     ],
     languageMenu: [
+      // Existing languages
       {
         id: 'ar',
         name: 'عربى - AR',
@@ -1167,6 +1169,139 @@ export const siteSettings = {
         name: 'Español - ES',
         value: 'es',
         icon: <ESFlag width="20px" height="15px" />,
+      },
+      // Indian languages
+      {
+        id: 'hi',
+        name: 'हिंदी - Hindi',
+        value: 'hi',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'bn',
+        name: 'বাংলা - Bengali',
+        value: 'bn',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'te',
+        name: 'తెలుగు - Telugu',
+        value: 'te',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ta',
+        name: 'தமிழ் - Tamil',
+        value: 'ta',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mr',
+        name: 'मराठी - Marathi',
+        value: 'mr',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'gu',
+        name: 'ગુજરાતી - Gujarati',
+        value: 'gu',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'kn',
+        name: 'ಕನ್ನಡ - Kannada',
+        value: 'kn',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ml',
+        name: 'മലയാളം - Malayalam',
+        value: 'ml',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'pa',
+        name: 'ਪੰਜਾਬੀ - Punjabi',
+        value: 'pa',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ur',
+        name: 'اردو - Urdu',
+        value: 'ur',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'as',
+        name: 'অসমীয়া - Assamese',
+        value: 'as',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'brx',
+        name: 'बड़ो - Bodo',
+        value: 'brx',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'doi',
+        name: 'डोगरी - Dogri',
+        value: 'doi',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ks',
+        name: 'کٲشُر - Kashmiri',
+        value: 'ks',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'kok',
+        name: 'कोंकणी - Konkani',
+        value: 'kok',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mai',
+        name: 'मैथिली - Maithili',
+        value: 'mai',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mni',
+        name: 'মৈতৈলোন্ - Manipuri',
+        value: 'mni',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ne',
+        name: 'नेपाली - Nepali',
+        value: 'ne',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'or',
+        name: 'ଓଡ଼ିଆ - Odia',
+        value: 'or',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sa',
+        name: 'संस्कृतम् - Sanskrit',
+        value: 'sa',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sat',
+        name: 'ᱥᱟᱱᱛᱟᱲᱤ - Santali',
+        value: 'sat',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sd',
+        name: 'سنڌي - Sindhi',
+        value: 'sd',
+        icon: <INFlag width="20px" height="15px" />,
       },
     ],
     categoryMenu: [

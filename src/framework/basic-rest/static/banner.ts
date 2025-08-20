@@ -395,8 +395,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
-        width: 1500,
-        height: 800,
+        width: 820,
+        height: 350,
       },
     },
     type: "small",
@@ -413,8 +413,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
-        width: 1500,
-        height: 800,
+        width: 820,
+        height: 350,
       },
     },
     type: "small",
@@ -431,8 +431,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
-        width: 1500,
-        height: 800,
+        width: 820,
+        height: 350,
       },
     },
     type: "small",
@@ -449,8 +449,8 @@ export const promotionBanner = [
       },
       desktop: {
         url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
-        width: 1500,
-        height: 800,
+        width: 820,
+        height: 350,
       },
     },
     type: "small",

@@ -1,0 +1,16 @@
+{
+  "email-error": "अननानै गोनां इमेइल थंखि होनो",
+  "password-error": "अननानै नोंथांनि पासवार्ड होनो",
+  "name-required": "नोंथांनि मुं गोनां",
+  "address-required": "थंखि गोनां",
+  "phone-required": "फ'न नम्बर गोनां",
+  "label-name": "मुं",
+  "label-email": "इमेइल",
+  "label-password": "पासवार्ड",
+  "label-confirm-password": "पासवार्ड थाबाय",
+  "label-address": "थंखि",
+  "label-phone": "फ'न",
+  "label-message": "खौरां",
+  "button-submit": "दैथाय",
+  "button-reset": "रिसेट"
+}

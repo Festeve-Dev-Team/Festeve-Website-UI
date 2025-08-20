@@ -1,0 +1,16 @@
+{
+  "email-error": "कृपा करून वैध ईमेल पत्तो दियात",
+  "password-error": "कृपा करून तुमचो पासवर्ड दियात",
+  "name-required": "तुमचें नांव गरजेचें आसा",
+  "address-required": "पत्तो गरजेचो आसा",
+  "phone-required": "फोन नंबर गरजेचो आसा",
+  "label-name": "नांव",
+  "label-email": "ईमेल",
+  "label-password": "पासवर्ड",
+  "label-confirm-password": "पासवर्डाची पुश्टी करात",
+  "label-address": "पत्तो",
+  "label-phone": "फोन",
+  "label-message": "संदेश",
+  "button-submit": "सादर करात",
+  "button-reset": "रीसेट"
+}

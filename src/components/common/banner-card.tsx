@@ -48,7 +48,7 @@ export default function BannerCard({
           height={selectedImage.height}
           alt={title}
           quality={100}
-          className={cn("bg-gray-300 object-cover", {
+          className={cn("bg-gray-300 object-cover block", {
             "rounded-md": variant === "rounded" && !disableBorderRadius,
           })}
           priority={true}

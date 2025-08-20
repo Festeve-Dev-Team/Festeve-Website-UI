@@ -1,0 +1,17 @@
+{
+  "email-error": "దయచేసి చెల్లుబాటు అయ్యే ఇమెయిల్ చిరునామాను అందించండి",
+  "email-required": "ఇమెయిల్ అవసరం",
+  "password-required": "పాస్‌వర్డ్ అవసరం",
+  "name-required": "పేరు అవసరం",
+  "address-required": "చిరునామా అవసరం",
+  "phone-required": "ఫోన్ నంబర్ అవసరం",
+  "label-name": "పేరు",
+  "label-email": "ఇమెయిల్",
+  "label-password": "పాస్‌వర్డ్",
+  "label-address": "చిరునామా *",
+  "label-phone": "ఫోన్/మొబైల్ *",
+  "label-city": "నగరం",
+  "label-state": "రాష్ట్రం",
+  "label-country": "దేశం",
+  "placeholder-search": "వెతకండి..."
+}

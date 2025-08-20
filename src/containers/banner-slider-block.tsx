@@ -30,7 +30,7 @@ const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0" }) => {
         pagination={{
           clickable: true,
         }}
-        paginationVariant="circle"
+        paginationVariant="default"
         buttonGroupClassName="hidden"
       >
         {promotionBanner.map((banner: any) => (

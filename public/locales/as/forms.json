@@ -1,0 +1,16 @@
+{
+  "email-error": "অনুগ্ৰহ কৰি এটা বৈধ ইমেইল ঠিকনা দিয়ক",
+  "password-error": "অনুগ্ৰহ কৰি আপোনাৰ পাছৱৰ্ড দিয়ক",
+  "name-required": "আপোনাৰ নাম প্ৰয়োজন",
+  "address-required": "ঠিকনা প্ৰয়োজন",
+  "phone-required": "ফোন নম্বৰ প্ৰয়োজন",
+  "label-name": "নাম",
+  "label-email": "ইমেইল",
+  "label-password": "পাছৱৰ্ড",
+  "label-confirm-password": "পাছৱৰ্ড নিশ্চিত কৰক",
+  "label-address": "ঠিকনা",
+  "label-phone": "ফোন",
+  "label-message": "বাৰ্তা",
+  "button-submit": "দাখিল কৰক",
+  "button-reset": "ৰিছেট"
+}

@@ -1,0 +1,17 @@
+{
+  "email-error": "कृपया वैध ईमेल पत्ता प्रदान करा",
+  "email-required": "ईमेल आवश्यक आहे",
+  "password-required": "पासवर्ड आवश्यक आहे",
+  "name-required": "नाव आवश्यक आहे",
+  "address-required": "पत्ता आवश्यक आहे",
+  "phone-required": "फोन नंबर आवश्यक आहे",
+  "label-name": "नाव",
+  "label-email": "ईमेल",
+  "label-password": "पासवर्ड",
+  "label-address": "पत्ता *",
+  "label-phone": "फोन/मोबाईल *",
+  "label-city": "शहर",
+  "label-state": "राज्य",
+  "label-country": "देश",
+  "placeholder-search": "शोधा..."
+}

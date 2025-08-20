@@ -1,0 +1,16 @@
+{
+  "email-error": "ꯃꯇꯤꯛ ꯆꯥꯕ ꯏꯃꯦꯜ ꯑꯦꯗꯔꯦꯁ ꯄꯤꯕꯤꯌꯨ",
+  "password-error": "ꯅꯍꯥꯛꯀꯤ ꯄꯥꯁꯋꯔꯗ ꯄꯤꯕꯤꯌꯨ",
+  "name-required": "ꯅꯍꯥꯛꯀꯤ ꯃꯃꯤꯡ ꯆꯪꯏ",
+  "address-required": "ꯂꯩꯐꯝ ꯆꯪꯏ",
+  "phone-required": "ꯐꯣꯟ ꯅꯝꯕꯔ ꯆꯪꯏ",
+  "label-name": "ꯃꯃꯤꯡ",
+  "label-email": "ꯏꯃꯦꯜ",
+  "label-password": "ꯄꯥꯁꯋꯔꯗ",
+  "label-confirm-password": "ꯄꯥꯁꯋꯔꯗ ꯌꯥꯕ",
+  "label-address": "ꯂꯩꯐꯝ",
+  "label-phone": "ꯐꯣꯟ",
+  "label-message": "ꯄꯥꯎꯖꯦꯜ",
+  "button-submit": "ꯊꯥꯕ",
+  "button-reset": "ꯔꯤꯁꯦꯇ"
+}

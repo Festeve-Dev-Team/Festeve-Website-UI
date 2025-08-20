@@ -1,0 +1,20 @@
+{
+  "label-first-name": "ପ୍ରଥମ ନାମ",
+  "label-last-name": "ଶେଷ ନାମ",
+  "label-email": "ଇମେଲ୍",
+  "label-password": "ପାସୱାର୍ଡ",
+  "label-confirm-password": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ",
+  "label-phone": "ଫୋନ୍ ନମ୍ବର",
+  "label-address": "ଠିକଣା",
+  "label-city": "ସହର",
+  "label-state": "ରାଜ୍ୟ",
+  "label-zip": "ପିନ୍ କୋଡ୍",
+  "label-country": "ଦେଶ",
+  "placeholder-search": "ଏଠାରେ ଖୋଜନ୍ତୁ...",
+  "placeholder-name": "ଆପଣଙ୍କ ନାମ ଲେଖନ୍ତୁ",
+  "placeholder-email": "ଆପଣଙ୍କ ଇମେଲ୍ ଲେଖନ୍ତୁ",
+  "placeholder-message": "ଆପଣଙ୍କ ବାର୍ତ୍ତା ଲେଖନ୍ତୁ",
+  "button-submit": "ଦାଖଲ କରନ୍ତୁ",
+  "button-update": "ଅଦ୍ୟତନ କରନ୍ତୁ",
+  "button-reset": "ରିସେଟ୍ କରନ୍ତୁ"
+}
