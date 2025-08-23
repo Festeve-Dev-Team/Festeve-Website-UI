@@ -38,5 +38,6 @@ export const API_ENDPOINTS = {
   NEWS_LETTER_SUBSCRIBE: '/subscribe',
   NEWS_LETTER_CONFIRM: '/confirm',
   CREATE_CART: '/carts/carts/items',
-  GET_CART: '/carts'
+  GET_CART: '/carts',
+  EVENTS: '/events'
 };

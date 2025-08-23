@@ -218,5 +218,15 @@
   "tab-flash-sale": "Flash Sale",
   "tab-best-sellers": "Best Sellers",
   "tab-featured": "Featured",
-  "text-sign-up": "Sign up"
+  "text-sign-up": "Sign up",
+  "text-calendar": "Calendar",
+  "text-calendar-description": "Upcoming events and reminders",
+  "service-fast-shipping": "Fast & Free Shipping",
+  "service-fast-shipping-desc": "Quick delivery across India",
+  "service-easy-shop": "Easy to Shop",
+  "service-easy-shop-desc": "Simple shopping experience",
+  "service-support": "24/7 Support",
+  "service-support-desc": "Round the clock assistance",
+  "service-hassle-free": "Hassle Free Return",
+  "service-hassle-free-desc": "Easy exchange and returns"
 }
