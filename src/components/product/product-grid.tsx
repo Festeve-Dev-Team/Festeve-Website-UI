@@ -5,33 +5,10 @@ import { useProductsQuery } from "@framework/product/get-all-products";
 import { useRouter } from "next/router";
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
-import { Product } from "@framework/types";
-import cn from "classnames";
 interface ProductGridProps {
   className?: string;
-  variant?: "circle" | "rounded" | "listSmall" | "grid" | "gridSlim" | "list" | "gridModern" | "gridModernWide" | "gridTrendy";
-  limit?: number;
-  imgWidth?: number | string;
-  imgHeight?: number | string;
-  hideProductDescription?: boolean;
-  showCategory?: boolean;
-  showRating?: boolean;
-  demoVariant?: "ancient";
-  disableBorderRadius?: boolean;
 }
-
-export const ProductGrid: FC<ProductGridProps> = ({ 
-  className = "",
-  variant = "grid",
-  limit = 1000,
-  imgWidth,
-  imgHeight,
-  hideProductDescription = false,
-  showCategory = false,
-  showRating = false,
-  demoVariant,
-  disableBorderRadius = false,
-}) => {
+export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
   const { query } = useRouter();
   const {
     isFetching: isLoading,
@@ -40,49 +17,24 @@ export const ProductGrid: FC<ProductGridProps> = ({
     hasNextPage,
     data,
     error,
-  } = useProductsQuery({ limit: 1000, ...query });
+  } = useProductsQuery({ limit: 50, ...query });
   const { t } = useTranslation("common");
   if (error) return <p>{error.message}</p>;
-
+console.log({data})
   return (
     <>
       <div
-        className={cn(
-          `grid gap-x-${demoVariant === "ancient" ? 2 : 3} md:gap-x-${
-            demoVariant === "ancient" ? 2 : 5
-          } xl:gap-x-${demoVariant === "ancient" ? 2 : 7} gap-y-${
-            demoVariant === "ancient" ? 2 : 3
-          } xl:gap-y-${demoVariant === "ancient" ? 2 : 5} 2xl:gap-y-${
-            demoVariant === "ancient" ? 3 : 8
-          } ${className}`,
-          {
-            "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5":
-              variant === "grid",
-            "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4":
-              variant === "gridModernWide",
-            "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5":
-              variant === "gridModern",
-          }
-        )}
+        className={`grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ${className}`}
       >
-        {isLoading && !data?.pages?.length ? (
-          <ProductFeedLoader limit={limit} uniqueKey="search-product" />
+        {isLoading && !data?.pages?.flatMap((page: any) => page.items)?.length ? (
+          <ProductFeedLoader limit={20} uniqueKey="search-product" />
         ) : (
-          data?.pages?.map((page, pageIndex) => {
-            return page?.data?.map((product: Product, productIndex: number) => (
-              <ProductCard
-                key={`product--key${product._id || `${pageIndex}-${productIndex}`}`}
-                product={product}
-                variant={variant}
-                imgWidth={imgWidth}
-                imgHeight={imgHeight}
-                hideProductDescription={hideProductDescription}
-                showCategory={showCategory}
-                showRating={showRating}
-                demoVariant={demoVariant}
-                disableBorderRadius={disableBorderRadius}
-              />
-            ));
+          data?.pages?.flatMap((page: any) => page.items)?.map((product: any, index: number) => {
+            return <ProductCard
+              key={`product--key${product.id || `${index}`}`}
+              product={product}
+              variant="grid"
+            />;
           })
         )}
       </div>

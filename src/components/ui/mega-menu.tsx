@@ -7,6 +7,7 @@ interface MenuItem {
   path: string;
   label: string;
   columnItemItems?: MenuItem[];
+  data: any;
 }
 type MegaMenuProps = {
   columns: {
