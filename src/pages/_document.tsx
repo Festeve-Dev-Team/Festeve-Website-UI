@@ -19,7 +19,36 @@ export default class CustomDocument extends Document {
 		}
 		return (
 			<Html dir={getDirection(locale)}>
-				<Head />
+				<Head>
+					{/* Google Analytics */}
+					<script
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=G-ESQ4M6J2P5"
+					/>
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+								window.dataLayer = window.dataLayer || [];
+								function gtag(){dataLayer.push(arguments);}
+								gtag('js', new Date());
+								gtag('config', 'G-ESQ4M6J2P5');
+							`,
+						}}
+					/>
+
+					{/* Microsoft Clarity */}
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+								(function(c,l,a,r,i,t,y){
+									c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+									t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+									y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+								})(window, document, "clarity", "script", "sz506to47n");
+							`,
+						}}
+					/>
+				</Head>
 				<body>
 					<Main />
 					<NextScript />
