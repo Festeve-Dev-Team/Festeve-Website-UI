@@ -385,54 +385,54 @@ export const bannerGrid = [
 export const promotionBanner = [
   {
     id: 1,
-    title: "Travel Baggage",
-    slug: "travel-baggage",
+    title: "Mega Sale",
+    slug: "mega-sale",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
+        url: "/assets/promotionBanners/megaSale.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
-        width: 820,
-        height: 350,
+        url: "/assets/promotionBanners/megaSale.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
   },
   {
     id: 2,
-    title: "Women's Collection",
-    slug: "women's-collection",
+    title: "Men's Collection",
+    slug: "men's-collection",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
+        url: "/assets/promotionBanners/ethnicWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
-        width: 820,
-        height: 350,
+        url: "/assets/promotionBanners/ethnicWear.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
   },
   {
     id: 3,
-    title: "Winter Collection",
-    slug: "winter-collection",
+    title: "Daily Wear",
+    slug: "daily-wear",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
+        url: "/assets/promotionBanners/dailyWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
-        width: 820,
-        height: 350,
+        url: "/assets/promotionBanners/dailyWear.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
@@ -443,14 +443,32 @@ export const promotionBanner = [
     slug: "women's-collection",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
+        url: "/assets/promotionBanners/bridalWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
-        width: 820,
-        height: 350,
+        url: "/assets/promotionBanners/bridalWear.jpeg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 5,
+    title: "Valentine's Collection",
+    slug: "valentine's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/valentine.jpeg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/valentine.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",

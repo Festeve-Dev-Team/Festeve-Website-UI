@@ -13,6 +13,7 @@ import WishButton from "@components/ui/wish-button";
 import { UserLineIcon } from "@components/icons/UserLineIcon";
 import Link from "@components/ui/link";
 import CategoryMenu from "@components/ui/category-menu";
+import { useCategoriesQuery } from "@framework/category/get-all-categories";
 const AuthMenu = dynamic(() => import("@components/layout/header/auth-menu"), {
   ssr: false,
 });

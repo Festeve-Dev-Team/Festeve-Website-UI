@@ -16,6 +16,7 @@ export default function TermsPage() {
     <>
       <div className="mt-12 lg:mt-14 xl:mt-16 lg:py-1 xl:py-0 border-b border-gray-300 px-4 md:px-10 lg:px-7 xl:px-16 2xl:px-24 3xl:px-32 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
         <Container>
+          <h1 className="text-lg md:text-xl lg:text-2xl text-heading font-bold mb-4">{t("terms:terms-title")}</h1>
           <div className="flex flex-col md:flex-row">
             <nav className="md:w-72 xl:w-3/12 mb-8 md:mb-0">
               <ol className="sticky md:top-16 lg:top-28 z-10">
@@ -30,8 +31,7 @@ export default function TermsPage() {
                       activeClass="text-heading font-semibold"
                       className="block cursor-pointer py-3 lg:py-3.5 text-sm lg:text-base  text-gray-700 uppercase"
                     >
-                      {(index <= 9 ? '0' : '') +
-                        index +
+                      {(index + 1) +
                         ' ' +
                         t(`${item.title}`)}
                     </Link>
@@ -52,12 +52,21 @@ export default function TermsPage() {
                   <h2 className="text-lg md:text-xl lg:text-2xl text-heading font-bold mb-4">
                     {t(`${item.title}`)}
                   </h2>
-                  <div
-                    className="text-heading text-sm leading-7 lg:text-base lg:leading-loose"
-                    dangerouslySetInnerHTML={{
-                      __html: t(`${item.description}`),
-                    }}
-                  />
+                  <div className="text-heading text-sm leading-7 lg:text-base lg:leading-loose flex items-center">
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: t(`${item.description}`),
+                      }}
+                    />
+                    {Number(item.id) === termsAndServices.length && (
+                      <a
+                        href="mailto:support@festeve.in"
+                        className="text-sky-500 underline cursor-pointer font-semibold ml-2"
+                      >
+                        support@festeve.in
+                      </a>
+                    )}
+                  </div>
                 </Element>
               ))}
             </div>

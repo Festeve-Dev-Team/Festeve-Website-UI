@@ -25,18 +25,21 @@ const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0" }) => {
         centeredSlides={true}
         loop={true}
         autoplay={{
-          delay: 4000,
+          delay: 5000,
         }}
-        pagination={{
-          clickable: true,
-        }}
-        paginationVariant="default"
-        buttonGroupClassName="hidden"
+        navigation={true}
+        pagination={false}
+        prevActivateId="prevSlide"
+        nextActivateId="nextSlide"
+        buttonGroupClassName="flex items-center w-full z-10"
+        prevButtonClasses="ltr:left-10 rtl:right-0 w-5 h-5 bg-white/80 shadow-md"
+        nextButtonClasses="ltr:right-10 rtl:left-0 w-5 h-5 bg-white/80 shadow-md"
+        type="circle"
       >
         {promotionBanner.map((banner: any) => (
           <SwiperSlide
             key={`banner--key${banner.id}`}
-            className="px-1.5 md:px-2.5 xl:px-3.5"
+            className="px-1.5"
           >
             <BannerCard
               banner={banner}

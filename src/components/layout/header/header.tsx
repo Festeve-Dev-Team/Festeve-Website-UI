@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import SearchIcon from "@components/icons/search-icon";
-import { siteSettings } from "@settings/site-settings";
 import HeaderMenu from "@components/layout/header/header-menu";
 import Logo from "@components/ui/logo";
 import { useUI } from "@contexts/ui.context";
@@ -9,14 +8,16 @@ import { useAddActiveScroll } from "@utils/use-add-active-scroll";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import LanguageSwitcher from "@components/ui/language-switcher";
+import { useCategoriesQuery } from "@framework/category/get-all-categories";
+import Spinner from "@components/ui/loaders/spinner";
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
   ssr: false,
 });
 
-const { site_header } = siteSettings;
 const Header: React.FC = () => {
   const { openSearch, openModal, setModalView, isAuthorized } = useUI();
+  const { data, isLoading } = useCategoriesQuery({});
   const { t } = useTranslation("common");
   const siteHeaderRef = useRef<HTMLDivElement>(null);
   useAddActiveScroll(siteHeaderRef);
@@ -25,6 +26,8 @@ const Header: React.FC = () => {
     setModalView("LOGIN_VIEW");
     return openModal();
   }
+
+  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
 
   return (
     <header
@@ -37,7 +40,7 @@ const Header: React.FC = () => {
           <Logo />
 
           <HeaderMenu
-            data={site_header.menu}
+            data={data}
             className="hidden lg:flex ltr:md:ml-6 rtl:md:mr-6 ltr:xl:ml-10 rtl:xl:mr-10"
           />
 

@@ -6,10 +6,32 @@ import { useRouter } from "next/router";
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
 import { Product } from "@framework/types";
+import cn from "classnames";
 interface ProductGridProps {
   className?: string;
+  variant?: "circle" | "rounded" | "listSmall" | "grid" | "gridSlim" | "list" | "gridModern" | "gridModernWide" | "gridTrendy";
+  limit?: number;
+  imgWidth?: number | string;
+  imgHeight?: number | string;
+  hideProductDescription?: boolean;
+  showCategory?: boolean;
+  showRating?: boolean;
+  demoVariant?: "ancient";
+  disableBorderRadius?: boolean;
 }
-export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
+
+export const ProductGrid: FC<ProductGridProps> = ({ 
+  className = "",
+  variant = "grid",
+  limit = 1000,
+  imgWidth,
+  imgHeight,
+  hideProductDescription = false,
+  showCategory = false,
+  showRating = false,
+  demoVariant,
+  disableBorderRadius = false,
+}) => {
   const { query } = useRouter();
   const {
     isFetching: isLoading,
@@ -18,24 +40,47 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     hasNextPage,
     data,
     error,
-  } = useProductsQuery({ limit: 10, ...query });
+  } = useProductsQuery({ limit: 1000, ...query });
   const { t } = useTranslation("common");
   if (error) return <p>{error.message}</p>;
 
   return (
     <>
       <div
-        className={`grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ${className}`}
+        className={cn(
+          `grid gap-x-${demoVariant === "ancient" ? 2 : 3} md:gap-x-${
+            demoVariant === "ancient" ? 2 : 5
+          } xl:gap-x-${demoVariant === "ancient" ? 2 : 7} gap-y-${
+            demoVariant === "ancient" ? 2 : 3
+          } xl:gap-y-${demoVariant === "ancient" ? 2 : 5} 2xl:gap-y-${
+            demoVariant === "ancient" ? 3 : 8
+          } ${className}`,
+          {
+            "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5":
+              variant === "grid",
+            "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4":
+              variant === "gridModernWide",
+            "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5":
+              variant === "gridModern",
+          }
+        )}
       >
         {isLoading && !data?.pages?.length ? (
-          <ProductFeedLoader limit={20} uniqueKey="search-product" />
+          <ProductFeedLoader limit={limit} uniqueKey="search-product" />
         ) : (
           data?.pages?.map((page, pageIndex) => {
             return page?.data?.map((product: Product, productIndex: number) => (
               <ProductCard
-                key={`product--key${product.id || `${pageIndex}-${productIndex}`}`}
+                key={`product--key${product._id || `${pageIndex}-${productIndex}`}`}
                 product={product}
-                variant="grid"
+                variant={variant}
+                imgWidth={imgWidth}
+                imgHeight={imgHeight}
+                hideProductDescription={hideProductDescription}
+                showCategory={showCategory}
+                showRating={showRating}
+                demoVariant={demoVariant}
+                disableBorderRadius={disableBorderRadius}
               />
             ));
           })

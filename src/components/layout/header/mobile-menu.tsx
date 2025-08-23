@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Link from '@components/ui/link';
-import { siteSettings } from '@settings/site-settings';
 import Scrollbar from '@components/common/scrollbar';
 import { IoIosArrowDown } from 'react-icons/io';
 import Logo from '@components/ui/logo';
@@ -13,32 +12,33 @@ import {
   IoClose,
 } from 'react-icons/io5';
 import { useTranslation } from 'next-i18next';
+import { useCategoriesQuery } from '@framework/category/get-all-categories';
 
 const social = [
   {
     id: 0,
-    link: 'https://www.facebook.com/redqinc/',
+    link: 'https://www.facebook.com',
     icon: <IoLogoFacebook />,
     className: 'facebook',
     title: 'text-facebook',
   },
   {
     id: 1,
-    link: 'https://twitter.com/redqinc',
+    link: 'https://twitter.com',
     icon: <IoLogoTwitter />,
     className: 'twitter',
     title: 'text-twitter',
   },
   {
     id: 2,
-    link: 'https://www.youtube.com/channel/UCjld1tyVHRNy_pe3ROLiLhw',
+    link: 'https://www.youtube.com',
     icon: <IoLogoYoutube />,
     className: 'youtube',
     title: 'text-youtube',
   },
   {
     id: 3,
-    link: 'https://www.instagram.com/redqinc/',
+    link: 'https://www.instagram.com',
     icon: <IoLogoInstagram />,
     className: 'instagram',
     title: 'text-instagram',
@@ -47,7 +47,7 @@ const social = [
 
 export default function MobileMenu() {
   const [activeMenus, setActiveMenus] = useState<any>([]);
-  const { site_header } = siteSettings;
+  const { data: menuData } = useCategoriesQuery({});
   const { closeSidebar } = useUI();
   const { t } = useTranslation('menu');
   const handleArrowClick = (menuName: string) => {
@@ -68,7 +68,6 @@ export default function MobileMenu() {
   const ListMenu = ({
     dept,
     data,
-    hasSubMenu,
     menuName,
     menuIndex,
     className = '',
@@ -84,7 +83,7 @@ export default function MobileMenu() {
               {t(`${data.label}`)}
             </span>
           </Link>
-          {hasSubMenu && (
+          {data.columns && data.columns.length > 0 && (
             <div
               className="absolute top-0 flex items-center justify-end w-full h-full text-lg cursor-pointer ltr:left-0 rtl:right-0 ltr:pr-5 rtl:pl-5"
               onClick={() => handleArrowClick(menuName)}
@@ -97,10 +96,10 @@ export default function MobileMenu() {
             </div>
           )}
         </div>
-        {hasSubMenu && (
+        {data.columns && data.columns.length > 0 && (
           <SubMenu
             dept={dept}
-            data={data.subMenu}
+            data={data.columns}
             toggle={activeMenus.includes(menuName)}
             menuIndex={menuIndex}
           />
@@ -117,20 +116,36 @@ export default function MobileMenu() {
 
     return (
       <ul className="pt-0.5">
-        {data?.map((menu: any, index: number) => {
-          const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
-
-          return (
-            <ListMenu
-              dept={dept}
-              data={menu}
-              hasSubMenu={menu.subMenu}
-              menuName={menuName}
-              key={menuName}
-              menuIndex={index}
-              className={dept > 1 && 'ltr:pl-4 rtl:pr-4'}
-            />
-          );
+        {data?.map((column: any, index: number) => {
+          return column.columnItems?.map((menu: any, subIndex: number) => {
+            const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}-${subIndex}`;
+            
+            return (
+              <>
+                <ListMenu
+                  dept={dept}
+                  data={menu}
+                  menuName={menuName}
+                  key={menuName}
+                  menuIndex={subIndex}
+                  className={dept > 1 && 'ltr:pl-4 rtl:pr-4'}
+                />
+                {menu.columnItemItems?.map((subItem: any, subItemIndex: number) => {
+                  const subMenuName: string = `${menuName}-sub-${subItemIndex}`;
+                  return (
+                    <ListMenu
+                      dept={dept + 1}
+                      data={subItem}
+                      menuName={subMenuName}
+                      key={subMenuName}
+                      menuIndex={subItemIndex}
+                      className="ltr:pl-8 rtl:pr-8"
+                    />
+                  );
+                })}
+              </>
+            );
+          });
         })}
       </ul>
     );
@@ -154,7 +169,7 @@ export default function MobileMenu() {
         <Scrollbar className="flex-grow mb-auto menu-scrollbar">
           <div className="flex flex-col px-0 py-7 lg:px-2 text-heading">
             <ul className="mobileMenu">
-              {site_header.mobileMenu.map((menu, index) => {
+              {menuData.map((menu: any, index: number) => {
                 const dept: number = 1;
                 const menuName: string = `sidebar-menu-${dept}-${index}`;
 

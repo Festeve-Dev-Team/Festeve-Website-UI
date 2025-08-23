@@ -2,7 +2,6 @@ import { useRef } from "react";
 import SearchIcon from "@components/icons/search-icon";
 import Logo from "@components/ui/logo";
 import { useUI } from "@contexts/ui.context";
-import { ROUTES } from "@utils/routes";
 import { useAddActiveScroll } from "@utils/use-add-active-scroll";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";

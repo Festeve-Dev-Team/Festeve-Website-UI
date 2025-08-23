@@ -66,6 +66,14 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
           >
             <p>{t("tab-featured")}</p>
           </Tab>
+          <Tab
+            as="li"
+            className={({ selected }) =>
+              selected ? "tab-li-selected" : "tab-li"
+            }
+          >
+            <p className="">{t("tab-new-collection")}</p>
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -102,6 +110,16 @@ const TrendingProductFeedWithTabs: React.FC<any> = () => {
           <TabPanel>
             <ProductsBlock
               products={safeProducts.slice(8, 18)}
+              loading={isLoading}
+              uniqueKey="featured"
+              variant="gridModern"
+              imgWidth={344}
+              imgHeight={344}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ProductsBlock
+              products={safeProducts.slice(12, 18)}
               loading={isLoading}
               uniqueKey="featured"
               variant="gridModern"
