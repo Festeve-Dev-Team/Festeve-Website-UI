@@ -28,15 +28,15 @@ interface WrapperProps {
 interface ProductsProps extends WrapperProps {
   limit?: number;
   itemVariant?:
-    | "grid"
-    | "gridSlim"
-    | "list"
-    | "listSmall"
-    | "gridModern"
-    | "gridModernWide"
-    | "gridTrendy"
-    | "rounded"
-    | "circle";
+  | "grid"
+  | "gridSlim"
+  | "list"
+  | "listSmall"
+  | "gridModern"
+  | "gridModernWide"
+  | "gridTrendy"
+  | "rounded"
+  | "circle";
 }
 
 function ProductFlashSaleWrapper({
@@ -51,12 +51,10 @@ function ProductFlashSaleWrapper({
   return (
     <>
       <div
-        className={`${className} ${
-          !disableSectionBorder && "border border-gray-300"
-        } rounded-md ${
-          !disableSectionPadding &&
+        className={`${className} ${!disableSectionBorder && "border border-gray-300"
+          } rounded-md ${!disableSectionPadding &&
           "pt-5 md:pt-6 lg:pt-7 pb-5 lg:pb-7 px-4 md:px-5 lg:px-7"
-        }`}
+          }`}
       >
         <div className="flex justify-between items-center flex-wrap mb-5 md:mb-6">
           <SectionHeader
@@ -174,29 +172,22 @@ const ProductsFlashSaleBlock: React.FC<ProductsProps> = ({
       hideCountdown={hideCountdown}
     >
       <div
-        className={`grid grid-cols-${
-          demoVariant === "ancient" ? 1 : 2
-        } sm:grid-cols-${demoVariant === "ancient" ? 1 : 2} md:grid-cols-${
-          demoVariant === "ancient" ? 2 : 3
-        } lg:grid-cols-${
-          demoVariant === "ancient" ? 3 : 4
-        } 2xl:grid-cols-${TwoXlCols} gap-x-${
-          demoVariant === "ancient" ? 2 : 3
-        } md:gap-x-${demoVariant === "ancient" ? 2 : 5} xl:gap-x-${
-          demoVariant === "ancient" ? 2 : 7
-        } gap-y-${demoVariant === "ancient" ? 2 : 4} lg:gap-y-${
-          demoVariant === "ancient" ? 2 : 5
-        } xl:gap-y-${demoVariant === "ancient" ? 2 : 6} 2xl:gap-y-${
-          demoVariant === "ancient" ? 2 : 8
-        }`}
+        className={`grid grid-cols-${demoVariant === "ancient" ? 1 : 2
+          } sm:grid-cols-${demoVariant === "ancient" ? 1 : 2} md:grid-cols-${demoVariant === "ancient" ? 2 : 3
+          } lg:grid-cols-${demoVariant === "ancient" ? 3 : 4
+          } 2xl:grid-cols-${TwoXlCols} gap-x-${demoVariant === "ancient" ? 2 : 3
+          } md:gap-x-${demoVariant === "ancient" ? 2 : 5} xl:gap-x-${demoVariant === "ancient" ? 2 : 7
+          } gap-y-${demoVariant === "ancient" ? 2 : 4} lg:gap-y-${demoVariant === "ancient" ? 2 : 5
+          } xl:gap-y-${demoVariant === "ancient" ? 2 : 6} 2xl:gap-y-${demoVariant === "ancient" ? 2 : 8
+          }`}
       >
         {limit ? (
           <>
             {data?.productFlashSellGridTwo
               ?.slice(0, limit)
-              ?.map((product: any) => (
+              ?.map((product: any, index: number) => (
                 <ProductCard
-                  key={`product--key${product.id}`}
+                  key={`product--key${product.id || product.slug || index}`}
                   product={product}
                   imgWidth={itemVariant === "list" ? 180 : 324}
                   imgHeight={itemVariant === "list" ? 180 : 324}
@@ -209,9 +200,9 @@ const ProductsFlashSaleBlock: React.FC<ProductsProps> = ({
           </>
         ) : (
           <>
-            {data?.productFlashSellGridTwo?.map((product: any) => (
+            {data?.productFlashSellGridTwo?.map((product: any, index: number) => (
               <ProductCard
-                key={`product--key${product.id}`}
+                key={`product--key${product.id || product.slug || index}`}
                 product={product}
                 imgWidth={itemVariant === "list" ? 180 : 324}
                 imgHeight={itemVariant === "list" ? 180 : 324}

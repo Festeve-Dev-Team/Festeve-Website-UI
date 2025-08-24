@@ -7,9 +7,8 @@ export interface NewsletterInputType {
 }
 
 export interface NewsletterResponse {
-  status: boolean;
   message: string;
-  data?: any;
+  token: string;
 }
 
 async function subscribeToNewsletter(input: NewsletterInputType): Promise<NewsletterResponse> {

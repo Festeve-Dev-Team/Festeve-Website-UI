@@ -13,7 +13,7 @@ const CalendarModal = dynamic(() => import("@components/calendar/calendar-modal"
 interface SubscriptionData {
 	email?: string;
 	token?: string;
-	onConfirm?: (token: string) => void;
+	onConfirm?: () => void;
 }
 
 const ManagedModal: React.FC = () => {
@@ -30,7 +30,7 @@ const ManagedModal: React.FC = () => {
 			{modalView === "NEWSLETTER_CONFIRM_VIEW" && subscriptionData && (
 				<NewsletterConfirm
 					email={subscriptionData.email || ""}
-					onConfirm={() => subscriptionData.onConfirm?.(subscriptionData.token || "")}
+					onConfirm={() => subscriptionData.onConfirm?.()}
 				/>
 			)}
 		</Modal>

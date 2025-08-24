@@ -3,27 +3,31 @@ import TextInformation from "@components/common/text-information";
 const defaultData = [
 	{
 		id: 1,
-		icon: "/assets/images/feature/delivery.svg",
+		icon: "/assets/icons/delivery-truck.gif",
 		title: "service-fast-shipping",
 		description: "service-fast-shipping-desc",
+		hoverDescription: "We deliver more than 2500+ products to 60,000+ pincodes all over India",
 	},
 	{
 		id: 2,
-		icon: "/assets/images/feature/product.svg",
+		icon: "/assets/icons/shopping-bag.gif",
 		title: "service-easy-shop",
 		description: "service-easy-shop-desc",
+		hoverDescription: "You can get all types of products segregated and decently organised in FestEve",
 	},
 	{
 		id: 3,
-		icon: "/assets/images/feature/saving.svg",
+		icon: "/assets/icons/helpdesk.gif",
 		title: "service-support",
 		description: "service-support-desc",
+		hoverDescription: "We are here to assist you over live chat, Email and Call- round the clock",
 	},
 	{
 		id: 4,
-		icon: "/assets/images/feature/risk-free.svg",
+		icon: "/assets/icons/diagram.gif",
 		title: "service-hassle-free",
 		description: "service-hassle-free-desc",
+		hoverDescription: "FestEve is here to help in Exchange and returns",
 	},
 ];
 
@@ -32,6 +36,7 @@ interface FeatureItem {
 	icon: string;
 	title: string;
 	description: string;
+	hoverDescription?: string;
 }
 
 interface Props {
@@ -43,7 +48,7 @@ interface Props {
 const FeatureBlock: React.FC<Props> = ({
 	className = "mb-12 md:mb-14 xl:mb-16",
 	data = defaultData,
-	backgroundColor = "bg-gray-200",
+	backgroundColor = "bg-white-200",
 }) => {
 	return (
 		<div

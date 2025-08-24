@@ -15,6 +15,10 @@ import { GetStaticProps } from "next";
 import WhatsToday from "@containers/whatsToday";
 import TrendingProductFeedWithTabs from "@components/product/feeds/trending-product-feed-with-tabs";
 import FeatureBlock from "@containers/feature-block";
+import SubscriptionWithBg from "@components/common/subscription-with-bg";
+import TestimonialCarousel from "@containers/testimonial-carousel";
+import RequestCallback from "@components/common/request-callback";
+// import Testimonials from "@components/common/testimonials";
 
 export default function Home() {
   return (
@@ -23,7 +27,7 @@ export default function Home() {
       <WhatsToday />
       <Divider />
       <FeatureBlock />
-      <BannerBlock data={masonryBanner} />
+      <BannerBlock data={masonryBanner} showTitleOnHover={true} />
       {/* <Container>
         <ProductsFlashSaleBlock date={"2025-12-01T01:02:03"} />
       </Container> */}
@@ -41,26 +45,31 @@ export default function Home() {
           limit={5}
         /> */}
         <TrendingProductFeedWithTabs />
-        <BannerCard
+        {/* <Testimonials /> */}
+
+        {/* <BannerCard
           key={`banner--key${banner[0].id}`}
           banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
-        <BannerCard
+        /> */}
+        {/* <BannerCard
           key={`banner--key${banner[1].id}`}
           banner={banner[1]}
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
+        /> */}
         {/* <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
         /> */}
-        <ExclusiveBlock />
+        {/* <ExclusiveBlock /> */}
         {/* <NewArrivalsProductFeed /> */}
-        <Instagram />
+        {/* <Instagram /> */}
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
+        <TestimonialCarousel sectionHeading="text-testimonial" />
+        {/* <SubscriptionWithBg /> */}
+        <RequestCallback />
       </Container>
       <Divider className="mb-0" />
     </>

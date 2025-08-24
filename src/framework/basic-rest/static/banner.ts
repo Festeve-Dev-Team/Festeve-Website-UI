@@ -217,16 +217,16 @@ export const homeThreeBanner = [
 export const homeThreeMasonryBanner = [
   {
     id: 1,
-    title: "Men's Collection",
-    slug: "mens-collection",
+    title: "Clothing",
+    slug: "clothing",
     image: {
       mobile: {
-        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
+        url: "/assets/categories/clothing.jpg",
         width: 470,
         height: 232,
       },
       desktop: {
-        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
+        url: "/assets/categories/clothing.jpg",
         width: 1078,
         height: 425,
       },
@@ -235,16 +235,16 @@ export const homeThreeMasonryBanner = [
   },
   {
     id: 2,
-    title: "New Sports",
-    slug: "new-sports",
+    title: "Essentials",
+    slug: "essentials",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
+        url: "/assets/categories/essentials.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
+        url: "/assets/categories/essentials.jpg",
         width: 425,
         height: 425,
       },
@@ -253,76 +253,76 @@ export const homeThreeMasonryBanner = [
   },
   {
     id: 3,
-    title: "Dress Women",
-    slug: "dress-women",
+    title: "Purohit",
+    slug: "purohit",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
+        url: "/assets/categories/purohits.png",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
+        url: "/assets/categories/purohits.png",
         width: 425,
         height: 425,
       },
     },
     type: "small",
   },
-  {
-    id: 4,
-    title: "Exclusive Sunglasses",
-    slug: "exclusive-sunglasses",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
-        width: 232,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
-        width: 425,
-        height: 425,
-      },
-    },
-    type: "small",
-  },
-  {
-    id: 5,
-    title: "Product Coupons",
-    slug: "product-coupons",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
-        width: 232,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
-        width: 425,
-        height: 425,
-      },
-    },
-    type: "small",
-  },
-  {
-    id: 6,
-    title: "New Backpack",
-    slug: "new-backpack",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
-        width: 470,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
-        width: 1078,
-        height: 425,
-      },
-    },
-    type: "medium",
-  },
+  // {
+  //   id: 4,
+  //   title: "Exclusive Sunglasses",
+  //   slug: "exclusive-sunglasses",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
+  //       width: 232,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
+  //       width: 425,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Product Coupons",
+  //   slug: "product-coupons",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
+  //       width: 232,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
+  //       width: 425,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+  // {
+  //   id: 6,
+  //   title: "New Backpack",
+  //   slug: "new-backpack",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
+  //       width: 470,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
+  //       width: 1078,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "medium",
+  // },
 ];
 
 export const bannerGrid = [

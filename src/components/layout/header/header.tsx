@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import SearchIcon from "@components/icons/search-icon";
-import CalendarIcon from "@components/icons/calendar-icon";
+import { motion, AnimatePresence } from 'framer-motion';
 import HeaderMenu from "@components/layout/header/header-menu";
 import Logo from "@components/ui/logo";
 import { useUI } from "@contexts/ui.context";
@@ -9,7 +9,7 @@ import { useAddActiveScroll } from "@utils/use-add-active-scroll";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import { useCategoriesQuery } from "@framework/category/get-all-categories";
-import Spinner from "@components/ui/loaders/spinner";
+
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
   ssr: false,
@@ -17,9 +17,10 @@ const CartButton = dynamic(() => import("@components/cart/cart-button"), {
 
 const Header: React.FC = () => {
   const { openSearch, openModal, setModalView, isAuthorized } = useUI();
-  const { data, isLoading } = useCategoriesQuery({});
+  const { data } = useCategoriesQuery({});
   const { t } = useTranslation("common");
   const siteHeaderRef = useRef<HTMLDivElement>(null);
+  const [isCalendarHovered, setIsCalendarHovered] = useState(false);
   useAddActiveScroll(siteHeaderRef);
 
   function handleLogin() {
@@ -32,7 +33,7 @@ const Header: React.FC = () => {
     return openModal();
   }
 
-  if (isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
+  // if (isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading..." /></div>;
 
   return (
     <header
@@ -61,11 +62,47 @@ const Header: React.FC = () => {
               <SearchIcon />
             </button>
             <button
-              className="relative flex items-center justify-center flex-shrink-0 h-auto transform focus:outline-none"
+              className="relative flex items-center justify-center flex-shrink-0 h-auto transform focus:outline-none px-3 py-2"
               onClick={handleCalendar}
               aria-label="calendar-button"
+              onMouseEnter={() => setIsCalendarHovered(true)}
+              onMouseLeave={() => setIsCalendarHovered(false)}
             >
-              <CalendarIcon />
+              <div className="relative flex items-center justify-center min-h-[48px] w-[50px]">
+                <AnimatePresence mode="wait">
+                  {isCalendarHovered ? (
+                    <motion.div
+                      key="calendar-gif"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="flex items-center justify-center absolute inset-0"
+                    >
+                      <img
+                        src="/assets/icons/calendar.gif"
+                        alt="Calendar"
+                        width={24}
+                        height={24}
+                        className="w-12 h-12"
+                      />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="calendar-text"
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="flex items-center justify-center absolute inset-0"
+                    >
+                      <span className="text-sm xl:text-base text-heading font-semibold text-center">
+                        {t("text-calendar")}
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </button>
             <div className="-mt-0.5 flex-shrink-0">
               <AuthMenu
@@ -80,6 +117,13 @@ const Header: React.FC = () => {
                   onClick: handleLogin,
                 }}
               >
+                <img
+                  src={isAuthorized ? "/assets/icons/worker.gif" : "/assets/icons/login.gif"}
+                  alt="Login"
+                  width={24}
+                  height={24}
+                  className={isAuthorized ? "w-12 h-12" : "w-16 h-16"}
+                />
                 {t("text-account")}
               </AuthMenu>
             </div>

@@ -4,11 +4,13 @@ import { ROUTES } from "@utils/routes";
 interface BannerProps {
   data: any;
   className?: string;
+  showTitleOnHover?: boolean;
 }
 
 const BannerBlock: React.FC<BannerProps> = ({
   data,
   className = "mb-12 md:mb-14 xl:mb-16 px-2.5",
+  showTitleOnHover = false,
 }) => {
   return (
     <div
@@ -21,6 +23,7 @@ const BannerBlock: React.FC<BannerProps> = ({
           href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
           effectActive={true}
           variant="default"
+          showTitleOnHover={showTitleOnHover}
           className={
             banner.type === "medium"
               ? "col-span-full sm:col-span-5"

@@ -28,9 +28,9 @@ const RelatedProducts: React.FC<ProductsProps> = ({
 				) : isLoading ? (
 					<ProductFeedLoader limit={5} uniqueKey="related-product" />
 				) : (
-					data?.map((product: any) => (
+					data?.map((product: any, index: number) => (
 						<ProductCard
-							key={`product--key${product.id}`}
+							key={`product--key${product.id || product.slug || index}`}
 							product={product}
 							imgWidth={340}
 							imgHeight={440}
