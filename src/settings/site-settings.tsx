@@ -4,6 +4,7 @@ import { CNFlag } from '@components/icons/CNFlag';
 import { USFlag } from '@components/icons/USFlag';
 import { DEFlag } from '@components/icons/DEFlag';
 import { ESFlag } from '@components/icons/ESFlag';
+import { INFlag } from '@components/icons/INFlag';
 import Nike from 'public/assets/images/brands/megamenu/nike.png';
 import Dior from 'public/assets/images/brands/megamenu/dior.png';
 import Gucci from 'public/assets/images/brands/megamenu/gucci.png';
@@ -42,67 +43,10 @@ export const siteSettings = {
   currencyCode: 'INR',
   site_header: {
     menu: [
-      // {
-      //   id: 1,
-      //   path: '/',
-      //   label: 'menu-demos',
-      //   subMenu: [
-      //     {
-      //       id: 1,
-      //       path: '/',
-      //       label: 'menu-modern',
-      //     },
-      //     {
-      //       id: 2,
-      //       path: '/standard',
-      //       label: 'menu-standard',
-      //     },
-      //     {
-      //       id: 3,
-      //       path: '/minimal',
-      //       label: 'menu-minimal',
-      //     },
-      //     {
-      //       id: 4,
-      //       path: '/vintage',
-      //       label: 'menu-vintage',
-      //     },
-      //     {
-      //       id: 5,
-      //       path: '/classic',
-      //       label: 'menu-classic',
-      //     },
-      //     {
-      //       id: 6,
-      //       path: '/trendy',
-      //       label: 'menu-trendy',
-      //     },
-      //     {
-      //       id: 7,
-      //       path: '/elegant',
-      //       label: 'menu-elegant',
-      //     },
-      //     {
-      //       id: 8,
-      //       path: '/refined',
-      //       label: 'menu-refined',
-      //     },
-      //     {
-      //       id: 9,
-      //       path: '/contemporary',
-      //       label: 'menu-contemporary',
-      //     },
-      //     {
-      //       id: 10,
-      //       path: '/ancient',
-      //       label: 'menu-ancient',
-      //     },
-      //   ],
-      // },
       {
         id: 2,
-        path: '/search?q=men-wear',
-        label: 'menu-men-wear',
+        path: '/search?q=clothing',
+        label: 'menu-clothing',
         columns: [
           {
             id: 1,
@@ -369,55 +313,38 @@ export const siteSettings = {
       },
       {
         id: 3,
-        path: '/search?q=women-wear',
-        label: 'menu-women-wear',
+        path: '/search?q=essentials',
+        label: 'menu-essentials',
         columns: [
           {
             id: 1,
             columnItems: [
               {
                 id: 1,
-                path: '/search?q=gadgets',
-                label: 'menu-gadgets',
+                path: '/search?q=personal-care',
+                label: 'menu-personal-care',
                 columnItemItems: [
                   {
                     id: 1,
-                    path: '/search?q=smart-wearables',
-                    label: 'menu-smart-wearables',
+                    path: '/search?q=hygiene-products',
+                    label: 'Hygiene Products',
                   },
                   {
                     id: 2,
-                    path: '/search?q=headphones',
-                    label: 'menu-headphones',
-                  },
-                ],
-              },
-              {
-                id: 2,
-                path: '/search?q=jewellers',
-                label: 'menu-jewellers',
-                columnItemItems: [
-                  {
-                    id: 1,
-                    path: '/search?q=fashion-jewellers',
-                    label: 'menu-fashion-jewellers',
+                    path: '/search?q=skincare',
+                    label: 'Skincare',
                   },
                   {
-                    id: 2,
-                    path: '/search?q=fine-jewellers',
-                    label: 'menu-fine-jewellers',
+                    id: 3,
+                    path: '/search?q=haircare',
+                    label: 'Haircare',
                   },
-                ],
-              },
-              {
-                id: 3,
-                path: '/search?q=backpacks',
-                label: 'menu-backpacks',
-              },
-              {
-                id: 4,
-                path: '/search?q=handbags-wallets',
-                label: 'menu-handbags-wallets',
+                  {
+                    id: 4,
+                    path: '/search?q=oral-care',
+                    label: 'Oral Care',
+                  },
+                ]
               },
             ],
           },
@@ -426,50 +353,30 @@ export const siteSettings = {
             columnItems: [
               {
                 id: 1,
-                path: '/search?q=top-wear',
-                label: 'menu-top-wear',
+                path: '/search?q=home-essentials',
+                label: 'Home Essentials',
                 columnItemItems: [
                   {
                     id: 1,
-                    path: '/search?q=t-shit-shirtrt',
-                    label: 'menu-t-shirt',
+                    path: '/search?q=cleaning-supplies',
+                    label: 'Cleaning Supplies',
                   },
                   {
                     id: 2,
-                    path: '/search?q=casual-shirts',
-                    label: 'menu-casual-shirts',
+                    path: '/search?q=kitchen-basics',
+                    label: 'Kitchen Basics',
                   },
                   {
                     id: 3,
-                    path: '/search?q=formal-shirts',
-                    label: 'menu-formal-shirts',
+                    path: '/search?q=storage-organization',
+                    label: 'Storage & Organization',
                   },
                   {
                     id: 4,
-                    path: '/search?q=blazwers-coats',
-                    label: 'menu-blazwers-coats',
+                    path: '/search?q=laundry-supplies',
+                    label: 'Laundry Supplies',
                   },
-                  {
-                    id: 5,
-                    path: '/search?q=suits',
-                    label: 'menu-suits',
-                  },
-                  {
-                    id: 6,
-                    path: '/search?q=jackets',
-                    label: 'menu-jackets',
-                  },
-                ],
-              },
-              {
-                id: 2,
-                path: '/search?q=belt-scarves',
-                label: 'menu-belt-scarves',
-              },
-              {
-                id: 3,
-                path: '/search?q=watches-wearables',
-                label: 'menu-watches-wearables',
+                ]
               },
             ],
           },
@@ -478,52 +385,30 @@ export const siteSettings = {
             columnItems: [
               {
                 id: 1,
-                path: '/search?q=footwear',
-                label: 'menu-footwear',
+                path: '/search?q=health-wellness',
+                label: 'Health & Wellness',
                 columnItemItems: [
                   {
                     id: 1,
-                    path: '/search?q=flats',
-                    label: 'menu-flats',
+                    path: '/search?q=first-aid',
+                    label: 'First Aid',
                   },
                   {
                     id: 2,
-                    path: '/search?q=casual-shoes',
-                    label: 'menu-casual-shoes',
+                    path: '/search?q=supplements',
+                    label: 'Supplements',
                   },
                   {
                     id: 3,
-                    path: '/search?q=heels',
-                    label: 'menu-heels',
+                    path: '/search?q=face-masks-sanitizers',
+                    label: 'Face Masks & Sanitizers',
                   },
                   {
                     id: 4,
-                    path: '/search?q=boots',
-                    label: 'menu-boots',
+                    path: '/search?q=thermometers',
+                    label: 'Thermometers',
                   },
-                ],
-              },
-              {
-                id: 2,
-                path: '/search?q=sports-active-wear',
-                label: 'menu-sports-active-wear',
-                columnItemItems: [
-                  {
-                    id: 1,
-                    path: '/search?q=clothing',
-                    label: 'menu-clothing',
-                  },
-                  {
-                    id: 2,
-                    path: '/search?q=footwear',
-                    label: 'menu-footwear',
-                  },
-                  {
-                    id: 3,
-                    path: '/search?q=sports-accessories',
-                    label: 'menu-sports-accessories',
-                  },
-                ],
+                ]
               },
             ],
           },
@@ -532,50 +417,30 @@ export const siteSettings = {
             columnItems: [
               {
                 id: 1,
-                path: '/search?q=western-wear',
-                label: 'menu-western-wear',
+                path: '/search?q=travel-essentials',
+                label: 'Travel Essentials',
                 columnItemItems: [
                   {
                     id: 1,
-                    path: '/search?q=dresses',
-                    label: 'menu-dresses',
+                    path: '/search?q=travel-size-toiletries',
+                    label: 'Travel-size Toiletries',
                   },
                   {
                     id: 2,
-                    path: '/search?q=jumpsuits',
-                    label: 'menu-jumpsuits',
+                    path: '/search?q=luggage-accessories',
+                    label: 'Luggage Accessories',
                   },
                   {
                     id: 3,
-                    path: '/search?q=tops-t-shirt',
-                    label: 'menu-tops-shirts',
+                    path: '/search?q=travel-pillows-sleep-masks',
+                    label: 'Travel Pillows & Sleep Masks',
                   },
                   {
                     id: 4,
-                    path: '/search?q=shorts-skirts',
-                    label: 'menu-shorts-skirts',
+                    path: '/search?q=power-adapters',
+                    label: 'Power Adapters',
                   },
-                  {
-                    id: 5,
-                    path: '/search?q=shurgs',
-                    label: 'menu-shurgs',
-                  },
-                  {
-                    id: 6,
-                    path: '/search?q=blazers',
-                    label: 'menu-blazers',
-                  },
-                ],
-              },
-              {
-                id: 2,
-                path: '/search?q=plus-size',
-                label: 'menu-plus-size',
-              },
-              {
-                id: 3,
-                path: '/search?q=sunglasses-frames',
-                label: 'menu-sunglasses-frames',
+                ]
               },
             ],
           },
@@ -584,52 +449,62 @@ export const siteSettings = {
             columnItems: [
               {
                 id: 1,
-                path: '/search?q=lingerie-sleepwear',
-                label: 'menu-lingerie-sleepwear',
+                path: '/search?q=tech-accessories',
+                label: 'Tech Accessories',
                 columnItemItems: [
                   {
                     id: 1,
-                    path: '/search?q=bra',
-                    label: 'menu-bra',
+                    path: '/search?q=chargers-cables',
+                    label: 'Chargers & Cables',
                   },
                   {
                     id: 2,
-                    path: '/search?q=briefs',
-                    label: 'menu-briefs',
+                    path: '/search?q=power-banks',
+                    label: 'Power Banks',
                   },
                   {
                     id: 3,
-                    path: '/search?q=sleepwear',
-                    label: 'menu-sleepwear',
-                  },
-                ],
-              },
-              {
-                id: 2,
-                path: '/search?q=belt-scarves',
-                label: 'menu-belt-scarves',
-                columnItemItems: [
-                  {
-                    id: 1,
-                    path: '/search?q=makeup',
-                    label: 'menu-makeup',
-                  },
-                  {
-                    id: 2,
-                    path: '/search?q=skincare',
-                    label: 'menu-skincare',
-                  },
-                  {
-                    id: 3,
-                    path: '/search?q=premium-beauty',
-                    label: 'menu-premium-beauty',
+                    path: '/search?q=phone-stands-holders',
+                    label: 'Phone Stands & Holders',
                   },
                   {
                     id: 4,
-                    path: '/search?q=lipsticks',
-                    label: 'menu-lipsticks',
+                    path: '/search?q=screen-cleaners',
+                    label: 'Screen Cleaners',
                   },
-                ],
+                ]
+              },
+            ],
+          },
+          {
+            id: 6,
+            columnItems: [
+              {
+                id: 1,
+                path: '/search?q=stationery-office-basics',
+                label: 'Stationery & Office Basics',
+                columnItemItems: [
+                  {
+                    id: 1,
+                    path: '/search?q=notebooks',
+                    label: 'Notebooks',
+                  },
+                  {
+                    id: 2,
+                    path: '/search?q=pens-markers',
+                    label: 'Pens & Markers',
+                  },
+                  {
+                    id: 3,
+                    path: '/search?q=folders-files',
+                    label: 'Folders & Files',
+                  },
+                  {
+                    id: 4,
+                    path: '/search?q=sticky-notes',
+                    label: 'Sticky Notes',
+                  },
+                ]
               },
             ],
           },
@@ -1132,6 +1007,7 @@ export const siteSettings = {
       // },
     ],
     languageMenu: [
+      // Existing languages
       {
         id: 'ar',
         name: 'عربى - AR',
@@ -1167,6 +1043,139 @@ export const siteSettings = {
         name: 'Español - ES',
         value: 'es',
         icon: <ESFlag width="20px" height="15px" />,
+      },
+      // Indian languages
+      {
+        id: 'hi',
+        name: 'हिंदी - Hindi',
+        value: 'hi',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'bn',
+        name: 'বাংলা - Bengali',
+        value: 'bn',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'te',
+        name: 'తెలుగు - Telugu',
+        value: 'te',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ta',
+        name: 'தமிழ் - Tamil',
+        value: 'ta',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mr',
+        name: 'मराठी - Marathi',
+        value: 'mr',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'gu',
+        name: 'ગુજરાતી - Gujarati',
+        value: 'gu',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'kn',
+        name: 'ಕನ್ನಡ - Kannada',
+        value: 'kn',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ml',
+        name: 'മലയാളം - Malayalam',
+        value: 'ml',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'pa',
+        name: 'ਪੰਜਾਬੀ - Punjabi',
+        value: 'pa',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ur',
+        name: 'اردو - Urdu',
+        value: 'ur',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'as',
+        name: 'অসমীয়া - Assamese',
+        value: 'as',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'brx',
+        name: 'बड़ो - Bodo',
+        value: 'brx',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'doi',
+        name: 'डोगरी - Dogri',
+        value: 'doi',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ks',
+        name: 'کٲشُر - Kashmiri',
+        value: 'ks',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'kok',
+        name: 'कोंकणी - Konkani',
+        value: 'kok',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mai',
+        name: 'मैथिली - Maithili',
+        value: 'mai',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'mni',
+        name: 'মৈতৈলোন্ - Manipuri',
+        value: 'mni',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'ne',
+        name: 'नेपाली - Nepali',
+        value: 'ne',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'or',
+        name: 'ଓଡ଼ିଆ - Odia',
+        value: 'or',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sa',
+        name: 'संस्कृतम् - Sanskrit',
+        value: 'sa',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sat',
+        name: 'ᱥᱟᱱᱛᱟᱲᱤ - Santali',
+        value: 'sat',
+        icon: <INFlag width="20px" height="15px" />,
+      },
+      {
+        id: 'sd',
+        name: 'سنڌي - Sindhi',
+        value: 'sd',
+        icon: <INFlag width="20px" height="15px" />,
       },
     ],
     categoryMenu: [

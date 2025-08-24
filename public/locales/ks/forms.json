@@ -1,0 +1,16 @@
+{
+  "email-error": "مہربانی کٔرتھ درُست ای میل ایڈریس دِیو",
+  "password-error": "مہربانی کٔرتھ پنُن پاسوَرڈ دِیو",
+  "name-required": "تُہنٛد ناو چھُ ضروٗری",
+  "address-required": "پتہٕ چھُ ضروٗری",
+  "phone-required": "فون نَمبَر چھُ ضروٗری",
+  "label-name": "ناو",
+  "label-email": "ای میل",
+  "label-password": "پاسوَرڈ",
+  "label-confirm-password": "پاسوَرڈُک تَصدیٖق کٔرِو",
+  "label-address": "پتہٕ",
+  "label-phone": "فون",
+  "label-message": "پَیغام",
+  "button-submit": "جَمع کٔرِو",
+  "button-reset": "ریسیٹ کٔرِو"
+}

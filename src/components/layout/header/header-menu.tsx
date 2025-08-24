@@ -3,9 +3,9 @@ import { FaChevronDown } from 'react-icons/fa';
 import MegaMenu from '@components/ui/mega-menu';
 import classNames from 'classnames';
 import ListMenu from '@components/ui/list-menu';
-import { useTranslation } from 'next-i18next';
-
-import { useUI } from '@contexts/ui.context';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 interface MenuProps {
   data: any;
@@ -13,51 +13,89 @@ interface MenuProps {
 }
 
 const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
-  const { t } = useTranslation('menu');
-  const { isAuthorized } = useUI();
-  
-  const processMenuItems = (items: any[]) => {
-    return items.map(item => {
-      // If this is the pages menu
-      if (item.label === 'menu-pages') {
-        // Deep clone the item to avoid mutating the original data
-        const processedItem = { ...item };
-        if (processedItem.subMenu) {
-          // Filter out the users menu if not authorized
-          processedItem.subMenu = processedItem.subMenu.filter((subItem: { label: string }) => {
-            if (subItem.label === 'menu-users') {
-              return isAuthorized;
-            }
-            return true;
-          });
-        }
-        return processedItem;
-      }
-      return item;
-    });
-  };
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
 
-  const processedData = processMenuItems(data);
+  // Function to get the appropriate GIF based on item label
+  const getGifForLabel = (label: string) => {
+    const labelLower = label.toLowerCase();
+    switch (labelLower) {
+      case 'essentials':
+        return '/assets/icons/essentials.gif';
+      case 'clothing':
+        return '/assets/icons/clothes.gif';
+      case 'purohits':
+        return '/assets/icons/guru.gif';
+      case 'food':
+        return '/assets/icons/frying-pan.gif';
+      default:
+        return '/assets/icons/guru.gif'; // fallback
+    }
+  };
 
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
-      {processedData?.map((item: any) => (
+      {data?.filter((item: any) => item.label !== 'Food' && item.label !== 'Gifting').map((item: any) => (
         <div
-          className={`menuItem group cursor-pointer py-7 ${
-            item.subMenu ? 'relative' : ''
-          }`}
+          className={`menuItem group cursor-pointer py-4 ${item.subMenu ? 'relative' : ''
+            }`}
           key={item.id}
+          onMouseEnter={() => setHoveredItem(item.id)}
+          onMouseLeave={() => setHoveredItem(null)}
         >
           <Link
-            href={item.path}
+            href={!item?.columns?.length ? `/${item?.data?.name?.toLowerCase()}` : item.path}
             className="relative inline-flex items-center px-3 py-2 text-sm font-normal xl:text-base text-heading xl:px-4 group-hover:text-black"
+            onClick={(e) => {
+              if (!item?.columns?.length) {
+                e.preventDefault();
+                window.location.href = `/${item?.data?.name?.toLowerCase()}`;
+              }
+            }}
           >
-            {t(item.label)}
-            {(item?.columns || item.subMenu) && (
-              <span className="opacity-30 text-xs mt-1 xl:mt-0.5 w-4 flex justify-end">
-                <FaChevronDown className="transition duration-300 ease-in-out transform group-hover:-rotate-180" />
-              </span>
-            )}
+            <div className="relative flex items-center justify-center min-h-[48px] w-[80px]">
+              <AnimatePresence mode="wait">
+                {hoveredItem === item.id ? (
+                  <motion.div
+                    key="gif"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="flex items-center justify-center absolute inset-0"
+                  >
+                    <Image
+                      src={getGifForLabel(item.label)}
+                      alt={item.label}
+                      width="24"
+                      height="24"
+                      className="inline-block w-12 h-12"
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="label"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="flex items-center justify-center absolute inset-0"
+                  >
+                    <span className="text-center">{item.label}</span>
+                    {(item?.columns?.length || item.subMenu?.length) && (
+                      <motion.span
+                        className="opacity-30 text-xs mt-1 xl:mt-0.5 w-4 flex justify-end ml-2"
+                        animate={{
+                          rotate: hoveredItem === item.id ? -180 : 0
+                        }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      >
+                        <FaChevronDown className="transition duration-300 ease-in-out transform" />
+                      </motion.span>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </Link>
 
           {item?.columns && Array.isArray(item.columns) && (

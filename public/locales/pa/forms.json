@@ -1,0 +1,16 @@
+{
+  "email-error": "ਕਿਰਪਾ ਕਰਕੇ ਵੈਧ ਈਮੇਲ ਪਤਾ ਦਰਜ ਕਰੋ",
+  "password-error": "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+  "name-required": "ਤੁਹਾਡਾ ਨਾਮ ਲੋੜੀਂਦਾ ਹੈ",
+  "address-required": "ਪਤਾ ਲੋੜੀਂਦਾ ਹੈ",
+  "phone-required": "ਫ਼ੋਨ ਨੰਬਰ ਲੋੜੀਂਦਾ ਹੈ",
+  "label-name": "ਨਾਮ",
+  "label-email": "ਈਮੇਲ",
+  "label-password": "ਪਾਸਵਰਡ",
+  "label-confirm-password": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "label-address": "ਪਤਾ",
+  "label-phone": "ਫ਼ੋਨ",
+  "label-message": "ਸੁਨੇਹਾ",
+  "button-submit": "ਜਮ੍ਹਾਂ ਕਰੋ",
+  "button-reset": "ਰੀਸੈੱਟ"
+}

@@ -1,0 +1,20 @@
+{
+  "label-first-name": "ᱯᱩᱭᱞᱩ ᱧᱩᱛᱩᱢ",
+  "label-last-name": "ᱢᱩᱪᱟᱹᱫ ᱧᱩᱛᱩᱢ",
+  "label-email": "ᱤᱢᱮᱞ",
+  "label-password": "ᱯᱟᱥᱣᱟᱨᱰ",
+  "label-confirm-password": "ᱯᱟᱥᱣᱟᱨᱰ ᱯᱩᱥᱴᱟᱹᱣ ᱢᱮ",
+  "label-phone": "ᱯᱷᱚᱱ ᱮᱞ",
+  "label-address": "ᱴᱷᱤᱠᱟᱹᱱᱟ",
+  "label-city": "ᱥᱚᱦᱚᱨ",
+  "label-state": "ᱯᱚᱱᱚᱛ",
+  "label-zip": "ᱯᱤᱱ ᱠᱳᱰ",
+  "label-country": "ᱫᱤᱥᱚᱢ",
+  "placeholder-search": "ᱱᱚᱸᱰᱮ ᱯᱟᱱᱛᱮ ᱢᱮ...",
+  "placeholder-name": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱚᱞ ᱢᱮ",
+  "placeholder-email": "ᱟᱢᱟᱜ ᱤᱢᱮᱞ ᱚᱞ ᱢᱮ",
+  "placeholder-message": "ᱟᱢᱟᱜ ᱠᱟᱛᱷᱟ ᱚᱞ ᱢᱮ",
+  "button-submit": "ᱡᱚᱢᱟ",
+  "button-update": "ᱦᱟᱹᱞᱤᱭᱟᱹᱠ",
+  "button-reset": "ᱨᱤᱥᱮᱴ"
+}

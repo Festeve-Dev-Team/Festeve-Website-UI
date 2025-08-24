@@ -5,7 +5,6 @@ import { useProductsQuery } from "@framework/product/get-all-products";
 import { useRouter } from "next/router";
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
-import { Product } from "@framework/types";
 interface ProductGridProps {
   className?: string;
 }
@@ -18,26 +17,24 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     hasNextPage,
     data,
     error,
-  } = useProductsQuery({ limit: 10, ...query });
+  } = useProductsQuery({ limit: 50, ...query });
   const { t } = useTranslation("common");
   if (error) return <p>{error.message}</p>;
-
+console.log({data})
   return (
     <>
       <div
         className={`grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ${className}`}
       >
-        {isLoading && !data?.pages?.length ? (
+        {isLoading && !data?.pages?.flatMap((page: any) => page.items)?.length ? (
           <ProductFeedLoader limit={20} uniqueKey="search-product" />
         ) : (
-          data?.pages?.map((page, pageIndex) => {
-            return page?.data?.map((product: Product, productIndex: number) => (
-              <ProductCard
-                key={`product--key${product.id || `${pageIndex}-${productIndex}`}`}
-                product={product}
-                variant="grid"
-              />
-            ));
+          data?.pages?.flatMap((page: any) => page.items)?.map((product: any, index: number) => {
+            return <ProductCard
+              key={`product--key${product.id || `${index}`}`}
+              product={product}
+              variant="grid"
+            />;
           })
         )}
       </div>

@@ -10,6 +10,8 @@
   "name-subject": "Your subject is required",
   "address-required": "Address is required",
   "phone-required": "Phone number is required",
+  "phone-error": "Please provide a valid phone number",
+  "placeholder-phone-callback": "Enter your phone number",
   "last-name-required": "Last name is required",
   "label-name-required": "Your Name (required)",
   "label-email-required": "Your Email (required)",

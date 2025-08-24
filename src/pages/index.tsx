@@ -1,20 +1,12 @@
 import BannerCard from "@components/common/banner-card";
 import Container from "@components/ui/container";
-import BrandGridBlock from "@containers/brand-grid-block";
-import CategoryBlock from "@containers/category-block";
 import Layout from "@components/layout/layout";
-import BannerWithProducts from "@containers/banner-with-products";
 import BannerBlock from "@containers/banner-block";
 import Divider from "@components/ui/divider";
-import DownloadApps from "@components/common/download-apps";
-import Support from "@components/common/support";
 import Instagram from "@components/common/instagram";
-import ProductsFlashSaleBlock from "@containers/product-flash-sale-block";
-import ProductsFeatured from "@containers/products-featured";
 import BannerSliderBlock from "@containers/banner-slider-block";
 import ExclusiveBlock from "@containers/exclusive-block";
 import Subscription from "@components/common/subscription";
-import NewArrivalsProductFeed from "@components/product/feeds/new-arrivals-product-feed";
 import { homeThreeBanner as banner } from "@framework/static/banner";
 import { homeThreeMasonryBanner as masonryBanner } from "@framework/static/banner";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -22,14 +14,20 @@ import { ROUTES } from "@utils/routes";
 import { GetStaticProps } from "next";
 import WhatsToday from "@containers/whatsToday";
 import TrendingProductFeedWithTabs from "@components/product/feeds/trending-product-feed-with-tabs";
-import FeaturedCategories from "@containers/featured-categories";
+import FeatureBlock from "@containers/feature-block";
+import SubscriptionWithBg from "@components/common/subscription-with-bg";
+import TestimonialCarousel from "@containers/testimonial-carousel";
+import RequestCallback from "@components/common/request-callback";
+// import Testimonials from "@components/common/testimonials";
 
 export default function Home() {
   return (
     <>
       <BannerSliderBlock />
       <WhatsToday />
-      <BannerBlock data={masonryBanner} />
+      <Divider />
+      <FeatureBlock />
+      <BannerBlock data={masonryBanner} showTitleOnHover={true} />
       {/* <Container>
         <ProductsFlashSaleBlock date={"2025-12-01T01:02:03"} />
       </Container> */}
@@ -47,26 +45,31 @@ export default function Home() {
           limit={5}
         /> */}
         <TrendingProductFeedWithTabs />
-        <BannerCard
+        {/* <Testimonials /> */}
+
+        {/* <BannerCard
           key={`banner--key${banner[0].id}`}
           banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
-        <BannerCard
+        /> */}
+        {/* <BannerCard
           key={`banner--key${banner[1].id}`}
           banner={banner[1]}
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
+        /> */}
         {/* <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
         /> */}
-        <ExclusiveBlock />
+        {/* <ExclusiveBlock /> */}
         {/* <NewArrivalsProductFeed /> */}
-        <Instagram />
+        {/* <Instagram /> */}
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
+        <TestimonialCarousel sectionHeading="text-testimonial" />
+        {/* <SubscriptionWithBg /> */}
+        <RequestCallback />
       </Container>
       <Divider className="mb-0" />
     </>

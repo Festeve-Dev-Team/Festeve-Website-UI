@@ -1,14 +1,46 @@
 {
-  "privacy-one-title": "Purpose",
-  "privacy-one-content": "<p>Little &amp; Big is committed to protecting your privacy because we are committed to valuing people. Our Privacy Policy below sets out how your personal information is collected, used and protected. The&nbsp;<a href='http://demo'>Demo Country Privacy Principles</a>&nbsp;also apply to us.</p><p>This Privacy Policy describes our policies and procedures on the collection, holding, use and disclosure of your personal information and should be read together with our&nbsp;Terms and Conditions. By providing your personal information you consent to our collection, use and disclosure of that information in accordance with this Privacy Policy.</p>",
-  "privacy-two-title": "What is Personal Data?",
-  "privacy-two-content": "<p>When used in this Policy, 'personal information' has the meaning given in the Privacy Act. Generally, it means any information or an opinion that could be used to identify you.</p>",
-  "privacy-three-title": "Personal Data Collected",
-  "privacy-three-content": "<p>Personal Data collected for the following purposes and using the following services:</p><ol><li>Google Analytics: Cookies; Usage Data</li><li>Contact form: email address; first name; phone number</li><li>Mailing list or newsletter: email address; first name</li></ol>",
-  "privacy-four-title": "Accessing your Personal Data",
-  "privacy-four-content": "<p>You may request access to your personal information collected by us, and ask that we correct that personal information. You can ask for access or correction by contacting us and we will usually respond within 30 days. If we refuse to give you access to, or correct, your personal information, we will notify you in writing setting out the reasons.</p>",
-  "privacy-five-title": "Complaints",
-  "privacy-five-content": "<p>If you believe your privacy has been breached or you have a complaint about how we have handled your personal information, please contact us in writing.  We will respond within a reasonable period (usually within 30 days).</p>",
-  "privacy-six-title": "Owner and Data Controller",
-  "privacy-six-content": "<p>The Commons<br>20-40 demo St,<br>Jon doe NSW 2008<br>Country<br><br>Email: demo@demo.com</p>"
+  "privacy-title": "Privacy Policy for FestEve",
+
+  "privacy-intro-title": "Introduction",
+  "privacy-intro-text": "At FestEve, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and safeguard your personal information when you use our services. By accessing the Website, you agree to this Privacy Policy. If you do not agree, please refrain from using our services.",
+
+  "privacy-info-title": "Information We Collect",
+  "privacy-info-personal-title": "Personal Information",
+  "privacy-info-personal-items": "Name, email address, phone number, and shipping address. Payment details, such as credit card or UPI information.",
+
+  "privacy-info-nonpersonal-title": "Non-Personal Information",
+  "privacy-info-nonpersonal-items": "Browser type and version. Operating system. IP address and location. Website usage data, including pages viewed and time spent.",
+
+  "privacy-usage-title": "How We Use Your Information",
+  "privacy-usage-items": "To process your orders and payments. To provide customer support. To improve our website and services. To send promotional emails and offers (with your consent). To comply with legal obligations.",
+
+  "privacy-sharing-title": "Sharing of Information",
+  "privacy-sharing-text": "We do not sell or rent your personal information to third parties. However, we may share information with:",
+  "privacy-sharing-items": "Third-party service providers, such as payment processors and delivery partners, to fulfil your orders. Legal authorities, if required by law or in response to valid requests.",
+
+  "privacy-cookies-title": "Cookies and Tracking Technologies",
+  "privacy-cookies-text": "Our website uses cookies to enhance your browsing experience. Cookies are small files stored on your device that help us:",
+  "privacy-cookies-items": "Recognize you when you return to the Website. Analyse Website traffic and user behaviour. Provide personalized content and advertisements.",
+  "privacy-cookies-note": "You can disable cookies through your browser settings, but some features of the Website may not function properly.",
+
+  "privacy-security-title": "Data Security",
+  "privacy-security-text": "We implement industry-standard security measures to protect your data, including:",
+  "privacy-security-items": "Encryption of sensitive information during transmission. Secure servers to store data. Regular audits and updates to our systems.",
+  "privacy-security-note": "However, no system is completely secure, and we cannot guarantee absolute security.",
+
+  "privacy-rights-title": "Your Rights",
+  "privacy-rights-items": "Access and correction: You can request access to your data and correct inaccuracies. Data deletion: You can request deletion of your personal information, subject to legal and contractual obligations. Opt-out: You can opt-out of receiving promotional emails by using the unsubscribe link.",
+
+  "privacy-thirdparty-title": "Third-Party Links",
+  "privacy-thirdparty-text": "Our website may contain links to third-party websites. We are not responsible for their privacy practices or content. Please review their privacy policies before sharing your information.",
+
+  "privacy-children-title": "Children's Privacy",
+  "privacy-children-text": "Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have collected data from a minor, please contact us to address the issue.",
+
+  "privacy-changes-title": "Changes to This Policy",
+  "privacy-changes-text": "We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated date. Continued use of the Website after changes indicates your acceptance of the revised policy.",
+
+  "privacy-contact-title": "Contact Us",
+  "privacy-contact-text": "If you have any questions or concerns about this Privacy Policy, please contact us at:",
+  "privacy-contact-items": "Email: support@festeve.co.in Phone: (+91) 91330 79089 Address: Madhapur, Hyderabad"
 }

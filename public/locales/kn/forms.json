@@ -1,0 +1,16 @@
+{
+  "email-error": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
+  "password-error": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+  "name-required": "ನಿಮ್ಮ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
+  "address-required": "ವಿಳಾಸ ಅಗತ್ಯವಿದೆ",
+  "phone-required": "ಫೋನ್ ಸಂಖ್ಯೆ ಅಗತ್ಯವಿದೆ",
+  "label-name": "ಹೆಸರು",
+  "label-email": "ಇಮೇಲ್",
+  "label-password": "ಪಾಸ್‌ವರ್ಡ್",
+  "label-confirm-password": "ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ",
+  "label-address": "ವಿಳಾಸ",
+  "label-phone": "ಫೋನ್",
+  "label-message": "ಸಂದೇಶ",
+  "button-submit": "ಸಲ್ಲಿಸಿ",
+  "button-reset": "ರೀಸೆಟ್"
+}

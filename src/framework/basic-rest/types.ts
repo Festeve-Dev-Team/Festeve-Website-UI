@@ -184,3 +184,51 @@ export type Shop = {
   created_at: string;
   updated_at: string;
 };
+
+export type EventRecurring = {
+  isRecurring: boolean;
+  frequency: string;
+  daysOfWeek: number[];
+};
+
+export type EventLinkedProduct = {
+  productId: string;
+  relation: string;
+};
+
+export type EventSpecialOffer = {
+  offerType: string;
+  productId: string;
+};
+
+export type EventExtraData = {
+  theme?: string;
+  dressCode?: string;
+  [key: string]: unknown;
+};
+
+export type Event = {
+  _id: string;
+  name: string;
+  description: string;
+  type: string;
+  date: string;
+  recurring: EventRecurring;
+  linkedProducts: EventLinkedProduct[];
+  purohitRequired: boolean;
+  ritualNotes: string;
+  region: string;
+  regions: string[];
+  specialOffers: EventSpecialOffer[];
+  extraData: EventExtraData;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+export type EventsQueryOptionsType = {
+  limit?: number;
+  region?: string;
+  startDate?: string;
+  endDate?: string;
+};

@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
         Router.push('/');
       }
     } catch (error: any) {
-      console.log({ error });
+      console.error({ error });
 
       // Safely extract error message
       let message =
@@ -49,11 +49,7 @@ const LoginForm: React.FC = () => {
         message: typeof message === 'string' ? message : 'Login failed. Please try again.',
       });
     }
-
-    console.log(email, password, remember_me, 'data');
   };
-
-  console.log({ errors })
 
   function handelSocialLogin() {
     login({

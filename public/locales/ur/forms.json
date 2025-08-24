@@ -1,0 +1,16 @@
+{
+  "email-error": "براہ کرم درست ای میل ایڈریس درج کریں",
+  "password-error": "براہ کرم اپنا پاس ورڈ درج کریں",
+  "name-required": "آپ کا نام درکار ہے",
+  "address-required": "پتہ درکار ہے",
+  "phone-required": "فون نمبر درکار ہے",
+  "label-name": "نام",
+  "label-email": "ای میل",
+  "label-password": "پاس ورڈ",
+  "label-confirm-password": "پاس ورڈ کی تصدیق کریں",
+  "label-address": "پتہ",
+  "label-phone": "فون",
+  "label-message": "پیغام",
+  "button-submit": "جمع کرائیں",
+  "button-reset": "ری سیٹ"
+}

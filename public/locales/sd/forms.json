@@ -1,0 +1,20 @@
+{
+  "label-first-name": "پهريون نالو",
+  "label-last-name": "آخري نالو",
+  "label-email": "اي ميل",
+  "label-password": "پاسورڊ",
+  "label-confirm-password": "پاسورڊ جي تصديق ڪريو",
+  "label-phone": "فون نمبر",
+  "label-address": "پتو",
+  "label-city": "شهر",
+  "label-state": "رياست",
+  "label-zip": "پن ڪوڊ",
+  "label-country": "ملڪ",
+  "placeholder-search": "هتي ڳوليو...",
+  "placeholder-name": "پنهنجو نالو لکو",
+  "placeholder-email": "پنهنجو اي ميل لکو",
+  "placeholder-message": "پنهنجو پيغام لکو",
+  "button-submit": "جمع ڪريو",
+  "button-update": "اپڊيٽ ڪريو",
+  "button-reset": "ٻيهر ترتيب ڏيو"
+}

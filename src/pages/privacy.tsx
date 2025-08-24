@@ -1,7 +1,8 @@
 import Layout from '@components/layout/layout';
 import Container from '@components/ui/container';
 import { privacyPolicy } from '@settings/privacy-settings';
-import { Link, Element } from 'react-scroll';
+import { Link } from 'react-scroll';
+import { Element as ScrollElement } from 'react-scroll';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
@@ -30,8 +31,7 @@ export default function PrivacyPage() {
                       activeClass="text-heading font-semibold"
                       className="block cursor-pointer py-3 lg:py-3.5  text-sm lg:text-base  text-gray-700 uppercase"
                     >
-                      {(index <= 9 ? '0' : '') +
-                        index +
+                      {(index + 1) +
                         ' ' +
                         t(`${item.title}`)}
                     </Link>
@@ -43,22 +43,76 @@ export default function PrivacyPage() {
 
             <div className="pt-0 md:w-9/12 ltr:md:pl-8 rtl:md:pr-8 lg:pt-2">
               {privacyPolicy?.map((item) => (
-                // @ts-ignore
-                <Element
+                <ScrollElement
                   key={item.title}
-                  id={makeTitleToDOMId(item.title)}
+                  name={makeTitleToDOMId(item.title)}
                   className="mb-10"
                 >
                   <h2 className="mb-4 text-lg font-bold md:text-xl lg:text-2xl text-heading">
                     {t(`${item.title}`)}
                   </h2>
-                  <div
-                    className="text-sm leading-7 text-heading lg:text-base lg:leading-loose"
-                    dangerouslySetInnerHTML={{
-                      __html: t(`${item.description}`),
-                    }}
-                  />
-                </Element>
+
+                  {/* Main description if exists */}
+                  {item.description && (
+                    <div className="mb-2 text-sm leading-7 text-heading lg:text-base lg:leading-loose">
+                      {t(`${item.description}`)}
+                    </div>
+                  )}
+
+                  {/* Subsections if they exist */}
+                  {item.subSections && item.subSections.map((subSection, index) => (
+                    <div key={index} className="mb-6">
+                      <h3 className="mb-3 text-base font-semibold md:text-lg text-heading">
+                        {t(`${subSection.title}`)}
+                      </h3>
+                      {subSection.items && (
+                        <ul className="list-disc pl-6 text-sm leading-7 lg:text-base lg:leading-loose">
+                          {t(`${subSection.items}`).split('\\n').map((item, idx) => (
+                            <li key={idx} className="mb-2">{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Items if they exist */}
+                  {item.items && (
+                    <ul className="list-disc pl-6 mb-6 text-sm leading-7 lg:text-base lg:leading-loose">
+                      {Number(item.id) === privacyPolicy.length ? (
+                        <>
+                          <li className="mb-2">
+                            Email: <a
+                              href="mailto:support@festeve.in"
+                              className="text-sky-500 underline cursor-pointer font-semibold ml-2"
+                            >
+                              support@festeve.in
+                            </a>
+                          </li>
+                          <li className="mb-2">
+                            Phone: (+91) 91330 79089
+                          </li>
+                          <li className="mb-2">
+                            Address: Madhapur, Hyderabad
+                          </li>
+                        </>
+                      )
+                        :
+                        <>
+                          {t(`${item.items}`).split('\\n').map((listItem, idx) => (
+                            <li key={idx} className="mb-2">{listItem}</li>
+                          ))}
+                        </>
+                      }
+                    </ul>
+                  )}
+
+                  {/* Note if exists */}
+                  {item.note && (
+                    <div className="mt-4 text-sm italic text-gray-600 lg:text-base">
+                      {t(`${item.note}`)}
+                    </div>
+                  )}
+                </ScrollElement>
               ))}
             </div>
             {/* End of content */}

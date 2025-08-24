@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import { useNewsletterSubscribeMutation, NewsletterResponse } from '@framework/newsletter/use-newsletter-subscribe';
 import { useNewsletterConfirmMutation } from '@framework/newsletter/use-newsletter-confirm';
 import { useUI } from '@contexts/ui.context';
+import { showToast } from '@utils/toast';
 
 const data = {
   title: 'common:text-subscribe-heading',
@@ -41,19 +42,20 @@ const Subscription: React.FC<Props> = ({
   });
   const { t } = useTranslation();
   const { title, description, buttonText } = data;
-  const { setModalView, openModal, showToast, setModalData, closeModal } = useUI();
-  
+  const { setModalView, openModal, setModalData, closeModal } = useUI();
+
   const { mutate: subscribe } = useNewsletterSubscribeMutation();
   const { mutate: confirmSubscription } = useNewsletterConfirmMutation();
 
-  const handleConfirmSubscription = (token: string) => {
+  const handleConfirmSubscription = (token: string, onSuccess?: () => void) => {
     confirmSubscription(
       { token },
       {
         onSuccess: (data) => {
-          showToast(data.message || 'Successfully confirmed subscription!', 'success');
-          closeModal();
-          reset();
+          showToast('Successfully confirmed subscription!', 'success');
+          if (onSuccess) {
+            onSuccess();
+          }
         },
         onError: (error) => {
           showToast(error.message || 'Failed to confirm subscription', 'error');
@@ -62,9 +64,14 @@ const Subscription: React.FC<Props> = ({
     );
   };
 
+  const handleSuccessfulConfirmation = () => {
+    closeModal();
+    reset();
+  };
+
   async function onSubmit(input: FormValues) {
     const email = input.subscription_email;
-    
+
     subscribe(
       { email },
       {
@@ -74,8 +81,8 @@ const Subscription: React.FC<Props> = ({
           // Pass the necessary data to the modal
           setModalData({
             email,
-            token: data.data?.token,
-            onConfirm: handleConfirmSubscription
+            token: data.token,
+            onConfirm: () => handleConfirmSubscription(data.token, handleSuccessfulConfirmation)
           });
         },
         onError: (error: Error) => {

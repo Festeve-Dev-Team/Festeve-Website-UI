@@ -217,16 +217,16 @@ export const homeThreeBanner = [
 export const homeThreeMasonryBanner = [
   {
     id: 1,
-    title: "Men's Collection",
-    slug: "mens-collection",
+    title: "Clothing",
+    slug: "clothing",
     image: {
       mobile: {
-        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
+        url: "/assets/categories/clothing.jpg",
         width: 470,
         height: 232,
       },
       desktop: {
-        url: "https://theshahensha.com/wp-content/uploads/2025/04/banner2-new-1-scaled.jpg",
+        url: "/assets/categories/clothing.jpg",
         width: 1078,
         height: 425,
       },
@@ -235,16 +235,16 @@ export const homeThreeMasonryBanner = [
   },
   {
     id: 2,
-    title: "New Sports",
-    slug: "new-sports",
+    title: "Essentials",
+    slug: "essentials",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
+        url: "/assets/categories/essentials.jpg",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "https://i.pinimg.com/736x/d4/71/81/d4718166133570048a756e7e0b931bb9.jpg",
+        url: "/assets/categories/essentials.jpg",
         width: 425,
         height: 425,
       },
@@ -253,76 +253,76 @@ export const homeThreeMasonryBanner = [
   },
   {
     id: 3,
-    title: "Dress Women",
-    slug: "dress-women",
+    title: "Purohit",
+    slug: "purohit",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
+        url: "/assets/categories/purohits.png",
         width: 232,
         height: 232,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/a1/89/9b/a1899b5ac9ba8d8b43ecf19c29ed3654.jpg",
+        url: "/assets/categories/purohits.png",
         width: 425,
         height: 425,
       },
     },
     type: "small",
   },
-  {
-    id: 4,
-    title: "Exclusive Sunglasses",
-    slug: "exclusive-sunglasses",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
-        width: 232,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
-        width: 425,
-        height: 425,
-      },
-    },
-    type: "small",
-  },
-  {
-    id: 5,
-    title: "Product Coupons",
-    slug: "product-coupons",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
-        width: 232,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
-        width: 425,
-        height: 425,
-      },
-    },
-    type: "small",
-  },
-  {
-    id: 6,
-    title: "New Backpack",
-    slug: "new-backpack",
-    image: {
-      mobile: {
-        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
-        width: 470,
-        height: 232,
-      },
-      desktop: {
-        url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
-        width: 1078,
-        height: 425,
-      },
-    },
-    type: "medium",
-  },
+  // {
+  //   id: 4,
+  //   title: "Exclusive Sunglasses",
+  //   slug: "exclusive-sunglasses",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
+  //       width: 232,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/736x/a2/dc/01/a2dc01c255a0f003502a6a7d45093b19.jpg",
+  //       width: 425,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Product Coupons",
+  //   slug: "product-coupons",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
+  //       width: 232,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/736x/8c/43/ea/8c43eae4024228f0c5529ca78ec34a72.jpg",
+  //       width: 425,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+  // {
+  //   id: 6,
+  //   title: "New Backpack",
+  //   slug: "new-backpack",
+  //   image: {
+  //     mobile: {
+  //       url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
+  //       width: 470,
+  //       height: 232,
+  //     },
+  //     desktop: {
+  //       url: "https://i.pinimg.com/1200x/85/61/f6/8561f672b00c856dcd5b1dc577e27ccb.jpg",
+  //       width: 1078,
+  //       height: 425,
+  //     },
+  //   },
+  //   type: "medium",
+  // },
 ];
 
 export const bannerGrid = [
@@ -385,54 +385,54 @@ export const bannerGrid = [
 export const promotionBanner = [
   {
     id: 1,
-    title: "Travel Baggage",
-    slug: "travel-baggage",
+    title: "Mega Sale",
+    slug: "mega-sale",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
+        url: "/assets/promotionBanners/megaSale.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/41/b5/ff/41b5ffb93e0c982515e312de103edc91.jpg",
-        width: 1500,
-        height: 800,
+        url: "/assets/promotionBanners/megaSale.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
   },
   {
     id: 2,
-    title: "Women's Collection",
-    slug: "women's-collection",
+    title: "Men's Collection",
+    slug: "men's-collection",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
+        url: "/assets/promotionBanners/ethnicWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/d3/37/59/d337591783789f68d9b89e04febcb026.jpg",
-        width: 1500,
-        height: 800,
+        url: "/assets/promotionBanners/ethnicWear.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
   },
   {
     id: 3,
-    title: "Winter Collection",
-    slug: "winter-collection",
+    title: "Daily Wear",
+    slug: "daily-wear",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
+        url: "/assets/promotionBanners/dailyWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/be/a7/22/bea72229a1f9554b950392ef71af527f.jpg",
-        width: 1500,
-        height: 800,
+        url: "/assets/promotionBanners/dailyWear.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",
@@ -443,14 +443,32 @@ export const promotionBanner = [
     slug: "women's-collection",
     image: {
       mobile: {
-        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
+        url: "/assets/promotionBanners/bridalWear.jpeg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "https://i.pinimg.com/1200x/f3/89/f3/f389f3da1e29f56b9dfd0d141c61c6c1.jpg",
-        width: 1500,
-        height: 800,
+        url: "/assets/promotionBanners/bridalWear.jpeg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 5,
+    title: "Valentine's Collection",
+    slug: "valentine's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/valentine.jpeg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/valentine.jpeg",
+        width: 1200,
+        height: 300,
       },
     },
     type: "small",

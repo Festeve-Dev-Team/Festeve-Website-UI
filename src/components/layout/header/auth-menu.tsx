@@ -5,6 +5,8 @@ import { useLogoutMutation } from '@framework/auth/use-logout';
 import { useRouter } from 'next/router';
 import { useUI } from '@contexts/ui.context';
 import { showToast } from '@utils/toast';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 interface Props {
 	href: string;
@@ -50,26 +52,96 @@ export default function AuthMenu({
 	const { unauthorize } = useUI();
 	const router = useRouter();
 	const { mutate: logout, isPending } = useLogoutMutation();
+	const [isHovered, setIsHovered] = useState(false);
 
-	const filteredMenuItems = authMenuItems.filter(item => 
+	const filteredMenuItems = authMenuItems.filter(item =>
 		(isAuthorized && item.authorized) || (!isAuthorized && !item.authorized)
 	);
 
+	// Extract GIF and text from children
+	const childrenArray = Array.isArray(children) ? children : [children];
+	const gifElement = childrenArray.find((child: any) => child?.type === 'img');
+	const textElement = childrenArray.find((child: any) => typeof child === 'string');
+
 	return (
-		<div className="relative group">
+		<div
+			className="relative group"
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+		>
 			{isAuthorized ? (
 				<div className={`${className} flex items-center justify-center gap-1.5 cursor-pointer py-2 hover:text-black transition-colors duration-200`}>
-					<span>{children}</span>
-					<span className="flex items-center justify-center w-4 h-4">
-						<FaChevronDown className="w-3 h-3 transition duration-200 ease-in-out transform group-hover:-rotate-180" />
-					</span>
+					<div className="relative flex items-center justify-center min-h-[48px] w-[50px]">
+						<AnimatePresence mode="wait">
+							{isHovered ? (
+								<motion.div
+									key="gif"
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									exit={{ opacity: 0, scale: 0.8 }}
+									transition={{ duration: 0.2, ease: "easeInOut" }}
+									className="flex items-center justify-center absolute inset-0"
+								>
+									{gifElement}
+								</motion.div>
+							) : (
+								<motion.div
+									key="text"
+									initial={{ opacity: 0, y: 5 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -5 }}
+									transition={{ duration: 0.2, ease: "easeInOut" }}
+									className="flex items-center justify-center absolute inset-0"
+								>
+									{textElement}
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
+					<motion.span
+						className="flex items-center justify-center w-4 h-4"
+						animate={{ rotate: isHovered ? -180 : 0 }}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
+						<FaChevronDown className="w-3 h-3 transition duration-200 ease-in-out transform" />
+					</motion.span>
 				</div>
 			) : (
 				<button {...btnProps} className={`${className} flex items-center justify-center gap-1.5 py-2 hover:text-black transition-colors duration-200`}>
-					<span>{children}</span>
-					<span className="flex items-center justify-center w-4 h-4">
-						<FaChevronDown className="w-3 h-3 transition duration-200 ease-in-out transform group-hover:-rotate-180" />
-					</span>
+					<div className="relative flex items-center justify-center min-h-[48px] w-[50px]">
+						<AnimatePresence mode="wait">
+							{isHovered ? (
+								<motion.div
+									key="gif"
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									exit={{ opacity: 0, scale: 0.8 }}
+									transition={{ duration: 0.2, ease: "easeInOut" }}
+									className="flex items-center justify-center absolute inset-0"
+								>
+									{gifElement}
+								</motion.div>
+							) : (
+								<motion.div
+									key="text"
+									initial={{ opacity: 0, y: 5 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -5 }}
+									transition={{ duration: 0.2, ease: "easeInOut" }}
+									className="flex items-center justify-center absolute inset-0"
+								>
+									{textElement}
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
+					<motion.span
+						className="flex items-center justify-center w-4 h-4"
+						animate={{ rotate: isHovered ? -180 : 0 }}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
+						<FaChevronDown className="w-3 h-3 transition duration-200 ease-in-out transform" />
+					</motion.span>
 				</button>
 			)}
 

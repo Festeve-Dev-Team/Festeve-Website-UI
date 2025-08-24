@@ -12,6 +12,7 @@
   "menu-ancient": "Ancient",
   "menu-men-wear": "Men Wear",
   "menu-women-wear": "Women Wear",
+  "menu-essentials": "Essentials",
   "menu-casual-wear": "Casual Wear",
   "menu-search": "Search",
   "menu-food": "Food",
@@ -90,5 +91,6 @@
   "menu-jewelry": "Jewelry",
   "menu-sunglasses": "Sunglasses",
   "menu-sneakers": "Sneakers",
-  "menu-purohits": "Purohits"
+  "menu-purohits": "Purohits",
+  "menu-personal-care": "Personal Care"
 }

@@ -1,0 +1,20 @@
+{
+  "label-first-name": "प्रथमं नाम",
+  "label-last-name": "अन्तिमं नाम",
+  "label-email": "विद्युत्पत्रम्",
+  "label-password": "कूटशब्दः",
+  "label-confirm-password": "कूटशब्दं पुष्टीकरोतु",
+  "label-phone": "दूरभाषसङ्ख्या",
+  "label-address": "सङ्केतः",
+  "label-city": "नगरम्",
+  "label-state": "राज्यम्",
+  "label-zip": "पिन्कूटः",
+  "label-country": "देशः",
+  "placeholder-search": "अत्र अन्विष्यतु...",
+  "placeholder-name": "स्वनाम लिखतु",
+  "placeholder-email": "स्वविद्युत्पत्रं लिखतु",
+  "placeholder-message": "स्वसन्देशं लिखतु",
+  "button-submit": "प्रेषयतु",
+  "button-update": "अद्यतनं करोतु",
+  "button-reset": "पुनःस्थापयतु"
+}

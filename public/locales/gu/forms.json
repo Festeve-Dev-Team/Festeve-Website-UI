@@ -1,0 +1,16 @@
+{
+  "email-error": "કૃપા કરીને માન્ય ઇમેઇલ સરનામું દાખલ કરો",
+  "password-error": "કૃપા કરીને તમારો પાસવર્ડ દાખલ કરો",
+  "name-required": "તમારું નામ જરૂરી છે",
+  "address-required": "સરનામું જરૂરી છે",
+  "phone-required": "ફોન નંબર જરૂરી છે",
+  "label-name": "નામ",
+  "label-email": "ઇમેઇલ",
+  "label-password": "પાસવર્ડ",
+  "label-confirm-password": "પાસવર્ડની પુષ્ટિ કરો",
+  "label-address": "સરનામું",
+  "label-phone": "ફોન",
+  "label-message": "સંદેશ",
+  "button-submit": "સબમિટ કરો",
+  "button-reset": "રીસેટ કરો"
+}

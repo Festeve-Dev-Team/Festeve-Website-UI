@@ -1,14 +1,54 @@
 {
-  "terms-one-title": "Purpose",
-  "terms-one-content": "<p>Little &amp; Big is committed to protecting your privacy because we are committed to valuing people. Our Privacy Policy below sets out how your personal information is collected, used and protected. The&nbsp;<a href='http://demo'>Demo Country Privacy Principles</a>&nbsp;also apply to us.</p><p>This Privacy Policy describes our policies and procedures on the collection, holding, use and disclosure of your personal information and should be read together with our&nbsp;Terms and Conditions. By providing your personal information you consent to our collection, use and disclosure of that information in accordance with this Privacy Policy.</p>",
-  "terms-two-title": "What is Personal Data?",
-  "terms-two-content": "<p>When used in this Policy, 'personal information' has the meaning given in the Privacy Act. Generally, it means any information or an opinion that could be used to identify you.</p>",
-  "terms-three-title": "Personal Data Collected",
-  "terms-three-content": "<p>Personal Data collected for the following purposes and using the following services:</p><ol><li>Google Analytics: Cookies; Usage Data</li><li>Contact form: email address; first name; phone number</li><li>Mailing list or newsletter: email address; first name</li></ol>",
-  "terms-four-title": "Accessing your Personal Data",
-  "terms-four-content": "<p>You may request access to your personal information collected by us, and ask that we correct that personal information. You can ask for access or correction by contacting us and we will usually respond within 30 days. If we refuse to give you access to, or correct, your personal information, we will notify you in writing setting out the reasons.</p>",
-  "terms-five-title": "Complaints",
-  "terms-five-content": "<p>If you believe your privacy has been breached or you have a complaint about how we have handled your personal information, please contact us in writing.  We will respond within a reasonable period (usually within 30 days).</p>",
-  "terms-six-title": "Owner and Data Controller",
-  "terms-six-content": "<p>The Commons<br>20-40 demo St,<br>Jon doe NSW 2008<br>Country<br><br>Email: demo@demo.com</p>"
+  "terms-title": "Terms and Conditions for FestEve Website",
+  "terms-intro-title": "Introduction",
+  "terms-intro-text": "Welcome to FestEve, a platform owned and operated by Crazytrio Pvt Ltd. By accessing or using our services, you agree to comply with these Terms and Conditions (\"Terms\"). Please read them carefully before using the Website. If you do not agree, you must refrain from using our services.",
+  
+  "terms-eligibility-title": "Eligibility",
+  "terms-eligibility-items": "Be at least 18 years old or have parental/guardian consent. Provide accurate and complete information during registration.",
+
+  "terms-account-title": "User Account",
+  "terms-account-items": "You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use of your account.",
+
+  "terms-products-title": "Products and Services",
+  "terms-products-items": "We offer festival-related products, including but not limited to ethnic wear, decorations, food items, and services. All product descriptions and pricing are subject to change without notice. We strive to ensure accuracy, but errors may occur. In such cases, we reserve the right to correct them.",
+
+  "terms-orders-title": "Orders",
+  "terms-orders-items": "Orders are subject to acceptance and availability. We reserve the right to cancel any order due to incorrect pricing, suspicion of fraud, or other valid reasons.",
+
+  "terms-pricing-title": "Pricing and Payment",
+  "terms-pricing-items": "Prices displayed are inclusive/exclusive of taxes as specified. We accept various payment methods, including credit/debit cards, UPI, and net banking. Payment must be completed before the order is processed.",
+
+  "terms-delivery-title": "Delivery",
+  "terms-delivery-items": "We aim to deliver products within the specified timeframe. Delays may occur due to unforeseen circumstances. Shipping costs, if any, will be displayed during checkout.",
+
+  "terms-returns-title": "Returns and Refunds",
+  "terms-returns-items": "Returns are accepted within 10 days of delivery, provided the product is unused and in original packaging. Refunds will be processed within 10 working days after approval.",
+
+  "terms-conduct-title": "User Conduct",
+  "terms-conduct-prefix": "You agree not to:",
+  "terms-conduct-items": "Violate any laws or regulations. Upload or share harmful, obscene, or infringing content. Attempt to disrupt the Website's functionality.",
+
+  "terms-ip-title": "Intellectual Property",
+  "terms-ip-items": "All content on the Website, including text, graphics, logos, and images, is the property of FestEve or its licensors. Unauthorized use is prohibited.",
+
+  "terms-thirdparty-title": "Third-Party Links",
+  "terms-thirdparty-text": "The Website may contain links to third-party websites. We are not responsible for their content or practices.",
+
+  "terms-liability-title": "Limitation of Liability",
+  "terms-liability-text": "We are not liable for indirect, incidental, or consequential damages arising from your use of the Website.",
+
+  "terms-indemnification-title": "Indemnification",
+  "terms-indemnification-text": "You agree to indemnify and hold FestEve harmless from claims, damages, and expenses arising from your use of the Website or violation of these Terms.",
+
+  "terms-modifications-title": "Modifications",
+  "terms-modifications-text": "We reserve the right to update these Terms at any time. Changes will be posted on this page.",
+
+  "terms-termination-title": "Termination",
+  "terms-termination-text": "We may terminate or suspend your access to the Website for violations of these Terms or other valid reasons.",
+
+  "terms-law-title": "Governing Law",
+  "terms-law-text": "These Terms are governed by the laws of FestEve.",
+
+  "terms-contact-title": "Contact Us",
+  "terms-contact-text": "For questions or concerns, contact us at"
 }
