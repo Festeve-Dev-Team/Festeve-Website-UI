@@ -204,6 +204,7 @@ const SignUpForm: React.FC = () => {
       // Success toast will be shown by useVerifyOtpMutation onSuccess
 
       if (!verifyOtpPending) {
+        // Redirect will be handled by useVerifyOtpMutation onSuccess
         setStep(2);
       }
     } catch (err: any) {
@@ -220,7 +221,7 @@ const SignUpForm: React.FC = () => {
 
         showToast('Profile updated successfully!', 'success');
 
-        Router.push("/");
+        Router.push("/e-books");
       } catch (err: any) {
         const errorMessage =
           err?.response?.data?.message ||

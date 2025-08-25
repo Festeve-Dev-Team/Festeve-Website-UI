@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { showToast } from "@utils/toast";
+import Router from "next/router";
 
 export interface VerifyOtpInputType {
   identifier: string;
@@ -43,6 +44,9 @@ export const useVerifyOtpMutation = () => {
       // Show success toast message
       const successMessage = data?.verifyOtpResponse?.data?.message || 'Registration completed successfully!';
       showToast(successMessage, 'success');
+
+      // Redirect to e-books after successful signup
+      Router.push('/e-books');
     },
     onError: (error: any) => {
       console.log(error, "verifyOtp error response");
