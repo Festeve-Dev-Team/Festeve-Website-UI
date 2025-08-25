@@ -145,8 +145,9 @@ const SignUpForm: React.FC = () => {
     } catch (error: any) {
       console.log({ error });
 
-      // Safely extract error message
+      // Safely extract error message - handle nested error structure
       let message =
+        error?.response?.data?.message?.message || // Handle nested error structure
         error?.response?.data?.message ||
         error?.message ||
         "Invalid Phone number or User already exists";
@@ -209,8 +210,9 @@ const SignUpForm: React.FC = () => {
     } catch (err: any) {
       console.log({ err });
 
-      // Extract error message from error object
+      // Extract error message from error object - handle nested error structure
       const errorMessage =
+        err?.response?.data?.message?.message || // Handle nested error structure
         err?.response?.data?.message ||
         err?.message ||
         'Failed to complete registration. Please try again.';

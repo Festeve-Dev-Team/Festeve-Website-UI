@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useLoginMutation, LoginInputType } from '@framework/auth/use-login';
 import { useUI } from '@contexts/ui.context';
 import Logo from '@components/ui/logo';
-import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
+// Social login icons removed as social login is hidden
+// import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
 import { useTranslation } from 'next-i18next';
 import Router from 'next/router';
 
@@ -54,7 +55,8 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  async function handelSocialLogin() {
+  // Social login function removed as social login is hidden
+  /* async function handelSocialLogin() {
     try {
       await login({
         email: 'demo@demo.com',
@@ -71,7 +73,7 @@ const LoginForm: React.FC = () => {
     } catch (error: any) {
       console.error('Social login failed:', error);
     }
-  }
+  } */
   function handleSignUp() {
     setModalView('SIGN_UP_VIEW');
     return openModal();
@@ -157,7 +159,8 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
       </form>
-      <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-6 mb-3.5">
+      {/* Social login buttons hidden as requested */}
+      {/* <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-6 mb-3.5">
         <hr className="w-full border-gray-300" />
         <span className="absolute -top-2.5 px-2 bg-white">
           {t('common:text-or')}
@@ -178,7 +181,7 @@ const LoginForm: React.FC = () => {
       >
         <ImGoogle2 className="text-sm sm:text-base ltr:mr-1.5 rtl:ml-1.5" />
         {t('common:text-login-with-google')}
-      </Button>
+      </Button> */}
       <div className="mt-5 mb-1 text-sm text-center sm:text-base text-body">
         {t('common:text-no-account')}{' '}
         <button
