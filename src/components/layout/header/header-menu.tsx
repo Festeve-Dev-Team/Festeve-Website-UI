@@ -28,6 +28,8 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
         return '/assets/icons/guru.gif';
       case 'food':
         return '/assets/icons/frying-pan.gif';
+      case 'e-books':
+        return '/assets/icons/open-book.gif';
       default:
         return '/assets/icons/guru.gif'; // fallback
     }
