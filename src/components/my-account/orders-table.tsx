@@ -22,7 +22,7 @@ const OrdersTable: React.FC = () => {
         variants={fadeInTop(0.35)}
         className={`w-full flex flex-col`}
       >
-        {width >= 1025 ? (
+        {/* {width >= 1025 ? (
           <table>
             <thead className="text-sm lg:text-base">
               <tr>
@@ -175,7 +175,7 @@ const OrdersTable: React.FC = () => {
               </li>
             </ul>
           </div>
-        )}
+        )} */}
       </motion.div>
     </>
   );

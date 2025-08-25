@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
 import { showToast } from '@utils/toast';
+import { useApplyPromoMutation } from '@framework/promo/use-apply-promo';
 
 interface UsePromoCodeOptions {
     productId: string;
     downloadUrl: string;
+    onSuccess?: () => void; // Callback for successful promo application
 }
 
 interface PromoCodeState {
@@ -12,43 +14,44 @@ interface PromoCodeState {
     appliedCode: string | null;
 }
 
-export const usePromoCode = ({ productId, downloadUrl }: UsePromoCodeOptions) => {
+export const usePromoCode = ({ productId, downloadUrl, onSuccess }: UsePromoCodeOptions) => {
     const [state, setState] = useState<PromoCodeState>({
         isApplying: false,
         isApplied: false,
         appliedCode: null,
     });
 
+    const { mutateAsync: applyPromoAPI, isPending } = useApplyPromoMutation();
+
     const applyPromoCode = useCallback(async (promoCode: string): Promise<boolean> => {
         setState(prev => ({ ...prev, isApplying: true }));
 
         try {
-            // TODO: Replace with actual API call when provided
-            // For now, simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Call the real API endpoint
+            await applyPromoAPI({
+                promoCode,
+                productId,
+            });
 
-            // Mock validation - replace with actual API logic
-            const isValid = promoCode.length >= 3; // Simple validation for demo
+            setState(prev => ({
+                ...prev,
+                isApplying: false,
+                isApplied: true,
+                appliedCode: promoCode,
+            }));
 
-            if (isValid) {
-                setState(prev => ({
-                    ...prev,
-                    isApplying: false,
-                    isApplied: true,
-                    appliedCode: promoCode,
-                }));
-                showToast('Promo code applied successfully!', 'success');
-                return true;
-            } else {
-                setState(prev => ({ ...prev, isApplying: false }));
-                return false;
+            // Call success callback (e.g., to close modal)
+            if (onSuccess) {
+                onSuccess();
             }
+
+            return true;
         } catch (error) {
             setState(prev => ({ ...prev, isApplying: false }));
             console.error('Error applying promo code:', error);
             return false;
         }
-    }, []);
+    }, [applyPromoAPI, productId]);
 
     const downloadFile = useCallback(() => {
         if (!state.isApplied || !downloadUrl) {
@@ -86,30 +89,11 @@ export const usePromoCode = ({ productId, downloadUrl }: UsePromoCodeOptions) =>
 
     return {
         ...state,
+        isApplying: state.isApplying || isPending, // Use either local state or API loading state
         applyPromoCode,
         downloadFile,
         resetState,
     };
 };
 
-// TODO: Replace this with actual API call when provided
-export const applyPromoCodeAPI = async (productId: string, promoCode: string) => {
-    // This is a placeholder for the actual API call
-    // Replace with the actual API endpoint when provided
-    const response = await fetch('/api/apply-promo-code', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            productId,
-            promoCode,
-        }),
-    });
 
-    if (!response.ok) {
-        throw new Error('Failed to apply promo code');
-    }
-
-    return response.json();
-};

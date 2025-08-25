@@ -101,6 +101,7 @@ const SpecialDayReminder: React.FC = () => {
         setIsEditing(true);
     };
 
+    return <></>
     return (
         <motion.div
             layout

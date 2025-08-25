@@ -46,6 +46,7 @@ export default function ProductPopup() {
   const promoCodeHook = usePromoCode({
     productId: data?._id || '',
     downloadUrl: selectedVariant?.downloadUrl || '',
+    onSuccess: closeModal, // Close modal after successful promo application
   });
 
   const { price, basePrice, discount } = usePrice({
@@ -209,7 +210,7 @@ export default function ProductPopup() {
                 />
                 <Button
                   onClick={navigateToProductPage}
-                  variant="outline"
+                  // variant="outline"
                   className="w-full h-11 md:h-12"
                 >
                   {t("text-view-details")}

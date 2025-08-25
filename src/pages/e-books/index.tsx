@@ -20,30 +20,33 @@ export default function Products() {
       {/* <ShopDiscount /> */}
       <Container>
         <div className={`flex pt-8 pb-16 lg:pb-20`}>
-          <div className="flex-shrink-0 ltr:pr-24 rtl:pl-24 hidden lg:block w-96">
-            <StickyBox offsetTop={50} offsetBottom={20}>
-              <div className="pb-7">
-                <BreadcrumbItems separator="/">
-                  <ActiveLink
-                    href={"/"}
-                    activeClassName="font-semibold text-heading"
-                  >
-                    {t("breadcrumb-home")}
-                  </ActiveLink>
-                  <ActiveLink
-                    href={ROUTES.E_BOOKS}
-                    activeClassName="font-semibold text-heading"
-                    className="capitalize"
-                  >
-                    {t("breadcrumb-e-books")}
-                  </ActiveLink>
-                </BreadcrumbItems>
-              </div>
-              <ShopFilters />
-            </StickyBox>
-          </div>
+          {/* Hide filters for e-books route */}
+          {false && (
+            <div className="flex-shrink-0 ltr:pr-24 rtl:pl-24 hidden lg:block w-96">
+              <StickyBox offsetTop={50} offsetBottom={20}>
+                <div className="pb-7">
+                  <BreadcrumbItems separator="/">
+                    <ActiveLink
+                      href={"/"}
+                      activeClassName="font-semibold text-heading"
+                    >
+                      {t("breadcrumb-home")}
+                    </ActiveLink>
+                    <ActiveLink
+                      href={ROUTES.E_BOOKS}
+                      activeClassName="font-semibold text-heading"
+                      className="capitalize"
+                    >
+                      {t("breadcrumb-e-books")}
+                    </ActiveLink>
+                  </BreadcrumbItems>
+                </div>
+                <ShopFilters />
+              </StickyBox>
+            </div>
+          )}
 
-          <div className="w-full ltr:lg:-ml-9 rtl:lg:-mr-9">
+          <div className={`w-full ${false ? 'ltr:lg:-ml-9 rtl:lg:-mr-9' : ''}`}>
             <SearchTopBar translationKey="breadcrumb-e-books" />
             <ProductGrid category="e-books" />
           </div>

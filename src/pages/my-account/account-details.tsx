@@ -9,8 +9,8 @@ export default function AccountDetailsPage() {
 	return (
 		<AccountLayout>
 			<AccountDetails />
-			<hr className="mt-4 border-t-1 border-gray-700" />
-			<SpecialDayReminder />
+			{/* <hr className="mt-4 border-t-1 border-gray-700" />
+			<SpecialDayReminder /> */}
 		</AccountLayout>
 	);
 }
