@@ -97,6 +97,9 @@ type Action =
   | {
     type: "SET_POST_LOGIN_ACTION";
     action: () => void;
+  }
+  | {
+    type: "CLEAR_POST_LOGIN_ACTION";
   };
 
 type MODAL_VIEWS =
@@ -238,6 +241,12 @@ function uiReducer(state: State, action: Action) {
         postLoginAction: action.action,
       };
     }
+    case "CLEAR_POST_LOGIN_ACTION": {
+      return {
+        ...state,
+        postLoginAction: undefined,
+      };
+    }
   }
 }
 
@@ -286,6 +295,8 @@ export const UIProvider: React.FC = (props) => {
 
   const setPostLoginAction = (action: () => void) =>
     dispatch({ type: "SET_POST_LOGIN_ACTION", action });
+  const clearPostLoginAction = () =>
+    dispatch({ type: "CLEAR_POST_LOGIN_ACTION" });
 
   const value = React.useMemo(
     () => ({
@@ -313,6 +324,7 @@ export const UIProvider: React.FC = (props) => {
       setUserAvatar,
       setModalData,
       setPostLoginAction,
+      clearPostLoginAction,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]

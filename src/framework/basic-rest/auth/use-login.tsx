@@ -22,5 +22,8 @@ export const useLoginMutation = () => {
       authorize();
       closeModal();
     },
+    onError: (error) => {
+      console.log(error, "login error response");
+    },
   });
 };

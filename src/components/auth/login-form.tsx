@@ -11,7 +11,7 @@ import Router from 'next/router';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-  const { setModalView, openModal, closeModal, postLoginAction } = useUI();
+  const { setModalView, openModal, closeModal, postLoginAction, clearPostLoginAction } = useUI();
   const { mutateAsync: login, isPending } = useLoginMutation();
 
   const {
@@ -29,9 +29,12 @@ const LoginForm: React.FC = () => {
 
     try {
       await login(payload);
-      closeModal();
+      // closeModal() and authorize() are called in useLoginMutation success handler
+
+      // Handle post-login navigation
       if (postLoginAction) {
         postLoginAction();
+        clearPostLoginAction(); // Clear the action after use
       } else {
         Router.push('/');
       }
@@ -51,12 +54,23 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  function handelSocialLogin() {
-    login({
-      email: 'demo@demo.com',
-      password: 'demo',
-      remember_me: true,
-    });
+  async function handelSocialLogin() {
+    try {
+      await login({
+        email: 'demo@demo.com',
+        password: 'demo',
+        remember_me: true,
+      });
+      // Handle post-login navigation for social login
+      if (postLoginAction) {
+        postLoginAction();
+        clearPostLoginAction();
+      } else {
+        Router.push('/');
+      }
+    } catch (error: any) {
+      console.error('Social login failed:', error);
+    }
   }
   function handleSignUp() {
     setModalView('SIGN_UP_VIEW');
