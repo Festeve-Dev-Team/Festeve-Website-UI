@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
         postLoginAction();
         clearPostLoginAction(); // Clear the action after use
       } else {
-        Router.push('/');
+        Router.push('/e-books');
       }
     } catch (error: any) {
       console.error({ error });
@@ -68,7 +68,7 @@ const LoginForm: React.FC = () => {
         postLoginAction();
         clearPostLoginAction();
       } else {
-        Router.push('/');
+        Router.push('/e-books');
       }
     } catch (error: any) {
       console.error('Social login failed:', error);

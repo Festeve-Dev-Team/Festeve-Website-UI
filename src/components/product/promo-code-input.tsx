@@ -10,6 +10,7 @@ interface PromoCodeInputProps {
     isApplying?: boolean;
     isApplied?: boolean;
     className?: string;
+    onCloseModal?: () => void; // Optional callback to close modal/popup
 }
 
 const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
@@ -18,6 +19,7 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
     isApplying = false,
     isApplied = false,
     className = '',
+    onCloseModal,
 }) => {
     const { isAuthorized } = useUI();
     const [promoCode, setPromoCode] = useState('');
@@ -26,6 +28,10 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
     const handleApplyPromoCode = async () => {
         // Check authentication first - redirect to signin page
         if (!isAuthorized) {
+            // Close modal/popup before redirecting
+            if (onCloseModal) {
+                onCloseModal();
+            }
             // Redirect to signin page instead of opening modal
             Router.push('/signin');
             return;
@@ -56,6 +62,10 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
 
             // If it's an authentication error, redirect to signin page
             if (err?.message?.includes('log in') || err?.message?.includes('authenticated')) {
+                // Close modal/popup before redirecting
+                if (onCloseModal) {
+                    onCloseModal();
+                }
                 Router.push('/signin');
                 return;
             }
@@ -69,6 +79,14 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
         // Reset state after download
         setPromoCode('');
         setError('');
+
+        // Close modal/popup after download starts since it opens in new tab
+        if (onCloseModal) {
+            // Add slight delay to ensure download starts before closing
+            setTimeout(() => {
+                onCloseModal();
+            }, 500);
+        }
     };
 
     if (isApplied) {
