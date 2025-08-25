@@ -9,13 +9,108 @@ interface WhatsTodayProps {
 const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-0 max-w-5xl mx-auto space-y-4" }) => {
 
     const [expanded, setExpanded] = useState(false);
-    const charLimit = 100;
-    const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, mollitia nam. Iusto totam fuga harum ab error facere reprehenderit illo impedit nulla magnam sapiente, id rem iure perspiciatis velit dicta voluptatem? Voluptate tenetur obcaecati nesciunt ex? Sed dolore cumque suscipit dolores dignissimos eaque nesciunt in? Natus rem consequatur dolore porro eum, dolor nulla quod odit molestiae aspernatur culpa assumenda magnam beatae! Velit quibusdam sunt veritatis. Nam necessitatibus qui hic totam dolor id molestias ipsum a atque fugit eius perspiciatis debitis explicabo animi officiis facere repellat vero culpa, voluptas ipsam? Earum possimus maxime doloremque officia vero atque numquam a? Nam nostrum, voluptatum minus quis dolorum commodi sint. Ipsa nostrum alias doloremque dolorum sequi, ea, expedita inventore, tempora minus tenetur earum id quaerat. Nostrum, rerum! Quas, quasi assumenda, repudiandae nihil alias, expedita laudantium eveniet impedit tenetur id iusto amet enim! Optio labore fugiat ab, facere voluptatem odit debitis totam aperiam, est soluta accusantium adipisci illo non possimus cum voluptatum! Quam suscipit minima dolorum illum dolorem dicta eum, fuga aut, asperiores, sequi debitis. Nostrum necessitatibus odio, adipisci, architecto totam aut saepe ex similique voluptatibus cupiditate debitis eaque at explicabo sunt nesciunt cumque id quo neque provident, expedita illo. Ratione provident omnis aliquid atque!";
+    const charLimit = 300;
+
+    // Festival information content
+    const festivalContent = () => (
+        <div className="space-y-6 text-left" style={{ color: '#111827' }}>
+            <div>
+                <h3 className="font-bold text-xl mb-3 text-amber-900 drop-shadow-sm">What (About the Festival)</h3>
+                <ul className="space-y-2 ml-4">
+                    <li className="flex items-start">
+                        <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                        <span className="text-gray-900 leading-relaxed font-medium">Vinayaka Chaturthi is observed on the fourth day (Chaturthi) of the Shukla Paksha in the Hindu month of Bhadrapada (~August–September).</span>
+                    </li>
+                    <li className="mt-3">
+                        <span className="font-bold text-amber-900 drop-shadow-sm">Duration:</span>
+                        <div className="ml-4 mt-1 text-gray-900 leading-relaxed font-medium">
+                            While the northern and western parts of India often observe the festival over 10 days, many southern regions mark it as a one-day event.
+                        </div>
+                    </li>
+                    <li className="mt-3">
+                        <span className="font-bold text-amber-900 drop-shadow-sm">Rituals:</span>
+                        <ul className="ml-4 mt-1 space-y-1">
+                            <li className="flex items-start">
+                                <span className="text-amber-900 mr-2 font-bold">○</span>
+                                <span className="text-gray-900 leading-relaxed font-medium">Installation (Sthapana) of Ganesha idols</span>
+                            </li>
+                            <li className="flex items-start">
+                                <span className="text-amber-900 mr-2 font-bold">○</span>
+                                <span className="text-gray-900 leading-relaxed font-medium">Daily aartis, prayers, and offerings of sweets (especially modak, Ganesha's favorite)</span>
+                            </li>
+                            <li className="flex items-start">
+                                <span className="text-amber-900 mr-2 font-bold">○</span>
+                                <span className="text-gray-900 leading-relaxed font-medium">Visarjan (immersion of idols) at the end of the festival, symbolizing life's impermanence.</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 className="font-bold text-xl mb-3 text-amber-900 drop-shadow-sm">When (2025 Specifics)</h3>
+                <ul className="space-y-2 ml-4">
+                    <li className="flex items-start">
+                        <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Festival Day:</span> Wednesday, 27 August 2025</span>
+                    </li>
+                    <li className="flex items-start">
+                        <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Tithi (Lunar Timing):</span> Begins on 26 August (afternoon), ends on 27 August (late afternoon)</span>
+                    </li>
+                    <li className="flex items-start">
+                        <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Shubha Muhurat (Auspicious Puja Time):</span> Midday slot, approximately 11:05 AM to 1:45 PM</span>
+                    </li>
+                    <li className="flex items-start">
+                        <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Visarjan (Immersion):</span> Saturday, 6 September 2025—marking the festival's conclusion</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 className="font-bold text-xl mb-3 text-amber-900 drop-shadow-sm">Why (Significance)</h3>
+                <ul className="space-y-3 ml-4">
+                    <li>
+                        <span className="flex items-start">
+                            <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                            <span className="font-bold text-amber-900 drop-shadow-sm">Celebration of Lord Ganesha's Birth</span>
+                        </span>
+                        <div className="ml-6 mt-1 text-gray-900 leading-relaxed font-medium">
+                            Vinayaka Chaturthi, also called Ganesh Chaturthi, honors Lord Ganesha—beloved as the remover of obstacles and patron of wisdom, art, and beginnings
+                        </div>
+                    </li>
+                    <li>
+                        <span className="flex items-start">
+                            <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                            <span className="font-bold text-amber-900 drop-shadow-sm">Cultural Harmony & Unity</span>
+                        </span>
+                        <div className="ml-6 mt-1 text-gray-900 leading-relaxed font-medium">
+                            Popularized in modern India by Lokmanya Tilak during colonial times, the festival became a unifying community celebration across Western and Southern India.
+                        </div>
+                    </li>
+                    <li>
+                        <span className="flex items-start">
+                            <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
+                            <span className="font-bold text-amber-900 drop-shadow-sm">Blessings & Prosperity</span>
+                        </span>
+                        <div className="ml-6 mt-1 text-gray-900 leading-relaxed font-medium">
+                            Devotees believe that worshiping Ganesha during this time brings prosperity, spiritual wisdom, and the removal of life's blockages.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
+
+    // Create text version for truncation logic
+    const text = "Vinayaka Chaturthi is observed on the fourth day of Shukla Paksha in Bhadrapada month. Festival Day: Wednesday, 27 August 2025. This festival honors Lord Ganesha as the remover of obstacles and patron of wisdom, bringing prosperity and spiritual wisdom to devotees.";
     const textRef = useRef<HTMLParagraphElement>(null);
 
     // Determine if the text needs to be truncated
-    const shouldTruncate = text.length > charLimit;
-    const displayText = shouldTruncate && !expanded
+    const shouldTruncate = true; // Always show read more for festival content
+    const displayText = !expanded
         ? text.substring(0, charLimit) + "..."
         : text;
 
@@ -44,7 +139,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
 
     return (
         <div className={className}>
-            <div className="text-center text-green-900 font-bold text-xl">What&apos;s Today</div>
+            <div className="text-center text-amber-900 font-bold text-2xl drop-shadow-lg">About the Festival</div>
 
             <motion.div
                 initial={{ opacity: 0 }}
@@ -102,12 +197,12 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                             margin: '6px 50px',
                             textAlign: "right"
                         }}
-                        className="text-green-900"
+                        className="text-amber-900 font-semibold drop-shadow-sm"
                     >
                         {formattedDate}
                     </div>
                     <AnimatePresence mode="wait">
-                        <motion.p
+                        <motion.div
                             ref={textRef}
                             key={expanded ? "expanded" : "collapsed"}
                             initial={{ opacity: 0, y: 10 }}
@@ -117,40 +212,52 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                             style={{
                                 margin: 0,
                                 padding: '16px 50px',
-                                textAlign: "center",
                                 wordWrap: "break-word",
-                                color: 'green'
                             }}
-                            className="text-green-900"
+                            className="text-gray-900"
                         >
-                            {displayText}
-                        </motion.p>
+                            {expanded ? (
+                                festivalContent()
+                            ) : (
+                                <div className="text-center">
+                                    <p className="text-gray-900 leading-relaxed font-semibold text-base">{displayText}</p>
+                                </div>
+                            )}
+                        </motion.div>
                     </AnimatePresence>
 
                     {shouldTruncate && (
                         <motion.div
                             style={{
                                 display: "flex",
-                                justifyContent: "flex-end",
-                                paddingRight: "32px",
-                                marginTop: "-20px",
+                                justifyContent: "center",
+                                marginTop: "10px",
                                 marginBottom: "20px"
                             }}
                         >
                             <motion.button
                                 onClick={toggleExpanded}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                                 style={{
-                                    border: "none",
-                                    padding: "8px 16px",
-                                    fontSize: "14px",
+                                    // border: "2px solid #92400e",
+                                    padding: "10px 24px",
+                                    fontSize: "16px",
                                     cursor: "pointer",
-                                    fontWeight: 500,
+                                    fontWeight: 600,
+                                    color: expanded ? "rgba(251, 191, 36, 0.9)" : "#92400e",
+                                    backgroundColor: expanded ? "#92400e" : "rgba(251, 191, 36, 0.15)",
+                                    borderRadius: "6px",
+                                    textShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+                                    minWidth: "120px"
                                 }}
+                                className={`transition-all duration-200 ${expanded
+                                    ? "hover:bg-amber-800 hover:text-amber-100"
+                                    : "hover:bg-amber-200 hover:text-amber-900"
+                                    }`}
                             >
-                                {expanded ? "...Read Less" : "...Read More"}
+                                {expanded ? "Read Less" : "Read More"}
                             </motion.button>
                         </motion.div>
                     )}

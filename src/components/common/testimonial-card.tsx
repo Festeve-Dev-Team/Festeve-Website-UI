@@ -3,6 +3,7 @@ import StarIcon from "@components/icons/star-icon";
 import QuoteIcon from "@components/icons/quote-icon";
 import cn from "classnames";
 import QuoteIconRotate from "@components/icons/quote-icon-rotate";
+import { useState } from "react";
 
 interface Props {
   item: any;
@@ -17,11 +18,11 @@ const TestimonialCard: React.FC<Props> = ({
   disableBoarderRadius = false,
   demoVariant,
 }) => {
+  const [showFullText, setShowFullText] = useState(false);
   return (
     <div
-      className={`bg-gray-200 w-full ${
-        !disableBoarderRadius && "rounded-md"
-      } p-6 md:p-8 lg:p-6 xl:p-8 transition duration-300 ease-in-out mx-auto md:mx-0`}
+      className={`bg-gray-200 w-full ${!disableBoarderRadius && "rounded-md"
+        } p-6 md:p-8 lg:p-6 xl:p-8 transition duration-300 ease-in-out mx-auto md:mx-0`}
     >
       <div
         className={cn("", {
@@ -54,11 +55,11 @@ const TestimonialCard: React.FC<Props> = ({
           >
             {item.name}
           </Text>
-          {type === "modern" && (
+          {/* {type === "modern" && (
             <span className="text-base text-[#5A5A5A] font-normal">
               from Duisbarg
             </span>
-          )}
+          )} */}
         </div>
 
         {type !== "modern" ? (
@@ -75,7 +76,7 @@ const TestimonialCard: React.FC<Props> = ({
             {demoVariant !== "ancient" && (
               <div className="flex items-center ltr:ml-auto rtl:mr-auto gap-x-2">
                 <StarIcon />
-                <span className="text-base font-semibold">4.5</span>
+                <span className="text-base font-semibold">{item.rating}</span>
               </div>
             )}
           </>
@@ -91,7 +92,12 @@ const TestimonialCard: React.FC<Props> = ({
         )}
       >
         {type !== "modern" && <QuoteIcon className="mb-3 xl:mb-4" />}
-        {item.text}
+        {showFullText ? item.text : `${item.text?.slice(0, 150)}${item.text?.length > 150 ? '...' : ''}`}
+        {item.text?.length > 150 && !showFullText && (
+          <button onClick={() => setShowFullText(true)} className="text-blue-500 ml-1">
+            Read more
+          </button>
+        )}
         {type === "modern" && (
           <QuoteIconRotate className="mt-3 ml-auto xl:mt-4" />
         )}
