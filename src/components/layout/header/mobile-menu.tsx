@@ -13,6 +13,7 @@ import {
 } from 'react-icons/io5';
 import { useTranslation } from 'next-i18next';
 import { useCategoriesQuery } from '@framework/category/get-all-categories';
+import Subscription from '@components/common/subscription';
 
 const social = [
   {
@@ -71,8 +72,67 @@ export default function MobileMenu() {
     menuName,
     menuIndex,
     className = '',
-  }: any) =>
-    data.label && (
+  }: any) => {
+    // Handle special cases for Clothing and Essentials
+    if (data.label === 'Clothing' || data.label === 'Essentials') {
+      return (
+        <li className={`mb-0.5 ${className}`}>
+          <div className="relative flex items-center justify-between">
+            <div
+              className="w-full text-[15px] menu-item relative py-3 ltr:pl-5 rtl:pr-5 ltr:md:pl-6 rtl:md:pr-6 ltr:pr-4 rtl:pl-4 transition duration-300 ease-in-out cursor-pointer"
+              onClick={() => handleArrowClick(menuName)}
+            >
+              <span className="block w-full">
+                {t(`${data.label}`)}
+              </span>
+            </div>
+            <div
+              className="absolute top-0 flex items-center justify-end w-full h-full text-lg cursor-pointer ltr:left-0 rtl:right-0 ltr:pr-5 rtl:pl-5"
+              onClick={() => handleArrowClick(menuName)}
+            >
+              <IoIosArrowDown
+                className={`transition duration-200 ease-in-out transform text-heading ${activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
+                  }`}
+              />
+            </div>
+          </div>
+          {/* Custom launch notice for Clothing and Essentials */}
+          {activeMenus.includes(menuName) && (
+            <div className="px-5 py-4 bg-gray-50 border-l-4 border-brand">
+              {data.label === 'Clothing' ? (
+                <div>
+                  <h3 className="text-lg font-bold text-heading mb-2">The celebrations are about to begin</h3>
+                  <p className="text-sm text-body mb-4">
+                    <i>Festeve.in goes live on September 1st, 2025.</i><br />
+                    Until then, we're weaving together traditions, flavors, and celebrations — just for you.
+                  </p>
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold text-heading">Notify Me When We Launch</h4>
+                    <Subscription showTitle={false} className="px-0 bg-opacity-0" />
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="text-lg font-bold text-heading mb-2">Essentials for every celebration — big or small</h3>
+                  <p className="text-sm text-body mb-4">
+                    Whether it's a festival, a family gathering, or a personal milestone, we've got everything covered.
+                    <br />
+                    <i>Launching on September 1st, 2025.</i>
+                  </p>
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold text-heading">Join the Festive Waitlist</h4>
+                    <Subscription showTitle={false} className="px-0 bg-opacity-0" />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </li>
+      );
+    }
+
+    // Regular menu items
+    return data.label && (
       <li className={`mb-0.5 ${className}`}>
         <div className="relative flex items-center justify-between">
           <Link
@@ -89,9 +149,8 @@ export default function MobileMenu() {
               onClick={() => handleArrowClick(menuName)}
             >
               <IoIosArrowDown
-                className={`transition duration-200 ease-in-out transform text-heading ${
-                  activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
-                }`}
+                className={`transition duration-200 ease-in-out transform text-heading ${activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
+                  }`}
               />
             </div>
           )}
@@ -106,6 +165,7 @@ export default function MobileMenu() {
         )}
       </li>
     );
+  };
 
   const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
     if (!toggle) {
@@ -119,7 +179,7 @@ export default function MobileMenu() {
         {data?.map((column: any, index: number) => {
           return column.columnItems?.map((menu: any, subIndex: number) => {
             const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}-${subIndex}`;
-            
+
             return (
               <>
                 <ListMenu
@@ -169,21 +229,23 @@ export default function MobileMenu() {
         <Scrollbar className="flex-grow mb-auto menu-scrollbar">
           <div className="flex flex-col px-0 py-7 lg:px-2 text-heading">
             <ul className="mobileMenu">
-              {menuData.map((menu: any, index: number) => {
-                const dept: number = 1;
-                const menuName: string = `sidebar-menu-${dept}-${index}`;
+              {menuData
+                ?.filter((menu: any) => menu.label !== 'Food' && menu.label !== 'Gifting')
+                .map((menu: any, index: number) => {
+                  const dept: number = 1;
+                  const menuName: string = `sidebar-menu-${dept}-${index}`;
 
-                return (
-                  <ListMenu
-                    dept={dept}
-                    data={menu}
-                    hasSubMenu={menu.subMenu}
-                    menuName={menuName}
-                    key={menuName}
-                    menuIndex={index}
-                  />
-                );
-              })}
+                  return (
+                    <ListMenu
+                      dept={dept}
+                      data={menu}
+                      hasSubMenu={menu.subMenu}
+                      menuName={menuName}
+                      key={menuName}
+                      menuIndex={index}
+                    />
+                  );
+                })}
             </ul>
           </div>
         </Scrollbar>

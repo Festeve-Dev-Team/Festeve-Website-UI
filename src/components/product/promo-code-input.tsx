@@ -24,24 +24,10 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
     const [promoCode, setPromoCode] = useState('');
     const [error, setError] = useState('');
 
-    // Debug UI context
-    console.log('PromoCodeInput - UI Context:', {
-        isAuthorized,
-        hasSetModalView: !!setModalView,
-        hasOpenModal: !!openModal,
-        hasSetPostLoginAction: !!setPostLoginAction
-    });
-
     const handleApplyPromoCode = async () => {
-        console.log('handleApplyPromoCode called', { promoCode: promoCode.trim(), isAuthorized });
-
         // Check authentication first - allow login even without promo code
         if (!isAuthorized) {
-            console.log('User not authenticated, opening login modal');
-            console.log('About to call:', { setModalView, openModal, setPostLoginAction });
-
             setPostLoginAction(() => {
-                console.log('Post-login action: applying promo code');
                 handleApplyPromoCode();
             });
             setModalView("LOGIN_VIEW");
@@ -139,10 +125,7 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
                     />
                     <Button
                         variant="slim"
-                        onClick={() => {
-                            console.log('Button clicked!', { promoCode: promoCode.trim(), isAuthorized });
-                            handleApplyPromoCode();
-                        }}
+                        onClick={handleApplyPromoCode}
                         loading={isApplying}
                         disabled={isApplying || (isAuthorized && !promoCode.trim())}
                         className="px-6"
