@@ -54,6 +54,11 @@ export default function AuthMenu({
 	const { mutate: logout, isPending } = useLogoutMutation();
 	const [isHovered, setIsHovered] = useState(false);
 
+	// Handle click when user is authorized - navigate to account page
+	const handleAuthorizedClick = () => {
+		router.push('/my-account/account-details');
+	};
+
 	const filteredMenuItems = authMenuItems.filter(item =>
 		(isAuthorized && item.authorized) || (!isAuthorized && !item.authorized)
 	);
@@ -70,7 +75,10 @@ export default function AuthMenu({
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			{isAuthorized ? (
-				<div className={`${className} flex items-center justify-center gap-1.5 cursor-pointer py-2 hover:text-black transition-colors duration-200`}>
+				<div
+					className={`${className} flex items-center justify-center gap-1.5 cursor-pointer py-2 hover:text-black transition-colors duration-200`}
+					onClick={handleAuthorizedClick}
+				>
 					<div className="relative flex items-center justify-center min-h-[48px] w-[50px]">
 						<AnimatePresence mode="wait">
 							{isHovered ? (
