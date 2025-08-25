@@ -23,6 +23,7 @@
       "@containers/*": ["src/containers/*"],
       "@contexts/*": ["src/contexts/*"],
       "@framework/*": ["src/framework/basic-rest/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@settings/*": ["src/settings/*"],
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"],
