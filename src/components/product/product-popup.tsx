@@ -13,6 +13,8 @@ import usePrice from "@framework/product/use-price";
 import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
 import { getAllProductImages } from "@utils/get-product-images";
+import PromoCodeInput from "@components/product/promo-code-input";
+import { usePromoCode } from "@hooks/use-promo-code";
 import { showToast } from "@utils/toast";
 import { ProductVariant } from "@framework/types";
 
@@ -27,7 +29,7 @@ export default function ProductPopup() {
     openModal,
     setPostLoginAction,
   } = useUI();
-  
+
   const data = modalData?.data;
   const router = useRouter();
   const { addItemToCart } = useCart();
@@ -36,6 +38,15 @@ export default function ProductPopup() {
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+
+  // Get the default variant or first available variant
+  const selectedVariant = data?.variants?.find((v: any) => v.isActive) || data?.variants?.[0];
+
+  // Promo code functionality for downloadable products
+  const promoCodeHook = usePromoCode({
+    productId: data?._id || '',
+    downloadUrl: selectedVariant?.downloadUrl || '',
+  });
 
   const { price, basePrice, discount } = usePrice({
     amount: data.sale_price ? data.sale_price : data.price,
@@ -47,9 +58,9 @@ export default function ProductPopup() {
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
+    Object.keys(variations).every((variation) =>
+      attributes.hasOwnProperty(variation)
+    )
     : true;
 
   function addToCart() {
@@ -61,7 +72,7 @@ export default function ProductPopup() {
     setAddToCartLoader(true);
     try {
       const selectedVariant = data.variants?.find((v: ProductVariant) => v.isActive) || data.variants?.[0];
-      
+
       if (!selectedVariant) {
         throw new Error('No variant available');
       }
@@ -73,7 +84,7 @@ export default function ProductPopup() {
         quantity,
         attributes: attributes as Record<string, string>
       };
-      
+
       // Call both the context update and the mutation
       addItemToCart(item, quantity);
       createCart({
@@ -123,11 +134,14 @@ export default function ProductPopup() {
       openCart();
     }, 300);
   }
- 
+
   // Early return if no data to prevent hydration issues
   if (!data) {
     return null;
   }
+
+  // Check if this is a downloadable product
+  const isDownloadableProduct = selectedVariant?.isDownloadable;
 
   return (
     <div className="rounded-lg bg-white">
@@ -184,44 +198,65 @@ export default function ProductPopup() {
           })}
 
           <div className="pt-2 md:pt-4">
-            <div className="flex items-center justify-between mb-4 gap-x-3 sm:gap-x-4">
-              <Counter
-                quantity={quantity}
-                onIncrement={() => setQuantity((prev) => prev + 1)}
-                onDecrement={() =>
-                  setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-                }
-                disableDecrement={quantity === 1}
-              />
-              <Button
-                onClick={addToCart}
-                variant="flat"
-                className={`w-full h-11 md:h-12 px-1.5 ${
-                  !isSelected && "bg-gray-400 hover:bg-gray-400"
-                }`}
-                disabled={!isSelected}
-                loading={addToCartLoader}
-              >
-                {t("text-add-to-cart")}
-              </Button>
-            </div>
+            {isDownloadableProduct ? (
+              /* Downloadable product - show promo code input */
+              <div className="space-y-4">
+                <PromoCodeInput
+                  onApplyPromoCode={promoCodeHook.applyPromoCode}
+                  onDownload={promoCodeHook.downloadFile}
+                  isApplying={promoCodeHook.isApplying}
+                  isApplied={promoCodeHook.isApplied}
+                />
+                <Button
+                  onClick={navigateToProductPage}
+                  variant="outline"
+                  className="w-full h-11 md:h-12"
+                >
+                  {t("text-view-details")}
+                </Button>
+              </div>
+            ) : (
+              /* Regular product - show add to cart */
+              <>
+                <div className="flex items-center justify-between mb-4 gap-x-3 sm:gap-x-4">
+                  <Counter
+                    quantity={quantity}
+                    onIncrement={() => setQuantity((prev) => prev + 1)}
+                    onDecrement={() =>
+                      setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+                    }
+                    disableDecrement={quantity === 1}
+                  />
+                  <Button
+                    onClick={addToCart}
+                    variant="flat"
+                    className={`w-full h-11 md:h-12 px-1.5 ${!isSelected && "bg-gray-400 hover:bg-gray-400"
+                      }`}
+                    disabled={!isSelected}
+                    loading={addToCartLoader}
+                  >
+                    {t("text-add-to-cart")}
+                  </Button>
+                </div>
 
-            {viewCartBtn && (
-              <button
-                onClick={navigateToCartPage}
-                className="w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50"
-              >
-                {t("text-view-cart")}
-              </button>
+                {viewCartBtn && (
+                  <button
+                    onClick={navigateToCartPage}
+                    className="w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50"
+                  >
+                    {t("text-view-cart")}
+                  </button>
+                )}
+
+                <Button
+                  onClick={navigateToProductPage}
+                  variant="flat"
+                  className="w-full h-11 md:h-12"
+                >
+                  {t("text-view-details")}
+                </Button>
+              </>
             )}
-
-            <Button
-              onClick={navigateToProductPage}
-              variant="flat"
-              className="w-full h-11 md:h-12"
-            >
-              {t("text-view-details")}
-            </Button>
           </div>
         </div>
       </div>

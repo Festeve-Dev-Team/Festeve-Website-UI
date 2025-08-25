@@ -14,6 +14,8 @@ import Carousel from "@components/ui/carousel/carousel";
 import { SwiperSlide } from "swiper/react";
 import ProductMetaReview from "@components/product/product-meta-review";
 import { useSsrCompatible } from "@utils/use-ssr-compatible";
+import PromoCodeInput from "@components/product/promo-code-input";
+import { usePromoCode } from "@hooks/use-promo-code";
 import { useUI } from "@contexts/ui.context";
 import { Product, ProductVariant } from "@framework/types";
 import { getAllProductImages } from "@utils/get-product-images";
@@ -54,12 +56,21 @@ const ProductSingleDetails: React.FC = () => {
   // State for selected variant
   const [selectedVariant, setSelectedVariant] = useState(data?.variants?.[0]);
 
+  // Check if this is a downloadable product
+  const isDownloadableProduct = selectedVariant?.isDownloadable;
+
+  // Promo code functionality for downloadable products
+  const promoCodeHook = usePromoCode({
+    productId: data?._id || '',
+    downloadUrl: selectedVariant?.downloadUrl || '',
+  });
+
   // Update selected variant and initialize attributes when data changes
   useEffect(() => {
     if (data?.variants?.length > 0) {
       const defaultVariant = data.variants[0];
       setSelectedVariant(defaultVariant);
-      
+
       // Initialize default attributes from the variant's specs
       if (defaultVariant.specs) {
         const defaultAttributes: { [key: string]: string } = {};
@@ -102,15 +113,15 @@ const ProductSingleDetails: React.FC = () => {
   }
   // Get current variant's specs
   const specs = selectedVariant?.specs ?? {};
-  
+
   // A variant is considered selected if:
   // 1. We have a selectedVariant
   // 2. Either there are no specs to select, or all required specs have been selected
   const isSelected = !!selectedVariant && (
-    isEmpty(specs) || 
+    isEmpty(specs) ||
     (
       !isEmpty(attributes) &&
-      Object.keys(specs).every(spec => 
+      Object.keys(specs).every(spec =>
         !specs[spec] || // Skip if spec value is null/undefined
         attributes.hasOwnProperty(spec)
       )
@@ -309,40 +320,53 @@ const ProductSingleDetails: React.FC = () => {
           })}
         </div>
         <div className="flex flex-col gap-2.5 border-b border-gray-300 py-8">
-          <div className="flex items-center gap-x-4">
-            <Counter
-              quantity={quantity}
-              onIncrement={() => setQuantity((prev) => prev + 1)}
-              onDecrement={() =>
-                setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-              }
-              disableDecrement={quantity === 1}
+          {isDownloadableProduct ? (
+            /* Downloadable product - show promo code input */
+            <PromoCodeInput
+              onApplyPromoCode={promoCodeHook.applyPromoCode}
+              onDownload={promoCodeHook.downloadFile}
+              isApplying={promoCodeHook.isApplying}
+              isApplied={promoCodeHook.isApplied}
             />
-            <Button
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.preventDefault();
-                e.stopPropagation();
-                addToCart();
-              }}
-              type="button"
-              variant="slim"
-              className={`w-full md:w-6/12 xl:w-full ${!isSelected && "bg-gray-400 hover:bg-gray-400"
-                }`}
-              disabled={!isSelected}
-              loading={addToCartLoader}
-            >
-              <span className="py-2 3xl:px-8">{t("text-add-to-cart")}</span>
-            </Button>
-          </div>
+          ) : (
+            /* Regular product - show add to cart */
+            <>
+              <div className="flex items-center gap-x-4">
+                <Counter
+                  quantity={quantity}
+                  onIncrement={() => setQuantity((prev) => prev + 1)}
+                  onDecrement={() =>
+                    setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+                  }
+                  disableDecrement={quantity === 1}
+                />
+                <Button
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addToCart();
+                  }}
+                  type="button"
+                  variant="slim"
+                  className={`w-full md:w-6/12 xl:w-full ${!isSelected && "bg-gray-400 hover:bg-gray-400"
+                    }`}
+                  disabled={!isSelected}
+                  loading={addToCartLoader}
+                >
+                  <span className="py-2 3xl:px-8">{t("text-add-to-cart")}</span>
+                </Button>
+              </div>
 
-          {viewCartBtn && (
-            <Button
-              onClick={navigateToCartPage}
-              variant="flat"
-              className="w-full h-11 md:h-12"
-            >
-              {t("text-view-cart")}
-            </Button>
+              {viewCartBtn && (
+                <Button
+                  onClick={navigateToCartPage}
+                  variant="flat"
+                  className="w-full h-11 md:h-12"
+                >
+                  {t("text-view-cart")}
+                </Button>
+              )}
+            </>
           )}
         </div>
         <div className="py-6">

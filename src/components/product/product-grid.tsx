@@ -7,8 +7,9 @@ import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
 interface ProductGridProps {
   className?: string;
+  category?: string;
 }
-export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
+export const ProductGrid: FC<ProductGridProps> = ({ className = "", category }) => {
   const { query } = useRouter();
   const {
     isFetching: isLoading,
@@ -17,10 +18,11 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     hasNextPage,
     data,
     error,
-  } = useProductsQuery({ limit: 50, ...query });
+  } = useProductsQuery({ limit: 1000, ...query, ...(category && { category }) });
   const { t } = useTranslation("common");
   if (error) return <p>{error.message}</p>;
-console.log({data})
+  // console.log('ProductGrid query params:', { limit: 1000, ...query, ...(category && { category }) });
+  // console.log({ data })
   return (
     <>
       <div

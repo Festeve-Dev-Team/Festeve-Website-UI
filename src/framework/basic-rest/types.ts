@@ -1,4 +1,4 @@
-import { QueryKey } from '@tanstack/react-query';
+import { QueryKey } from "@tanstack/react-query";
 
 export type CollectionsQueryOptionsType = {
   text?: string;
@@ -12,7 +12,7 @@ export type CategoriesQueryOptionsType = {
   category?: string;
   status?: string;
   limit?: number;
-  demoVariant?: 'ancient';
+  demoVariant?: "ancient";
 };
 export type ProductsQueryOptionsType = {
   type: string;
@@ -26,7 +26,7 @@ export type QueryOptionsType = {
   category?: string;
   status?: string;
   limit?: number;
-  demoVariant?: 'ancient';
+  demoVariant?: "ancient";
 };
 
 export type ShopsQueryOptionsType = {
@@ -89,7 +89,7 @@ export type ProductVariant = {
   };
   price: number;
   stock: number;
-  discountType?: 'percentage' | 'fixed';
+  discountType?: "percentage" | "fixed";
   discountValue?: number;
   images: string[];
   size?: string;
@@ -99,6 +99,8 @@ export type ProductVariant = {
   material: string;
   weight: number;
   isActive: boolean;
+  isDownloadable?: boolean;
+  downloadUrl?: string;
 };
 
 export type Variation = {
@@ -134,7 +136,7 @@ export type Product = {
   ingredients: any[];
   vendors: any[];
   variants: ProductVariant[];
-  defaultDiscountType?: 'percentage' | 'fixed';
+  defaultDiscountType?: "percentage" | "fixed";
   defaultDiscountValue?: number;
   linkedEvents: string[];
   isTrending: boolean;
