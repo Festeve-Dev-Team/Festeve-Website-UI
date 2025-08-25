@@ -44,7 +44,7 @@ export default function Home() {
           sectionHeading="text-featured-categories"
           limit={5}
         /> */}
-        <TrendingProductFeedWithTabs />
+        {/* <TrendingProductFeedWithTabs /> */}
         {/* <Testimonials /> */}
 
         {/* <BannerCard

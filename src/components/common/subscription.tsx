@@ -18,6 +18,7 @@ const data = {
 interface Props {
   className?: string;
   disableBorderRadius?: boolean;
+  showTitle?: boolean;
 }
 
 type FormValues = {
@@ -31,6 +32,7 @@ const defaultValues = {
 const Subscription: React.FC<Props> = ({
   className = 'px-5 sm:px-8 md:px-16 2xl:px-24',
   disableBorderRadius = false,
+  showTitle = true,
 }) => {
   const {
     register,
@@ -95,18 +97,20 @@ const Subscription: React.FC<Props> = ({
     <div
       className={`${className} flex flex-col xl:flex-row justify-center xl:justify-between items-center rounded-lg bg-gray-200 py-10 md:py-14 lg:py-16`}
     >
-      <div className="lg:-mt-2 xl:-mt-0.5 text-center ltr:xl:text-left rtl:xl:text-right mb-7 md:mb-8 lg:mb-9 xl:mb-0">
-        <Text
-          variant="mediumHeading"
-          // className='mb-2 md:mb-2.5 lg:mb-3 xl:mb-3.5'
-          className="sm:mb-0 md:mb-2.5 lg:mb-3 xl:mb-3.5"
-        >
-          {t(`${title}`)}
-        </Text>
-        <p className="text-body text-xs md:text-sm leading-6 md:leading-7">
-          {t(`${description}`)}
-        </p>
-      </div>
+      {showTitle && (
+        <div className="lg:-mt-2 xl:-mt-0.5 text-center ltr:xl:text-left rtl:xl:text-right mb-7 md:mb-8 lg:mb-9 xl:mb-0">
+          <Text
+            variant="mediumHeading"
+            // className='mb-2 md:mb-2.5 lg:mb-3 xl:mb-3.5'
+            className="sm:mb-0 md:mb-2.5 lg:mb-3 xl:mb-3.5"
+          >
+            {t(`${title}`)}
+          </Text>
+          <p className="text-body text-xs md:text-sm leading-6 md:leading-7">
+            {t(`${description}`)}
+          </p>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex-shrink-0 w-full sm:w-96 md:w-[545px]"
