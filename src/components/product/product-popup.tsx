@@ -208,6 +208,7 @@ export default function ProductPopup() {
                   onDownload={promoCodeHook.downloadFile}
                   isApplying={promoCodeHook.isApplying}
                   isApplied={promoCodeHook.isApplied}
+                  onCloseModal={closeModal}
                 />
                 <Button
                   onClick={navigateToProductPage}

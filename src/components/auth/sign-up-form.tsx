@@ -12,6 +12,7 @@ import { useVerifyOtpMutation } from '@framework/auth/use-verify-otp';
 import Router from "next/router";
 import { showToast } from '@utils/toast';
 
+
 interface SignUpStep1Type {
   name: string;
   gender: 'male' | 'female';
@@ -157,8 +158,7 @@ const SignUpForm: React.FC = () => {
         message: typeof message === 'string' ? message : 'Invalid Phone number or User already exists. Please try again.',
       });
 
-      // Show error toast
-      showToast(typeof message === 'string' ? message : 'Error sending OTP. Please try again.', 'error');
+      // Error toast will be shown by useSignUpMutation onError
     }
   };
 
@@ -187,7 +187,7 @@ const SignUpForm: React.FC = () => {
       }
 
       // Now verify OTP using the received code
-      const { verifyOtpResponse } = await verifyOtp({
+      await verifyOtp({
         identifier: email,
         code: otpCode,
         signupData: {
@@ -201,24 +201,14 @@ const SignUpForm: React.FC = () => {
         }
       });
 
-      // Show success message from response
-      showToast(verifyOtpResponse.data?.message || 'Sign up successful!', 'success');
+      // Success toast will be shown by useVerifyOtpMutation onSuccess
 
       if (!verifyOtpPending) {
         setStep(2);
       }
     } catch (err: any) {
       console.log({ err });
-
-      // Extract error message from error object - handle nested error structure
-      const errorMessage =
-        err?.response?.data?.message?.message || // Handle nested error structure
-        err?.response?.data?.message ||
-        err?.message ||
-        'Failed to complete registration. Please try again.';
-
-      // Show error message
-      showToast(errorMessage, 'error');
+      // Error toast will be shown by useVerifyOtpMutation onError
     }
   }
 
