@@ -63,6 +63,7 @@ const ProductSingleDetails: React.FC = () => {
   const promoCodeHook = usePromoCode({
     productId: data?._id || '',
     downloadUrl: selectedVariant?.downloadUrl || '',
+    // No onSuccess callback needed for single product page
   });
 
   // Update selected variant and initialize attributes when data changes

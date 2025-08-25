@@ -36,11 +36,11 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                             </li>
                             <li className="flex items-start">
                                 <span className="text-amber-900 mr-2 font-bold">○</span>
-                                <span className="text-gray-900 leading-relaxed font-medium">Daily aartis, prayers, and offerings of sweets (especially modak, Ganesha's favorite)</span>
+                                <span className="text-gray-900 leading-relaxed font-medium">Daily aartis, prayers, and offerings of sweets (especially modak, Ganesha&apos;s favorite)</span>
                             </li>
                             <li className="flex items-start">
                                 <span className="text-amber-900 mr-2 font-bold">○</span>
-                                <span className="text-gray-900 leading-relaxed font-medium">Visarjan (immersion of idols) at the end of the festival, symbolizing life's impermanence.</span>
+                                <span className="text-gray-900 leading-relaxed font-medium">Visarjan (immersion of idols) at the end of the festival, symbolizing life&apos;s impermanence.</span>
                             </li>
                         </ul>
                     </li>
@@ -64,7 +64,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                     </li>
                     <li className="flex items-start">
                         <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
-                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Visarjan (Immersion):</span> Saturday, 6 September 2025—marking the festival's conclusion</span>
+                        <span className="text-gray-900 leading-relaxed font-medium"><span className="font-bold text-amber-900">Visarjan (Immersion):</span> Saturday, 6 September 2025—marking the festival&apos;s conclusion</span>
                     </li>
                 </ul>
             </div>
@@ -75,7 +75,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                     <li>
                         <span className="flex items-start">
                             <span className="text-amber-900 mr-2 font-bold text-lg">●</span>
-                            <span className="font-bold text-amber-900 drop-shadow-sm">Celebration of Lord Ganesha's Birth</span>
+                            <span className="font-bold text-amber-900 drop-shadow-sm">Celebration of Lord Ganesha&apos;s Birth</span>
                         </span>
                         <div className="ml-6 mt-1 text-gray-900 leading-relaxed font-medium">
                             Vinayaka Chaturthi, also called Ganesh Chaturthi, honors Lord Ganesha—beloved as the remover of obstacles and patron of wisdom, art, and beginnings
@@ -96,7 +96,7 @@ const WhatsToday: React.FC<WhatsTodayProps> = ({ className = "py-16 lg:py-20 px-
                             <span className="font-bold text-amber-900 drop-shadow-sm">Blessings & Prosperity</span>
                         </span>
                         <div className="ml-6 mt-1 text-gray-900 leading-relaxed font-medium">
-                            Devotees believe that worshiping Ganesha during this time brings prosperity, spiritual wisdom, and the removal of life's blockages.
+                            Devotees believe that worshiping Ganesha during this time brings prosperity, spiritual wisdom, and the removal of life&apos;s blockages.
                         </div>
                     </li>
                 </ul>

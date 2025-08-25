@@ -112,7 +112,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
                 <div className="col-span-2">
                   <h2 className="text-2xl font-bold text-heading mb-4">The celebrations are about to begin</h2>
                   <p className="text-lg text-body mb-6">
-                    <i>Festeve.in goes live on September 1st, 2025.</i><br /> Until then, we're weaving together traditions,
+                    <i>Festeve.in goes live on September 1st, 2025.</i><br /> Until then, we&apos;re weaving together traditions,
                     flavors, and celebrations — just for you.
                   </p>
                   <div className="space-y-4">
@@ -131,7 +131,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
                 <div className="col-span-2">
                   <h2 className="text-2xl font-bold text-heading mb-4">Essentials for every celebration — big or small</h2>
                   <p className="text-lg text-body mb-6">
-                    Whether it's a festival, a family gathering, or a personal milestone, we've got everything
+                    Whether it&apos;s a festival, a family gathering, or a personal milestone, we&apos;ve got everything
                     covered.
                     <br />
                     <i>Launching on September 1st, 2025.</i>

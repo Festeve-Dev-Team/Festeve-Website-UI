@@ -107,8 +107,8 @@ const SignUpForm: React.FC = () => {
     watchAllFields.phone &&
     watchAllFields.email &&
     watchAllFields.password &&
-    isOtpSent &&
-    watchAllFields.otp.every(digit => digit) &&
+    // isOtpSent && // Bypassed - no longer need OTP button click
+    // watchAllFields.otp.every(digit => digit) && // Bypassed - OTP will be auto-filled from API
     watchAllFields.agreeToComms;
 
   const isSignUpEnabled = step2Form.formState.isValid &&
@@ -165,9 +165,30 @@ const SignUpForm: React.FC = () => {
   const onSubmitStep1 = async (data: SignUpStep1Type) => {
     const { email, password, name, phone, otp } = data;
     try {
+      // First call useSignUpMutation to get OTP code from response
+      const { signupResponse } = await signUpMutate({
+        name,
+        email: email.toLowerCase(),
+        phone,
+        provider: 'native',
+        providerUserId: '',
+        password,
+        profilePicture: '',
+        referralCode: undefined,
+      });
+
+      // Extract OTP code from signup response
+      // Expected format: { message: `OTP sent successfully, Use ${otpCode} to complete your registration`, otpSentTo: email || phone, code: otpCode }
+      const otpCode = signupResponse.data?.code;
+
+      if (!otpCode) {
+        throw new Error('OTP code not received from server');
+      }
+
+      // Now verify OTP using the received code
       const { verifyOtpResponse } = await verifyOtp({
         identifier: email,
-        code: otp.join(''),
+        code: otpCode,
         signupData: {
           name: name,
           email: email,
@@ -178,7 +199,7 @@ const SignUpForm: React.FC = () => {
           profilePicture: '',
         }
       });
-      
+
       // Show success message from response
       showToast(verifyOtpResponse.data?.message || 'Sign up successful!', 'success');
 
@@ -187,21 +208,15 @@ const SignUpForm: React.FC = () => {
       }
     } catch (err: any) {
       console.log({ err });
-      
+
       // Extract error message from error object
-      const errorMessage = 
+      const errorMessage =
         err?.response?.data?.message ||
         err?.message ||
-        'Failed to verify OTP. Please try again.';
+        'Failed to complete registration. Please try again.';
 
       // Show error message
       showToast(errorMessage, 'error');
-
-      // If it's an OTP error, clear the OTP fields
-      if (errorMessage.toLowerCase().includes('otp')) {
-        step1Form.setValue('otp', ['', '', '', '', '', '']);
-        otpInputs.current[0]?.focus();
-      }
     }
   }
 
@@ -210,12 +225,12 @@ const SignUpForm: React.FC = () => {
       try {
         // TODO: Add your profile update mutation here
         console.log(data, 'step 2 values');
-        
+
         showToast('Profile updated successfully!', 'success');
 
         Router.push("/");
       } catch (err: any) {
-        const errorMessage = 
+        const errorMessage =
           err?.response?.data?.message ||
           err?.message ||
           'Failed to update profile. Please try again.';
@@ -333,7 +348,8 @@ const SignUpForm: React.FC = () => {
                 })}
                 errorKey={step1Form.formState.errors.phone?.message}
               />
-              <Button
+              {/* Hidden Get OTP Button - bypassed for now */}
+              {/* <Button
                 type="button"
                 onClick={handleGetOTP}
                 className="absolute right-1 top-1/2 -translate-y h-8 px-3 -mt-1 bg-heading text-white"
@@ -348,11 +364,11 @@ const SignUpForm: React.FC = () => {
                 loading={signUpPending}
               >
                 {isOtpSent ? t('text-resend-otp') : t('text-get-otp')}
-              </Button>
+              </Button> */}
             </div>
 
-            {/* OTP Input Boxes */}
-            {isOtpSent && (
+            {/* OTP Input Boxes - Hidden since OTP is now auto-handled */}
+            {/* {isOtpSent && (
               <div className="flex flex-col">
                 <label className="text-sm md:text-base font-semibold text-heading mb-2">Enter OTP</label>
                 <div className="flex gap-2 justify-between">
@@ -384,7 +400,7 @@ const SignUpForm: React.FC = () => {
                   })}
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Agreement Checkbox */}
             <div className="flex items-center">
@@ -405,7 +421,7 @@ const SignUpForm: React.FC = () => {
             <Button
               type="submit"
               disabled={!isNextEnabled}
-              loading={verifyOtpPending}
+              loading={signUpPending || verifyOtpPending}
               className="h-11 md:h-12 w-full mt-2"
             >
               {t('text-verify-signup')}

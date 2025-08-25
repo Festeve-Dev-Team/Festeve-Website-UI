@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@components/ui/button';
 import Input from '@components/ui/input';
-import { useTranslation } from 'next-i18next';
 import { useUI } from '@contexts/ui.context';
 
 interface PromoCodeInputProps {
@@ -19,7 +18,6 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
     isApplied = false,
     className = '',
 }) => {
-    const { t } = useTranslation('common');
     const { isAuthorized, setModalView, openModal, setPostLoginAction } = useUI();
     const [promoCode, setPromoCode] = useState('');
     const [error, setError] = useState('');
@@ -46,9 +44,29 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
             const success = await onApplyPromoCode(promoCode.trim());
             if (!success) {
                 setError('Invalid promo code. Please try again.');
+            } else {
+                // Clear the promo code input on success
+                setPromoCode('');
             }
-        } catch (err) {
-            setError('Failed to apply promo code. Please try again.');
+        } catch (err: any) {
+            // Better error handling with specific messages
+            let errorMessage = 'Failed to apply promo code. Please try again.';
+
+            if (err?.message) {
+                errorMessage = err.message;
+            }
+
+            // If it's an authentication error, prompt to login again
+            if (err?.message?.includes('log in') || err?.message?.includes('authenticated')) {
+                setPostLoginAction(() => {
+                    handleApplyPromoCode();
+                });
+                setModalView("LOGIN_VIEW");
+                openModal();
+                return;
+            }
+
+            setError(errorMessage);
         }
     };
 
@@ -111,6 +129,7 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
                 <div className="flex space-x-2">
                     <Input
                         id="promo-code"
+                        name="promo-code"
                         type="text"
                         placeholder="Enter promo code"
                         value={promoCode}

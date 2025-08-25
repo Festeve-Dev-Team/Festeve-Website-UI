@@ -104,7 +104,7 @@ export default function MobileMenu() {
                   <h3 className="text-lg font-bold text-heading mb-2">The celebrations are about to begin</h3>
                   <p className="text-sm text-body mb-4">
                     <i>Festeve.in goes live on September 1st, 2025.</i><br />
-                    Until then, we're weaving together traditions, flavors, and celebrations — just for you.
+                    Until then, we&apos;re weaving together traditions, flavors, and celebrations — just for you.
                   </p>
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-heading">Notify Me When We Launch</h4>
@@ -115,7 +115,7 @@ export default function MobileMenu() {
                 <div>
                   <h3 className="text-lg font-bold text-heading mb-2">Essentials for every celebration — big or small</h3>
                   <p className="text-sm text-body mb-4">
-                    Whether it's a festival, a family gathering, or a personal milestone, we've got everything covered.
+                    Whether it&apos;s a festival, a family gathering, or a personal milestone, we&apos;ve got everything covered.
                     <br />
                     <i>Launching on September 1st, 2025.</i>
                   </p>

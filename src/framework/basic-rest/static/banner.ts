@@ -389,12 +389,12 @@ export const promotionBanner = [
     slug: "mega-sale",
     image: {
       mobile: {
-        url: "/assets/promotionBanners/megaSale.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_01.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/promotionBanners/megaSale.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_01.jpg",
         width: 1200,
         height: 300,
       },
@@ -407,12 +407,12 @@ export const promotionBanner = [
     slug: "men's-collection",
     image: {
       mobile: {
-        url: "/assets/promotionBanners/ethnicWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_02.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/promotionBanners/ethnicWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_02.jpg",
         width: 1200,
         height: 300,
       },
@@ -425,12 +425,12 @@ export const promotionBanner = [
     slug: "daily-wear",
     image: {
       mobile: {
-        url: "/assets/promotionBanners/dailyWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_03.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/promotionBanners/dailyWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_03.jpg",
         width: 1200,
         height: 300,
       },
@@ -443,36 +443,36 @@ export const promotionBanner = [
     slug: "women's-collection",
     image: {
       mobile: {
-        url: "/assets/promotionBanners/bridalWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_04.jpg",
         width: 450,
         height: 180,
       },
       desktop: {
-        url: "/assets/promotionBanners/bridalWear.jpeg",
+        url: "/assets/promotionBanners/Festeve_Home Page_04.jpg",
         width: 1200,
         height: 300,
       },
     },
     type: "small",
   },
-  {
-    id: 5,
-    title: "Valentine's Collection",
-    slug: "valentine's-collection",
-    image: {
-      mobile: {
-        url: "/assets/promotionBanners/valentine.jpeg",
-        width: 450,
-        height: 180,
-      },
-      desktop: {
-        url: "/assets/promotionBanners/valentine.jpeg",
-        width: 1200,
-        height: 300,
-      },
-    },
-    type: "small",
-  },
+  // {
+  //   id: 5,
+  //   title: "Valentine's Collection",
+  //   slug: "valentine's-collection",
+  //   image: {
+  //     mobile: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 450,
+  //       height: 180,
+  //     },
+  //     desktop: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 1200,
+  //       height: 300,
+  //     },
+  //   },
+  //   type: "small",
+  // },
 ];
 
 export const promotionBannerTwo = [

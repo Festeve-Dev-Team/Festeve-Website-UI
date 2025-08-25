@@ -40,4 +40,5 @@ export const API_ENDPOINTS = {
   CREATE_CART: "/carts/carts/items",
   GET_CART: "/carts",
   EVENTS: "/events",
+  APPLY_PROMO: "/referrals/promos/apply-promo",
 };

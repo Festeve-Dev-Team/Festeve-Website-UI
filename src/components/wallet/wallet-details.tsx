@@ -18,8 +18,8 @@ const WalletDetails: React.FC<{ className?: string }> = ({
 }) => {
 
   const walletData = {
-    cash: 1000.00,
-    coins: 500.00
+    cash: 0.00,
+    coins: 0.00
   };
 
   return (
@@ -28,12 +28,12 @@ const WalletDetails: React.FC<{ className?: string }> = ({
         Wallet Balance
       </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <WalletCard 
+        <WalletCard
           title={"Cash"}
           amount={walletData.cash}
           currency="INR"
         />
-        <WalletCard 
+        <WalletCard
           title={"Coin's"}
           amount={walletData.coins}
           currency="INR"
