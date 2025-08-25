@@ -42,11 +42,15 @@ export default function ProductPopup() {
   // Get the default variant or first available variant
   const selectedVariant = data?.variants?.find((v: any) => v.isActive) || data?.variants?.[0];
 
+  // Check if this is a downloadable product (e-book)
+  const isDownloadableProduct = selectedVariant?.isDownloadable;
+
   // Promo code functionality for downloadable products
   const promoCodeHook = usePromoCode({
     productId: data?._id || '',
     downloadUrl: selectedVariant?.downloadUrl || '',
-    onSuccess: closeModal, // Close modal after successful promo application
+    // Only close modal for non-downloadable products (e-books should stay open for download)
+    onSuccess: isDownloadableProduct ? undefined : closeModal,
   });
 
   const { price, basePrice, discount } = usePrice({
@@ -140,9 +144,6 @@ export default function ProductPopup() {
   if (!data) {
     return null;
   }
-
-  // Check if this is a downloadable product
-  const isDownloadableProduct = selectedVariant?.isDownloadable;
 
   return (
     <div className="rounded-lg bg-white">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@components/ui/button';
 import Input from '@components/ui/input';
 import { useUI } from '@contexts/ui.context';
+import Router from 'next/router';
 
 interface PromoCodeInputProps {
     onApplyPromoCode: (promoCode: string) => Promise<boolean>;
@@ -18,18 +19,15 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
     isApplied = false,
     className = '',
 }) => {
-    const { isAuthorized, setModalView, openModal, setPostLoginAction } = useUI();
+    const { isAuthorized } = useUI();
     const [promoCode, setPromoCode] = useState('');
     const [error, setError] = useState('');
 
     const handleApplyPromoCode = async () => {
-        // Check authentication first - allow login even without promo code
+        // Check authentication first - redirect to signin page
         if (!isAuthorized) {
-            setPostLoginAction(() => {
-                handleApplyPromoCode();
-            });
-            setModalView("LOGIN_VIEW");
-            openModal();
+            // Redirect to signin page instead of opening modal
+            Router.push('/signin');
             return;
         }
 
@@ -56,13 +54,9 @@ const PromoCodeInput: React.FC<PromoCodeInputProps> = ({
                 errorMessage = err.message;
             }
 
-            // If it's an authentication error, prompt to login again
+            // If it's an authentication error, redirect to signin page
             if (err?.message?.includes('log in') || err?.message?.includes('authenticated')) {
-                setPostLoginAction(() => {
-                    handleApplyPromoCode();
-                });
-                setModalView("LOGIN_VIEW");
-                openModal();
+                Router.push('/signin');
                 return;
             }
 
