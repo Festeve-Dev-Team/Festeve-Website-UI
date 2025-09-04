@@ -14,6 +14,11 @@ const fetchProducts = async (options?: QueryOptionsType) => {
 		if (options.text) params.append('text', options.text);
 		if (options.status) params.append('status', options.status);
 
+		// Handle search query parameter - map 'q' to 'categoryFullSlug'
+		if (options.q) {
+			params.append('categoryFullSlug', options.q);
+		}
+
 		url += `?${params.toString()}`;
 	}
 

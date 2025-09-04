@@ -24,10 +24,10 @@ export default function Home() {
   return (
     <>
       <BannerSliderBlock bannerData={menPromotionBanner} />
-      <WhatsToday />
+      {/* <WhatsToday /> */}
       <Divider />
-      <FeatureBlock />
-      <BannerBlock data={masonryBanner} showTitleOnHover={true} />
+      {/* <FeatureBlock />
+      <BannerBlock data={masonryBanner} showTitleOnHover={true} /> */}
       {/* <Container>
         <ProductsFlashSaleBlock date={"2025-12-01T01:02:03"} />
       </Container> */}
@@ -44,7 +44,7 @@ export default function Home() {
           sectionHeading="text-featured-categories"
           limit={5}
         /> */}
-        {/* <TrendingProductFeedWithTabs /> */}
+        <TrendingProductFeedWithTabs categorySlug="clothing/men" />
         {/* <Testimonials /> */}
 
         {/* <BannerCard
@@ -67,7 +67,7 @@ export default function Home() {
         {/* <NewArrivalsProductFeed /> */}
         {/* <Instagram /> */}
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
-        <TestimonialCarousel sectionHeading="text-testimonial" />
+        {/* <TestimonialCarousel sectionHeading="text-testimonial" /> */}
         {/* <SubscriptionWithBg /> */}
         <RequestCallback />
       </Container>

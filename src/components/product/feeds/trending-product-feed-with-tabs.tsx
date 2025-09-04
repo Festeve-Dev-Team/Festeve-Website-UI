@@ -9,13 +9,14 @@ import Alert from "@components/ui/alert";
 
 import { useMemo } from "react";
 
-const TrendingProductFeedWithTabs: React.FC<any> = () => {
+const TrendingProductFeedWithTabs: React.FC<any> = ({ categorySlug }) => {
   const { t } = useTranslation("common");
 
   const { data, isLoading, isError } = useProductsQuery({
     limit: 10,
+    categoryFullSlug: categorySlug,
   });
-  
+
   const safeProducts = useMemo(() => {
     if (!data || !data.products || !Array.isArray(data.products)) return [];
     return data.products;

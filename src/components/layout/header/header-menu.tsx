@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { megaMenuData } from '../../../framework/basic-rest/static/mega-menu';
+
 
 interface MenuProps {
   data: any;
@@ -14,6 +16,9 @@ interface MenuProps {
 
 const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
+  // Use megaMenuData as fallback when data is not available or loading
+  const menuData = data && data.length > 0 ? data : megaMenuData;
 
   // Function to get the appropriate GIF based on item label
   const getGifForLabel = (label: string) => {
@@ -36,7 +41,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
 
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
-      {data?.filter((item: any) => item.label !== 'Food' && item.label !== 'Gifting').map((item: any) => (
+      {menuData?.filter((item: any) => item.label !== 'Food' && item.label !== 'Gifting').map((item: any) => (
         <div
           className={`menuItem group cursor-pointer py-4 ${item.subMenu ? 'relative' : ''
             }`}

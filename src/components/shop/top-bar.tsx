@@ -7,17 +7,44 @@ import ListBox from '@components/ui/list-box';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { getDirection } from '@utils/get-direction';
-import motionProps from '@components/common/drawer/motion';
 
-export default function SearchTopBar({ translationKey }: { translationKey: string }) {
+const motionProps = {
+  initial: { x: -300 },
+  animate: { x: 0 },
+  exit: { x: -300 },
+  transition: { duration: 0.3 }
+};
+
+export default function SearchTopBar({ translationKey }: { translationKey?: string }) {
   const { openFilter, displayFilter, closeFilter } = useUI();
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, query } = useRouter();
   const dir = getDirection(locale);
+
+  // Determine the page title based on context
+  const getPageTitle = () => {
+    if (translationKey) {
+      return t(translationKey);
+    }
+
+    // For search pages, show the search query or "Search Results"
+    if (query.q) {
+      // Convert category slug to readable format (e.g., "clothing/men" -> "Clothing / Men")
+      const searchQuery = String(query.q);
+      const formatted = searchQuery
+        .split('/')
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' / ');
+      return formatted;
+    }
+
+    return t('text-search-results') || 'Search Results';
+  };
+
   return (
     <div className="flex justify-between items-center mb-7">
       <Text variant="pageHeading" className="hidden lg:inline-flex pb-1">
-        {t(translationKey) || t('text-casual-wear')}
+        {getPageTitle()}
       </Text>
       <button
         className="lg:hidden text-heading text-sm px-4 py-2 font-semibold border border-gray-300 rounded-md flex items-center transition duration-200 ease-in-out focus:outline-none hover:bg-gray-200"
