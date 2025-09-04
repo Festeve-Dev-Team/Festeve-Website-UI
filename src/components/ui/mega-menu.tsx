@@ -7,8 +7,6 @@ interface MenuItem {
   path: string;
   label: string;
   columnItemItems?: MenuItem[];
-  subItems?: MenuItem[];      // Level 4 items
-  nestedItems?: MenuItem[];   // Level 5 items
   data: any;
 }
 type MegaMenuProps = {
@@ -18,73 +16,32 @@ type MegaMenuProps = {
   }[];
 };
 
-// Helper component to render nested menu items recursively
+// Helper component to render level 3 menu items
 const NestedMenuItem: React.FC<{
   item: MenuItem;
-  level: number;
   t: any;
   isLast?: boolean;
-}> = ({ item, level, t, isLast = false }) => {
-  const getItemStyles = (level: number) => {
-    const baseStyles = "block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300";
+}> = ({ item, t, isLast = false }) => {
+  const itemStyles = "block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300 text-body text-sm";
 
-    switch (level) {
-      case 4: // Level 4 - Smaller, indented
-        return `${baseStyles} text-xs text-gray-600 pl-8 xl:pl-12 2xl:pl-16`;
-      case 5: // Level 5 - Smallest, more indented
-        return `${baseStyles} text-xs text-gray-500 pl-12 xl:pl-16 2xl:pl-20`;
-      default: // Level 3 (existing)
-        return `${baseStyles} text-body text-sm`;
-    }
-  };
-
-  const getBorderStyles = (level: number, isLast: boolean) => {
-    if (isLast && level === 3) {
-      return 'border-b border-gray-300 pb-3.5 mb-3';
-    }
-    return '';
-  };
+  const borderStyles = isLast ? 'border-b border-gray-300 pb-3.5 mb-3' : '';
 
   return (
-    <>
-      <li className={getBorderStyles(level, isLast)}>
-        <Link
-          href={item.path}
-          className={getItemStyles(level)}
-        >
-          {t(item.label)}
-        </Link>
-      </li>
-
-      {/* Render Level 4 items (subItems) */}
-      {item.subItems?.map((subItem, index) => (
-        <NestedMenuItem
-          key={subItem.id}
-          item={subItem}
-          level={4}
-          t={t}
-          isLast={index === item.subItems!.length - 1}
-        />
-      ))}
-
-      {/* Render Level 5 items (nestedItems) */}
-      {item.nestedItems?.map((nestedItem, index) => (
-        <NestedMenuItem
-          key={nestedItem.id}
-          item={nestedItem}
-          level={5}
-          t={t}
-          isLast={index === item.nestedItems!.length - 1}
-        />
-      ))}
-    </>
+    <li className={borderStyles}>
+      <Link
+        href={item.path}
+        className={itemStyles}
+      >
+        {t(item.label)}
+      </Link>
+    </li>
   );
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ columns }) => {
   const { t } = useTranslation('menu');
 
-  // Add dummy data to demonstrate 4th and 5th levels
+  // Use columns as-is (limited to 3 levels)
   const enhancedColumns = columns;
 
   // Calculate number of columns
@@ -142,12 +99,11 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ columns }) => {
                   </Link>
                 </li>
 
-                {/* Level 3: Subcategories (existing behavior maintained) */}
+                {/* Level 3: Subcategories (limited to level 3) */}
                 {columnItem?.columnItemItems?.map((item: any, index: number) => (
                   <React.Fragment key={item.id}>
                     <NestedMenuItem
                       item={item}
-                      level={3}
                       t={t}
                       isLast={index === columnItem.columnItemItems!.length - 1}
                     />

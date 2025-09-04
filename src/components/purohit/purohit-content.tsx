@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import PurohitCard from './purohit-card';
+import PurohitRegistrationForm from './purohit-registration-form';
 import Alert from '@components/ui/alert';
 import { BsGridFill, BsList } from 'react-icons/bs';
 import { useTranslation } from 'next-i18next';
 import { usePurohitsQuery } from '@framework/purohit/get-purohits';
+import { usePurohitRegistrationMutation, PurohitRegistrationInput } from '@framework/purohit/use-register-purohit';
 import ErrorPage from 'src/pages/404';
 import Spinner from '@components/ui/loaders/spinner';
 
@@ -11,6 +13,7 @@ const PurohitContent: React.FC = () => {
   const [gridView, setGridView] = useState(false);
   const { t } = useTranslation('common');
   const { data: userData, isLoading, isError } = usePurohitsQuery();
+  const { mutateAsync: registerPurohit, isPending: isRegistering } = usePurohitRegistrationMutation();
 
   const listViewHandel = () => {
     setTimeout(() => {
@@ -24,9 +27,31 @@ const PurohitContent: React.FC = () => {
     }, 300);
   };
 
-  if(isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading Purohits..." /></div>;
-  if(isError) return <ErrorPage />;
-  if (!userData.length) return <Alert message="No Purohits found." />;
+  const handlePurohitRegistration = async (data: PurohitRegistrationInput) => {
+    try {
+      await registerPurohit(data);
+    } catch (error) {
+      // Error is handled by the mutation hook
+      console.error('Registration error:', error);
+    }
+  };
+
+  if (isLoading) return <div className="flex items-center justify-center"><Spinner text="Loading Purohits..." /></div>;
+  if (isError) return <ErrorPage />;
+
+  // If no purohits available, show only the registration form
+  if (!userData.length) {
+    return (
+      <div className="border-t border-gray-300 pt-10 lg:pt-12 xl:pt-14 pb-14 lg:pb-16 xl:pb-20 px-4 md:px-8">
+        <div className="w-full xl:max-w-[1170px] mx-auto">
+          <PurohitRegistrationForm
+            onSubmit={handlePurohitRegistration}
+            isLoading={isRegistering}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="border-t border-gray-300 pt-10 lg:pt-12 xl:pt-14 pb-14 lg:pb-16 xl:pb-20 px-4 md:px-8">
@@ -57,8 +82,8 @@ const PurohitContent: React.FC = () => {
 
         <div
           className={`grid ${gridView
-              ? 'md:grid-cols-2 lg:grid-cols-3 gap-4'
-              : 'grid-cols-1 gap-4'
+            ? 'md:grid-cols-2 lg:grid-cols-3 gap-4'
+            : 'grid-cols-1 gap-4'
             }`}
         >
           {userData.map((purohit: any) => (
@@ -68,6 +93,14 @@ const PurohitContent: React.FC = () => {
               variant={gridView ? 'grid' : 'list'}
             />
           ))}
+        </div>
+
+        {/* Registration Form Below Purohit List */}
+        <div className="mt-16 border-t border-gray-200 pt-16">
+          <PurohitRegistrationForm
+            onSubmit={handlePurohitRegistration}
+            isLoading={isRegistering}
+          />
         </div>
       </div>
     </div>
