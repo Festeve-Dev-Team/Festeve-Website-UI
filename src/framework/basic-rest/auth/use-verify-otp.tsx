@@ -45,8 +45,8 @@ export const useVerifyOtpMutation = () => {
       const successMessage = data?.verifyOtpResponse?.data?.message || 'Registration completed successfully!';
       showToast(successMessage, 'success');
 
-      // Redirect to e-books after successful signup
-      Router.push('/e-books');
+      // Redirect to home after successful signup
+      Router.push('/');
     },
     onError: (error: any) => {
       console.log(error, "verifyOtp error response");

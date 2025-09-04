@@ -15,16 +15,16 @@ interface ProductsProps {
   error?: string;
   uniqueKey?: string;
   variant?:
-    | "circle"
-    | "rounded"
-    | "listSmall"
-    | "grid"
-    | "gridSlim"
-    | "list"
-    | "gridModern"
-    | "gridModernWide"
-    | "gridTrendy"
-    | undefined;
+  | "circle"
+  | "rounded"
+  | "listSmall"
+  | "grid"
+  | "gridSlim"
+  | "list"
+  | "gridModern"
+  | "gridModernWide"
+  | "gridTrendy"
+  | undefined;
   limit?: number;
   imgWidth?: number | string;
   imgHeight?: number | string;
@@ -64,15 +64,12 @@ const ProductsBlock: React.FC<ProductsProps> = ({
 
       {error ? (
         <Alert message={error} />
-      ) : (
+      ) : loading && !products?.length ? (
         <div
           className={cn(
-            `grid gap-x-${demoVariant === "ancient" ? 2 : 3} md:gap-x-${
-              demoVariant === "ancient" ? 2 : 5
-            } xl:gap-x-${demoVariant === "ancient" ? 2 : 7} gap-y-${
-              demoVariant === "ancient" ? 2 : 3
-            } xl:gap-y-${demoVariant === "ancient" ? 2 : 5} 2xl:gap-y-${
-              demoVariant === "ancient" ? 3 : 8
+            `grid gap-x-${demoVariant === "ancient" ? 2 : 3} md:gap-x-${demoVariant === "ancient" ? 2 : 5
+            } xl:gap-x-${demoVariant === "ancient" ? 2 : 7} gap-y-${demoVariant === "ancient" ? 2 : 3
+            } xl:gap-y-${demoVariant === "ancient" ? 2 : 5} 2xl:gap-y-${demoVariant === "ancient" ? 3 : 8
             } bg-white`,
             {
               "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5":
@@ -84,26 +81,46 @@ const ProductsBlock: React.FC<ProductsProps> = ({
             }
           )}
         >
-          {loading && !products?.length ? (
-            <ProductFeedLoader limit={limit} uniqueKey={uniqueKey} />
-          ) : (
-            products?.map((product: Product) => (
-              <ProductCard
-                showCategory={showCategory}
-                showRating={showRating}
-                hideProductDescription={hideProductDescription}
-                key={`product--key${product.id}`}
-                product={product}
-                imgWidth={imgWidth}
-                imgHeight={imgHeight}
-                variant={variant}
-                demoVariant={demoVariant}
-                disableBorderRadius={disableBorderRadius}
-              />
-            ))
-          )}
+          <ProductFeedLoader limit={limit} uniqueKey={uniqueKey} />
         </div>
-      )}
+      ) : !products?.length ? (
+        <div className="flex items-center justify-center py-16">
+          <Alert message="No products available" />
+        </div>
+      ) : (
+        <div
+          className={cn(
+            `grid gap-x-${demoVariant === "ancient" ? 2 : 3} md:gap-x-${demoVariant === "ancient" ? 2 : 5
+            } xl:gap-x-${demoVariant === "ancient" ? 2 : 7} gap-y-${demoVariant === "ancient" ? 2 : 3
+            } xl:gap-y-${demoVariant === "ancient" ? 2 : 5} 2xl:gap-y-${demoVariant === "ancient" ? 3 : 8
+            } bg-white`,
+            {
+              "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5":
+                variant === "grid",
+              "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4":
+                variant === "gridModernWide",
+              "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5":
+                variant === "gridModern",
+            }
+          )}
+        >
+          {products.map((product: Product) => (
+            <ProductCard
+              showCategory={showCategory}
+              showRating={showRating}
+              hideProductDescription={hideProductDescription}
+              key={`product--key${product._id || product.id}`}
+              product={product}
+              imgWidth={imgWidth}
+              imgHeight={imgHeight}
+              variant={variant}
+              demoVariant={demoVariant}
+              disableBorderRadius={disableBorderRadius}
+            />
+          ))}
+        </div>
+      )
+      }
     </div>
   );
 };

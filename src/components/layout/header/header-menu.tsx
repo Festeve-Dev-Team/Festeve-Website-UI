@@ -1,12 +1,13 @@
 import Link from '@components/ui/link';
 import { FaChevronDown } from 'react-icons/fa';
-// import MegaMenu from '@components/ui/mega-menu'; // Commented for later use
+import MegaMenu from '@components/ui/mega-menu';
 import classNames from 'classnames';
 // import ListMenu from '@components/ui/list-menu'; // Commented for later use
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import Subscription from '@components/common/subscription';
+import { megaMenuData } from '../../../framework/basic-rest/static/mega-menu';
+
 
 interface MenuProps {
   data: any;
@@ -15,6 +16,9 @@ interface MenuProps {
 
 const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
+  // Use megaMenuData as fallback when data is not available or loading
+  const menuData = data && data.length > 0 ? data : megaMenuData;
 
   // Function to get the appropriate GIF based on item label
   const getGifForLabel = (label: string) => {
@@ -37,7 +41,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
 
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
-      {data?.filter((item: any) => item.label !== 'Food' && item.label !== 'Gifting').map((item: any) => (
+      {menuData?.filter((item: any) => item.label !== 'Food' && item.label !== 'Gifting').map((item: any) => (
         <div
           className={`menuItem group cursor-pointer py-4 ${item.subMenu ? 'relative' : ''
             }`}
@@ -49,12 +53,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
             href={!item?.columns?.length ? `/${item?.data?.name?.toLowerCase()}` : item.path}
             className="relative inline-flex items-center px-3 py-2 text-sm font-normal xl:text-base text-heading xl:px-4 group-hover:text-black"
             onClick={(e) => {
-              // For Clothing and Essentials, prevent navigation (show mega menu only)
-              if (item.label === 'Clothing' || item.label === 'Essentials') {
-                e.preventDefault();
-                return;
-              }
-              // For other root items, navigate to their pages
+              // For root items without columns, navigate to their pages
               if (!item?.columns?.length) {
                 e.preventDefault();
                 window.location.href = `/${item?.data?.name?.toLowerCase()}`;
@@ -107,51 +106,10 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
             </div>
           </Link>
 
-          {/* Custom content for specific items */}
-          {item.label === 'Clothing' && (
-            <div className="absolute invisible bg-white opacity-0 group-hover:visible group-hover:opacity-100 shadow-header ltr:left-0 rtl:right-0 w-full max-w-6xl z-30 top-full -mt-1">
-              <div className="grid grid-cols-2 gap-8 p-8">
-                <div className="col-span-2">
-                  <h2 className="text-2xl font-bold text-heading mb-4">The celebrations are about to begin</h2>
-                  <p className="text-lg text-body mb-6">
-                    <i>Festeve.in goes live on September 1st, 2025.</i><br /> Until then, we&apos;re weaving together traditions,
-                    flavors, and celebrations — just for you.
-                  </p>
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-heading">Notify Me When We Launch</h3>
-                    <Subscription showTitle={false} className="mt-n6 px-5 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          )}
-
-          {item.label === 'Essentials' && (
-            <div className="absolute invisible bg-white opacity-0 group-hover:visible group-hover:opacity-100 shadow-header ltr:left-0 rtl:right-0 w-full max-w-6xl z-30 top-full -mt-1">
-              <div className="grid grid-cols-3 gap-8 p-8">
-                <div className="col-span-2">
-                  <h2 className="text-2xl font-bold text-heading mb-4">Essentials for every celebration — big or small</h2>
-                  <p className="text-lg text-body mb-6">
-                    Whether it&apos;s a festival, a family gathering, or a personal milestone, we&apos;ve got everything
-                    covered.
-                    <br />
-                    <i>Launching on September 1st, 2025.</i>
-                  </p>
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-heading">Join the Festive Waitlist</h3>
-                    <Subscription showTitle={false} className="mt-n6 px-5 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          )}
-
-          {/* Original mega menu for other items - commented for later use */}
-          {/* {item?.columns && Array.isArray(item.columns) && (
+          {/* Mega menu for items with columns */}
+          {item?.columns && Array.isArray(item.columns) && (
             <MegaMenu columns={item.columns} />
-          )} */}
+          )}
 
           {/* Original subMenu for other items - commented for later use */}
           {/* {item?.subMenu && Array.isArray(item.subMenu) && (

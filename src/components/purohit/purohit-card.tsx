@@ -15,18 +15,25 @@ type Purohit = {
     };
     experienceYears: number;
     skills: string[];
-    rituals: string[];
-    bio: string;
-    customSkills: {
-        specialization: string;
-        languagesFluent: string[];
-    };
-    languages: string[];
-    averageRating: number;
-    availability: {
+    rituals?: string[];
+    bio?: string;
+    customSkills?: Record<string, any>;
+    languages?: string[];
+    averageRating?: number;
+    availability?: {
         date: string;
         timeSlots: string[];
     }[];
+    ratings?: Array<{
+        userId: string;
+        rating: number;
+        review?: string;
+        date: Date;
+    }>;
+    isActive?: boolean;
+    chargesCommission?: boolean;
+    commissionType?: 'percentage' | 'flat';
+    commissionValue?: number;
 };
 
 interface Props {
@@ -62,7 +69,7 @@ const PurohitCard: React.FC<Props> = ({ purohit, variant }) => {
     } = purohit;
 
     return (
-        <div className={`border rounded-lg drop-shadow-md hover:shadow-sm duration-200 overflow-hidden ${variant === 'list' ? 'w-full' : 'w-full md:w-96' }`}>
+        <div className={`border rounded-lg drop-shadow-md hover:shadow-sm duration-200 overflow-hidden ${variant === 'list' ? 'w-full' : 'w-full md:w-96'}`}>
             {/* Header - Always visible */}
             <div className="p-4 bg-white cursor-pointer" onClick={handleCardClick}>
                 <div className="flex justify-between items-start">
@@ -73,13 +80,13 @@ const PurohitCard: React.FC<Props> = ({ purohit, variant }) => {
                                 <p className="text-sm text-gray-600 mt-1 mr-6">
                                     {location.city}, {location.state}
                                 </p>
-                                {averageRating > 0 && <>
+                                {averageRating && averageRating > 0 && <>
                                     <StarIcon className="h-5 w-5 text-yellow-400" />
                                     <span className="ml-1 text-sm text-gray-600">{averageRating}/5</span>
                                 </>}
                             </div>
                         </div>
-                        <p className="text-sm text-gray-500 mt-1 line-clamp-2">{bio}</p>
+                        {bio && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{bio}</p>}
                     </div>
                     <button
                         className="ml-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
@@ -104,17 +111,21 @@ const PurohitCard: React.FC<Props> = ({ purohit, variant }) => {
                         <div>
                             <p className="text-sm"><strong>Phone:</strong> {phone}</p>
                             <p className="text-sm"><strong>Experience:</strong> {experienceYears} years</p>
-                            <p className="text-sm"><strong>Specialization:</strong> {customSkills.specialization}</p>
-                            <p className="text-sm"><strong>Languages:</strong> {languages.join(', ')}</p>
+                            {customSkills?.specialization && (
+                                <p className="text-sm"><strong>Specialization:</strong> {customSkills.specialization}</p>
+                            )}
+                            <p className="text-sm"><strong>Languages:</strong> {languages?.length > 0 ? languages.join(', ') : 'Not specified'}</p>
                         </div>
                         <div>
-                            <p className="text-sm"><strong>Skills:</strong> {skills.join(', ')}</p>
-                            <p className="text-sm"><strong>Rituals:</strong> {rituals.join(', ')}</p>
-                            <p className="text-sm"><strong>Languages Fluent:</strong> {customSkills.languagesFluent.join(', ')}</p>
+                            <p className="text-sm"><strong>Skills:</strong> {skills?.length > 0 ? skills.join(', ') : 'Not specified'}</p>
+                            <p className="text-sm"><strong>Rituals:</strong> {rituals?.length > 0 ? rituals.join(', ') : 'Not specified'}</p>
+                            {customSkills?.languagesFluent?.length > 0 && (
+                                <p className="text-sm"><strong>Languages Fluent:</strong> {customSkills.languagesFluent.join(', ')}</p>
+                            )}
                         </div>
                     </div>
 
-                    {availability.length > 0 && (
+                    {availability?.length > 0 && (
                         <div className="mt-4">
                             <h4 className="font-medium text-sm mb-2">Availability:</h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">

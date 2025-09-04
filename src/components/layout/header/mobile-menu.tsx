@@ -66,6 +66,19 @@ export default function MobileMenu() {
     setActiveMenus(newActiveMenus);
   };
 
+  // Helper function to determine route for level 2 items in mobile menu
+  const getMobileLevel2Route = (data: any, dept: number) => {
+    // For level 2 items (dept === 2) like Men, Women, Kids - route to dedicated pages
+    if (dept === 2) {
+      const label = data.label.toLowerCase();
+      if (label === 'men' || label === 'women' || label === 'kids') {
+        return `/${label}`;
+      }
+    }
+    // For other items, keep existing behavior
+    return data.path;
+  };
+
   const ListMenu = ({
     dept,
     data,
@@ -73,77 +86,19 @@ export default function MobileMenu() {
     menuIndex,
     className = '',
   }: any) => {
-    // Handle special cases for Clothing and Essentials
-    if (data.label === 'Clothing' || data.label === 'Essentials') {
-      return (
-        <li className={`mb-0.5 ${className}`}>
-          <div className="relative flex items-center justify-between">
-            <div
-              className="w-full text-[15px] menu-item relative py-3 ltr:pl-5 rtl:pr-5 ltr:md:pl-6 rtl:md:pr-6 ltr:pr-4 rtl:pl-4 transition duration-300 ease-in-out cursor-pointer"
-              onClick={() => handleArrowClick(menuName)}
-            >
-              <span className="block w-full">
-                {t(`${data.label}`)}
-              </span>
-            </div>
-            <div
-              className="absolute top-0 flex items-center justify-end w-full h-full text-lg cursor-pointer ltr:left-0 rtl:right-0 ltr:pr-5 rtl:pl-5"
-              onClick={() => handleArrowClick(menuName)}
-            >
-              <IoIosArrowDown
-                className={`transition duration-200 ease-in-out transform text-heading ${activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
-                  }`}
-              />
-            </div>
-          </div>
-          {/* Custom launch notice for Clothing and Essentials */}
-          {activeMenus.includes(menuName) && (
-            <div className="px-5 py-4 bg-gray-50 border-l-4 border-brand">
-              {data.label === 'Clothing' ? (
-                <div>
-                  <h3 className="text-lg font-bold text-heading mb-2">The celebrations are about to begin</h3>
-                  <p className="text-sm text-body mb-4">
-                    <i>Festeve.in goes live on September 1st, 2025.</i><br />
-                    Until then, we&apos;re weaving together traditions, flavors, and celebrations — just for you.
-                  </p>
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-heading">Notify Me When We Launch</h4>
-                    <Subscription showTitle={false} className="px-0 bg-opacity-0" />
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <h3 className="text-lg font-bold text-heading mb-2">Essentials for every celebration — big or small</h3>
-                  <p className="text-sm text-body mb-4">
-                    Whether it&apos;s a festival, a family gathering, or a personal milestone, we&apos;ve got everything covered.
-                    <br />
-                    <i>Launching on September 1st, 2025.</i>
-                  </p>
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-heading">Join the Festive Waitlist</h4>
-                    <Subscription showTitle={false} className="px-0 bg-opacity-0" />
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </li>
-      );
-    }
-
-    // Regular menu items
+    // Regular menu items (no special handling for Clothing and Essentials)
     return data.label && (
       <li className={`mb-0.5 ${className}`}>
         <div className="relative flex items-center justify-between">
           <Link
-            href={data.path}
+            href={getMobileLevel2Route(data, dept)}
             className="w-full text-[15px] menu-item relative py-3 ltr:pl-5 rtl:pr-5 ltr:md:pl-6 rtl:md:pr-6 ltr:pr-4 rtl:pl-4 transition duration-300 ease-in-out"
           >
             <span className="block w-full" onClick={closeSidebar}>
               {t(`${data.label}`)}
             </span>
           </Link>
-          {data.columns && data.columns.length > 0 && (
+          {data.columns && data.columns.length > 0 && dept < 3 && (
             <div
               className="absolute top-0 flex items-center justify-end w-full h-full text-lg cursor-pointer ltr:left-0 rtl:right-0 ltr:pr-5 rtl:pl-5"
               onClick={() => handleArrowClick(menuName)}
@@ -155,7 +110,7 @@ export default function MobileMenu() {
             </div>
           )}
         </div>
-        {data.columns && data.columns.length > 0 && (
+        {data.columns && data.columns.length > 0 && dept < 3 && (
           <SubMenu
             dept={dept}
             data={data.columns}
@@ -190,7 +145,8 @@ export default function MobileMenu() {
                   menuIndex={subIndex}
                   className={dept > 1 && 'ltr:pl-4 rtl:pr-4'}
                 />
-                {menu.columnItemItems?.map((subItem: any, subItemIndex: number) => {
+                {/* Only render level 3 items if we're at level 2, stop at level 3 */}
+                {dept === 2 && menu.columnItemItems?.map((subItem: any, subItemIndex: number) => {
                   const subMenuName: string = `${menuName}-sub-${subItemIndex}`;
                   return (
                     <ListMenu

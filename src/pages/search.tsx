@@ -12,13 +12,15 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ROUTES } from "@utils/routes";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 
 export default function Shop() {
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   return (
     <>
-      <ShopDiscount />
+      {/* Removed ShopDiscount banner from search page */}
       <Container>
         <div className={`flex pt-8 pb-16 lg:pb-20`}>
           <div className="flex-shrink-0 ltr:pr-24 rtl:pl-24 hidden lg:block w-96">

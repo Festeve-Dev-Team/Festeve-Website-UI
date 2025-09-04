@@ -31,4 +31,5 @@ export const API_ENDPOINTS = {
   SIGNUP: "/api/register.json",
   LOGIN: "/api/login",
   PUROHITS: "/api/purohits.json",
+  REGISTER_PUROHIT: "/purohits",
 };

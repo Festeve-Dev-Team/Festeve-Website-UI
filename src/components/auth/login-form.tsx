@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
         postLoginAction();
         clearPostLoginAction(); // Clear the action after use
       } else {
-        Router.push('/e-books');
+        Router.push('/');
       }
     } catch (error: any) {
       console.error({ error });

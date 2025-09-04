@@ -24,9 +24,11 @@ export type ProductsQueryOptionsType = {
 export type QueryOptionsType = {
   text?: string;
   category?: string;
+  categoryFullSlug?: string;
   status?: string;
   limit?: number;
   demoVariant?: "ancient";
+  q?: string; // Search query parameter
 };
 
 export type ShopsQueryOptionsType = {

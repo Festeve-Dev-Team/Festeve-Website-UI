@@ -6,6 +6,7 @@ import { ROUTES } from "@utils/routes";
 
 interface BannerProps {
   className?: string;
+  bannerData: any;
 }
 
 const breakpoints = {
@@ -17,7 +18,7 @@ const breakpoints = {
   },
 };
 
-const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0" }) => {
+const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0", bannerData }) => {
   return (
     <div className={`${className} mx-auto max-w-[1920px] overflow-hidden`}>
       <Carousel
@@ -36,7 +37,7 @@ const BannerSliderBlock: React.FC<BannerProps> = ({ className = "mb-0" }) => {
         nextButtonClasses="ltr:right-10 rtl:left-0 w-5 h-5 bg-white/80 shadow-md"
         type="circle"
       >
-        {promotionBanner.map((banner: any) => (
+        {(bannerData || promotionBanner).map((banner: any) => (
           <SwiperSlide
             key={`banner--key${banner.id}`}
             className="px-1.5"

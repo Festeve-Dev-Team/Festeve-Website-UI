@@ -475,6 +475,285 @@ export const promotionBanner = [
   // },
 ];
 
+export const menPromotionBanner = [
+  {
+    id: 1,
+    title: "Mega Sale",
+    slug: "mega-sale",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_01.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_01.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 2,
+    title: "Men's Collection",
+    slug: "men's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_02.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_02.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 3,
+    title: "Daily Wear",
+    slug: "daily-wear",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_03.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_03.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 4,
+    title: "Women's Collection",
+    slug: "women's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_04.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Mens Fashion_04.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  // {
+  //   id: 5,
+  //   title: "Valentine's Collection",
+  //   slug: "valentine's-collection",
+  //   image: {
+  //     mobile: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 450,
+  //       height: 180,
+  //     },
+  //     desktop: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 1200,
+  //       height: 300,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+];
+
+export const womenPromotionBanner = [
+  {
+    id: 1,
+    title: "Mega Sale",
+    slug: "mega-sale",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_01.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_01.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 2,
+    title: "Men's Collection",
+    slug: "men's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_02.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_02.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 3,
+    title: "Daily Wear",
+    slug: "daily-wear",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_03.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_03.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 4,
+    title: "Women's Collection",
+    slug: "women's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_04.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Womens Fashion_04.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  // {
+  //   id: 5,
+  //   title: "Valentine's Collection",
+  //   slug: "valentine's-collection",
+  //   image: {
+  //     mobile: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 450,
+  //       height: 180,
+  //     },
+  //     desktop: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 1200,
+  //       height: 300,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+];
+
+export const kidsPromotionBanner = [
+  {
+    id: 1,
+    title: "Mega Sale",
+    slug: "mega-sale",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_01.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_01.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 2,
+    title: "Men's Collection",
+    slug: "men's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_02.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_02.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 3,
+    title: "Daily Wear",
+    slug: "daily-wear",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_03.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_03.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  {
+    id: 4,
+    title: "Women's Collection",
+    slug: "women's-collection",
+    image: {
+      mobile: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_04.jpg",
+        width: 450,
+        height: 180,
+      },
+      desktop: {
+        url: "/assets/promotionBanners/Festeve_Kids Fashion_04.jpg",
+        width: 1200,
+        height: 300,
+      },
+    },
+    type: "small",
+  },
+  // {
+  //   id: 5,
+  //   title: "Valentine's Collection",
+  //   slug: "valentine's-collection",
+  //   image: {
+  //     mobile: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 450,
+  //       height: 180,
+  //     },
+  //     desktop: {
+  //       url: "/assets/promotionBanners/valentine.jpeg",
+  //       width: 1200,
+  //       height: 300,
+  //     },
+  //   },
+  //   type: "small",
+  // },
+];
+
 export const promotionBannerTwo = [
   {
     id: 1,
