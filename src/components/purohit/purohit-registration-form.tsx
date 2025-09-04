@@ -199,7 +199,7 @@ const PurohitRegistrationForm: React.FC<Props> = ({ onSubmit, isLoading = false 
                 {!isAuthorized && (
                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
                         <p className="text-yellow-800 text-sm">
-                            <strong>Please log in</strong> to register as a Purohit. You'll be redirected to the login page when you submit the form.
+                            <strong>Please log in</strong> to register as a Purohit. You&apos;ll be redirected to the login page when you submit the form.
                         </p>
                     </div>
                 )}

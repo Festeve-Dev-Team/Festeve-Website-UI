@@ -41,6 +41,17 @@ const NestedMenuItem: React.FC<{
 const MegaMenu: React.FC<MegaMenuProps> = ({ columns }) => {
   const { t } = useTranslation('menu');
 
+  // Helper function to determine route for level 2 items
+  const getLevel2Route = (columnItem: MenuItem) => {
+    const label = columnItem.label.toLowerCase();
+    // For level 2 items like Men, Women, Kids - route to dedicated pages
+    if (label === 'men' || label === 'women' || label === 'kids') {
+      return `/${label}`;
+    }
+    // For other level 2 items, keep existing behavior
+    return columnItem.path;
+  };
+
   // Use columns as-is (limited to 3 levels)
   const enhancedColumns = columns;
 
@@ -89,10 +100,10 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ columns }) => {
           >
             {column?.columnItems?.map((columnItem) => (
               <React.Fragment key={columnItem.id}>
-                {/* Level 2: Main Category (existing behavior) */}
+                {/* Level 2: Main Category - route to dedicated pages for men/women/kids */}
                 <li className="mb-1.5">
                   <Link
-                    href={columnItem.path}
+                    href={getLevel2Route(columnItem)}
                     className="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300"
                   >
                     {t(columnItem.label)}

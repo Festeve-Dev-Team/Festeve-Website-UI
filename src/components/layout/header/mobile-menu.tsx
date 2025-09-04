@@ -66,6 +66,19 @@ export default function MobileMenu() {
     setActiveMenus(newActiveMenus);
   };
 
+  // Helper function to determine route for level 2 items in mobile menu
+  const getMobileLevel2Route = (data: any, dept: number) => {
+    // For level 2 items (dept === 2) like Men, Women, Kids - route to dedicated pages
+    if (dept === 2) {
+      const label = data.label.toLowerCase();
+      if (label === 'men' || label === 'women' || label === 'kids') {
+        return `/${label}`;
+      }
+    }
+    // For other items, keep existing behavior
+    return data.path;
+  };
+
   const ListMenu = ({
     dept,
     data,
@@ -78,7 +91,7 @@ export default function MobileMenu() {
       <li className={`mb-0.5 ${className}`}>
         <div className="relative flex items-center justify-between">
           <Link
-            href={data.path}
+            href={getMobileLevel2Route(data, dept)}
             className="w-full text-[15px] menu-item relative py-3 ltr:pl-5 rtl:pr-5 ltr:md:pl-6 rtl:md:pr-6 ltr:pr-4 rtl:pl-4 transition duration-300 ease-in-out"
           >
             <span className="block w-full" onClick={closeSidebar}>
